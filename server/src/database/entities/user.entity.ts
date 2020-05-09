@@ -1,8 +1,7 @@
-import { PrimaryGeneratedColumn, BaseEntity, Column, Entity, OneToMany, CreateDateColumn, OneToOne, JoinColumn, JoinTable } from "typeorm";
+import { PrimaryGeneratedColumn, BaseEntity, Column, Entity, OneToMany, CreateDateColumn, OneToOne } from "typeorm";
 import { Skill } from "./skill.entity";
 import { Project } from "./project.entity";
 import { WorkPosition } from '../../models/enums/work-position.emun';
-import { Position } from "./postion.entity";
 
 @Entity()
 export class User extends BaseEntity {
@@ -49,9 +48,8 @@ export class User extends BaseEntity {
   @OneToMany(type => User, user => user.lastname)
   public subordinates: Promise<User[]>
 
-  @OneToOne(type => Position, position => position.workPosition, { eager: true })
-  @JoinColumn()
-  public position: Promise<Position>;
+  @Column({ type: 'enum', enum: WorkPosition, default: WorkPosition.employee })
+  public position: WorkPosition;
 
   @OneToOne(type => User, user => user.lastname)
   public managedBy: Promise<User>
