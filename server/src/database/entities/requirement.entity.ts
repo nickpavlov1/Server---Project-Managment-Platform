@@ -8,6 +8,7 @@ import {
     OneToMany,
   } from 'typeorm';
 import { Project } from './project.entity';
+import { Contribution } from './contribution.entity';
   
   @Entity('requirement')
   export class Requirement {
@@ -48,11 +49,11 @@ import { Project } from './project.entity';
     })
     public updatedOn: Date;
 
-    // @OneToMany(
-    //     type => Contributor,
-    //     contributor => Contributor.project,
-    // )
-    // public contributors: Contributor[];
+    @OneToMany(
+        type => Contribution,
+        contribution => contribution.id,
+    )
+    public contributors: Contribution[];
     
     @Column({ default: false })
     public isDeleted: boolean;

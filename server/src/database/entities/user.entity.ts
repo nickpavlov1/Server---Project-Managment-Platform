@@ -2,6 +2,7 @@ import { PrimaryGeneratedColumn, BaseEntity, Column, Entity, OneToMany, CreateDa
 import { Skill } from "./skill.entity";
 import { Project } from "./project.entity";
 import { WorkPosition } from '../../models/enums/work-position.emun';
+import { Contribution } from "./contribution.entity";
 
 @Entity()
 export class User extends BaseEntity {
@@ -53,4 +54,7 @@ export class User extends BaseEntity {
 
   @OneToOne(type => User, user => user.lastname)
   public managedBy: Promise<User>
+
+  @OneToMany(type => Contribution, contribution => contribution.id, { eager: true })
+  public contributions: Promise<Contribution[]>
 }
