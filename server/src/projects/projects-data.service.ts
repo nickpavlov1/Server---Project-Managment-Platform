@@ -14,9 +14,13 @@ export class ProjectsDataService {
         private readonly projectRepository: Repository<Project>,
     ) { }
 
-    public async getAllProjects() {
+    public async getAllProjects(): Promise<ShowProjectDTO[]> {
 
         const projects: Project[] = await this.projectRepository.find();
+
+        if (projects.length === 0) {
+            throw new HttpException('No Projects found!', 404);
+        }
 
         return plainToClass(ShowProjectDTO, projects, {
             excludeExtraneousValues: true,
@@ -25,12 +29,12 @@ export class ProjectsDataService {
 
     public async getProjectById(
         id: string,
-    ) {
+    ): Promise<ShowProjectDTO> {
 
         const project: Project = await this.projectRepository.findOne(id);
 
         if (project === undefined) {
-          throw new HttpException('No such Project found!', 404);
+            throw new HttpException('No such Project found!', 404);
         }
 
         return plainToClass(ShowProjectDTO, project, {
@@ -41,7 +45,7 @@ export class ProjectsDataService {
     public async createProject(
         body: CreateProjectDTO,
         // user: ShowUserDTO,
-    ) {
+    ): Promise<ShowProjectDTO> {
         const projectEntity: Project = this.projectRepository.create(body);
         // const foundUser: User = await this.usersRepository.findOne({
         //   username: user.username,
@@ -62,7 +66,7 @@ export class ProjectsDataService {
         id: string,
         body: UpdateProjectDTO,
         // user: ShowUserDTO,
-    ) {
+    ): Promise<ShowProjectDTO> {
         console.log(id)
         const oldProject: Project = await this.projectRepository.findOne(id);
 

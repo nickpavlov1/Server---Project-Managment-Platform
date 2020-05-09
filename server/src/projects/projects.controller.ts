@@ -1,4 +1,3 @@
-import { Project } from './../database/entities/project.entity';
 import {
     Controller,
     Get,
@@ -14,6 +13,7 @@ import {
 } from '@nestjs/common';
 import { ProjectsDataService } from './projects-data.service';
 import { CreateProjectDTO } from './../models/dto/project/create-project.dto';
+import { ShowProjectDTO } from 'src/models/dto/project/show-project.dto';
 
 @Controller()
 export class ProjectsController {
@@ -21,7 +21,7 @@ export class ProjectsController {
 
     @Get('projects')
     @HttpCode(HttpStatus.OK)
-    public async getAllProjects() {
+    public async getAllProjects(): Promise<ShowProjectDTO[]> {
         return await this.projectsDataService.getAllProjects();
     }
 
@@ -31,7 +31,7 @@ export class ProjectsController {
     public async createProject(
         @Body() body: CreateProjectDTO,
         // @User() user: ShowUserDTO,
-    ) {
+    ): Promise<ShowProjectDTO> {
         return await this.projectsDataService.createProject(
             body,
             // user,
@@ -42,7 +42,7 @@ export class ProjectsController {
     @HttpCode(HttpStatus.OK)
     public async getProjectById(
         @Param('id') id: string,
-    ) {
+    ): Promise<ShowProjectDTO> {
         return await this.projectsDataService.getProjectById(id);
     }
 
@@ -53,7 +53,7 @@ export class ProjectsController {
         // @User() user,
         @Param('id') id: string,
         @Body() body: CreateProjectDTO,
-    ) {
+    ): Promise<ShowProjectDTO> {
         return await this.projectsDataService.updateProject(
             id,
             body,
