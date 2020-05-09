@@ -1,39 +1,38 @@
-import { PrimaryGeneratedColumn, BaseEntity, Column, Entity, OneToMany, CreateDateColumn } from "typeorm";
+import { PrimaryGeneratedColumn, BaseEntity, Column, Entity, OneToMany, CreateDateColumn, OneToOne, JoinColumn, JoinTable } from "typeorm";
 import { Skill } from "./skill.entity";
 import { Project } from "./project.entity";
 import { WorkPosition } from '../../models/enums/work-position.emun';
+import { Position } from "./postion.entity";
 
 @Entity()
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  public id: string;
 
-  @Column({ nullable: true })
-  password: string;
+  @Column({ nullable: true, default: null })
+  public password: string;
+
 
   @Column()
-  jobTitle: string;
+  public jobTitle: string;
 
-  @Column({ nullable: true })
-  jobDescription: string;
+  @Column({ nullable: true, default: null })
+  public jobDescription: string;
 
-  @Column({ nullable: true })
-  salt: string;
-
-  @Column('nvarchar')
-  email: string;
+  @Column({ nullable: true, default: null })
+  public salt: string;
 
   @Column('nvarchar')
-  firstname: string;
+  public email: string;
 
   @Column('nvarchar')
-  lastname: string;
+  public firstname: string;
+
+  @Column('nvarchar')
+  public lastname: string;
 
   @Column({ default: 8 })
-  availableWorkHours: number
-
-  @Column({ default: WorkPosition.employee })
-  workPosition: WorkPosition
+  public availableWorkHours: number
 
   @CreateDateColumn({
     type: 'timestamp',
@@ -42,11 +41,18 @@ export class User extends BaseEntity {
   public registeredOn: Date;
 
   @OneToMany(type => Skill, skill => skill.skillName)
-  skills: Skill[];
+  public skills: Promise<Skill[]>;
 
   @OneToMany(type => Project, project => project.manager)
-  projects: Project[]
+  public projects: Promise<Project[]>
 
   @OneToMany(type => User, user => user.lastname)
-  subordinates: User[]
+  public subordinates: Promise<User[]>
+
+  @OneToOne(type => Position, position => position.workPosition, { eager: true })
+  @JoinColumn()
+  public position: Promise<Position>;
+
+  @OneToOne(type => User, user => user.lastname)
+  public managedBy: Promise<User>
 }
