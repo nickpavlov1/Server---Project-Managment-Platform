@@ -21,7 +21,7 @@ export class Project {
   @Column({ nullable: false })
   public description: string;
 
-  @Column({ nullable: false })
+  @Column({ nullable: false, default: false })
   public statusCompleted: boolean;
 
   @Column({ nullable: false })
