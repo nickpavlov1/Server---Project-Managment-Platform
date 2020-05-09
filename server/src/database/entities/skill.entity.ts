@@ -5,11 +5,11 @@ import { User } from "./user.entity";
 export class Skill extends BaseEntity {
     
     @PrimaryGeneratedColumn('uuid')
-    id: string;
+    public id: string;
 
     @Column()
-    skillName: string;
+    public skillName: string;
 
     @ManyToOne(type => User, user => user.skills )
-    user: string;
+    public user: Promise<User>;
 }
