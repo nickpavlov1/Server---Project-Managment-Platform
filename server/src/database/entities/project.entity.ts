@@ -8,6 +8,7 @@ import {
   ManyToOne,
   OneToMany,
 } from 'typeorm';
+import { User } from './user.entity';
 
 @Entity('project')
 export class Project {
@@ -42,11 +43,11 @@ export class Project {
   @Column({ nullable: false, default: false })
   public isStopped: boolean;
 
-  // @ManyToOne(
-  //   type => User,
-  //   user => user.myProjects,
-  // )
-  // public manager: User;
+  @ManyToOne(
+    type => User,
+    user => user.projects,
+  )
+  public manager: User;
 
   @OneToMany(
     type => Requirement, 
