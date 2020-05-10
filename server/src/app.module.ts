@@ -2,6 +2,10 @@ import { ConfigModule } from '@nestjs/config';
 import { Module } from '@nestjs/common';
 import { DatabaseModule } from './database/database.module';
 import { ProjectsModule } from './projects/projects.module';
+import { AuthModule } from './auth/auth.module';
+import { AdminService } from './admin/admin.service';
+import { AdminController } from './admin/admin.controller';
+import { AdminModule } from './admin/admin.module';
 import * as Joi from '@hapi/joi';
 
 
@@ -22,8 +26,12 @@ import * as Joi from '@hapi/joi';
       }),
     }),
     ProjectsModule,
+    AuthModule,
+    AdminModule,
 
   ],
+  providers: [AdminService],
+  controllers: [AdminController],
 })
 
 export class AppModule {}
