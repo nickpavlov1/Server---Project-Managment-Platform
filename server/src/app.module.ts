@@ -2,10 +2,8 @@ import { ConfigModule } from '@nestjs/config';
 import { Module } from '@nestjs/common';
 import { DatabaseModule } from './database/database.module';
 import { ProjectsModule } from './projects/projects.module';
+import { RequirementsModule } from './requirements/requirements.module';
 import * as Joi from '@hapi/joi';
-
-
-
 
 @Module({
   imports: [
@@ -22,6 +20,7 @@ import * as Joi from '@hapi/joi';
       }),
     }),
     ProjectsModule,
+    RequirementsModule,
 
   ],
 })

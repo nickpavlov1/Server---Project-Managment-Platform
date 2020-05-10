@@ -49,10 +49,11 @@ export class ProjectsDataService {
         const projectEntity: Project = this.projectRepository.create(body);
         // const foundUser: User = await this.usersRepository.findOne({
         //   username: user.username,
+        //   isDeleted: false
         // });
 
-        // if (foundUser === undefined || foundUser.isDeleted) {
-        //   throw new HttpException('No such user found', 404);
+        // if (!foundUser) {
+        //   throw new HttpException('No Such User Found', 404);
         // }
 
         const savedProject: Project = await this.projectRepository.save(projectEntity);
