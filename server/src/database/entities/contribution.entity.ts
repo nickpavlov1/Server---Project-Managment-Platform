@@ -7,7 +7,7 @@ export class Contribution {
     @PrimaryGeneratedColumn('uuid')
     public id: string;
 
-    @Column()
+    @Column({ default: 0 })
     public dailyHourlyContribution: number;
 
     @CreateDateColumn({
