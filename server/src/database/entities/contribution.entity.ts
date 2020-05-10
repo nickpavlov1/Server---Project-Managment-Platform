@@ -8,7 +8,7 @@ export class Contribution {
     public id: string;
 
     @Column()
-    public dailyHourlyWorkInput: number;
+    public dailyHourlyContribution: number;
 
     @CreateDateColumn({
       type: 'timestamp',
