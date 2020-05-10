@@ -1,4 +1,4 @@
-import { PrimaryGeneratedColumn, BaseEntity, Column, Entity, OneToMany, CreateDateColumn, OneToOne } from "typeorm";
+import { PrimaryGeneratedColumn, BaseEntity, Column, Entity, OneToMany, CreateDateColumn, OneToOne, ManyToMany, JoinTable } from "typeorm";
 import { Skill } from "./skill.entity";
 import { Project } from "./project.entity";
 import { WorkPosition } from '../../models/enums/work-position.emun';
@@ -40,14 +40,14 @@ export class User extends BaseEntity {
   })
   public registeredOn: Date;
 
-  @OneToMany(type => Skill, skill => skill.skillName)
-  public skills: Promise<Skill[]>;
+  @OneToMany(type => Skill, skill => skill.skillName, { eager: true })
+  public skills: Skill[];
 
-  @OneToMany(type => Project, project => project.manager)
-  public projects: Promise<Project[]>
+  @OneToMany(type => Project, project => project.manager, { eager: true })
+  public projects: Project[]
 
-  @OneToMany(type => User, user => user.lastname)
-  public subordinates: Promise<User[]>
+  @OneToMany(type => User, user => user.lastname, { eager: true })
+  public subordinates: User[]
 
   @Column({ type: 'enum', enum: WorkPosition, default: WorkPosition.employee })
   public position: WorkPosition;

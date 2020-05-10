@@ -9,14 +9,16 @@ import {
   } from 'typeorm';
 import { Project } from './project.entity';
 import { Contribution } from './contribution.entity';
+import { SkillCatalog } from '../../models/enums/skill-catalog.enum';
+import { Skill } from './skill.entity';
   
   @Entity('requirement')
   export class Requirement {
     @PrimaryGeneratedColumn('uuid')
     public id: string;
 
-    // @Column({ nullable: false })
-    // public skill: Skill;
+    @Column({ nullable: false, type: 'enum', enum: SkillCatalog, default: SkillCatalog.Empty })
+    public requiredSkill: Skill;
   
     @Column({ default: false })
     public statusCompleted: boolean;
