@@ -56,5 +56,5 @@ export class User extends BaseEntity {
   public managedBy: Promise<User>
 
   @OneToMany(type => Contribution, contribution => contribution.id, { eager: true })
-  public contributions: Promise<Contribution[]>
+  public contributions: Contribution[]
 }

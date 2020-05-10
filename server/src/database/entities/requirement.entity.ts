@@ -52,6 +52,7 @@ import { Contribution } from './contribution.entity';
     @OneToMany(
         type => Contribution,
         contribution => contribution.id,
+        { eager: true }
     )
     public contributors: Contribution[];
     
