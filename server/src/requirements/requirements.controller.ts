@@ -17,7 +17,9 @@ import {
 
 @Controller()
 export class RequirementsController {
-    public constructor(private readonly requirementsDataService: RequirementsDataService) { }
+    public constructor(
+        private readonly requirementsDataService: RequirementsDataService
+    ) { }
 
     @Get('project/:id/req')
     @HttpCode(HttpStatus.OK)
@@ -31,7 +33,7 @@ export class RequirementsController {
     public async createRequirement(
         @Body() body: CreateRequirementDTO,
         // @User() user: ShowUserDTO,
-    ): Promise<ShowRequirementDTO> {
+    ) {
 
         return await this.requirementsDataService.createRequirement(
             body,
@@ -41,12 +43,25 @@ export class RequirementsController {
 
     @Get('project/:id/req/:reqId')
     @HttpCode(HttpStatus.OK)
-    public async getProjectById(
+    public async getRequirementById(
         @Param('reqId') id: string,
     ): Promise<ShowRequirementDTO> {
         return await this.requirementsDataService.getRequirementById(id);
     }
 
-
+    @Put('project/:id/req/:reqId')
+    // @UseGuards(AuthGuard('jwt'))
+    @HttpCode(HttpStatus.OK)
+    public async updateRequirement(
+        // @User() user,
+        @Param('reqId') id: string,
+        @Body() body: CreateRequirementDTO,
+    ): Promise<ShowRequirementDTO> {
+        return await this.requirementsDataService.updateRequirement(
+            id,
+            body,
+            // user,
+        );
+    }
 
 }

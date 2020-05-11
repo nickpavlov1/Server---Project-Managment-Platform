@@ -3,8 +3,9 @@ import { IsString, IsNotEmpty, IsNumber } from 'class-validator';
 export class CreateRequirementDTO {  
     @IsString()
     @IsNotEmpty()
-    public skill: string;
+    public requiredSkill: string;
   
     @IsNumber()
     public requiredTime: number;
+    
 }

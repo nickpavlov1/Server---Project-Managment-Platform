@@ -1,15 +1,19 @@
-import { Entity, BaseEntity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { Requirement } from './requirement.entity';
+import { Entity, BaseEntity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from "typeorm";
 import { User } from "./user.entity";
 
 
 @Entity()
 export class Skill extends BaseEntity {
-    @PrimaryGeneratedColumn('uuid')
-    public id: string;
+  @PrimaryGeneratedColumn('uuid')
+  public id: string;
 
-    @Column({ type: 'nvarchar', nullable: false })
-    public skillName: string;
+  @Column({ type: 'nvarchar', nullable: false })
+  public skillName: string;
 
-    @ManyToOne(type => User, user => user.skills)
-      public employee: User;
+  @ManyToOne(type => User, user => user.skills)
+  public employee: User;
+
+  @OneToMany(type => Requirement, requirement => requirement.requiredSkill)
+  public requirements: Requirement[];
 }

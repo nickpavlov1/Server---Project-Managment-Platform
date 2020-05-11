@@ -1,11 +1,12 @@
-import { Expose } from 'class-transformer';
+import { Expose, Transform } from 'class-transformer';
 
 export class ShowRequirementDTO {
     @Expose()
     public id: string;
 
     @Expose()
-    public skill: string;
+    @Transform((_, obj) => (obj as any).skillName)
+    public requiredSkill: string;
   
     @Expose()
     public statusCompleted: boolean;
