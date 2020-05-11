@@ -5,9 +5,15 @@ export class ShowRequirementDTO {
     public id: string;
 
     @Expose()
-    @Transform((_, obj) => (obj as any).requiredSkill.skillName)
+    @Transform((_, obj) => {
+        if ((obj as any).requiredSkill == undefined) {
+            return []
+        } else {
+            return (obj as any).requiredSkill.skillName
+        }
+    })
     public requiredSkill: string;
-  
+
     @Expose()
     public statusCompleted: boolean;
 
@@ -22,7 +28,7 @@ export class ShowRequirementDTO {
 
     @Expose()
     public createdOn: Date;
-  
+
     @Expose()
     public updatedOn: Date;
 

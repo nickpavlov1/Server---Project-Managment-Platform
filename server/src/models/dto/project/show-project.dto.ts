@@ -30,7 +30,6 @@ export class ShowProjectDTO {
 
   @Expose()
   @Transform((_, obj) => {
-    console.log(obj.requirements as any)
     if ((obj as any).requirements == undefined) {
       return []
     } else {

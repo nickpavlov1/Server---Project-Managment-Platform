@@ -23,8 +23,10 @@ export class RequirementsController {
 
     @Get('project/:id/req')
     @HttpCode(HttpStatus.OK)
-    public async getAllProjects(): Promise<ShowRequirementDTO[]> {
-        return await this.requirementsDataService.getAllRequirements();
+    public async getAllProjects(
+        @Param('id') projectId: string,
+    ): Promise<ShowRequirementDTO[]> {
+        return await this.requirementsDataService.getAllRequirements(projectId);
     }
  
     @Post('project/:id/req')

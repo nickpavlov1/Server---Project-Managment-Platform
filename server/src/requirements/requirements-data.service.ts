@@ -20,9 +20,10 @@ export class RequirementsDataService {
         private readonly projectsRepository: Repository<Project>,
     ) { }
 
-    public async getAllRequirements(): Promise<ShowRequirementDTO[]> {
-        const requirements: Requirement[] = await this.requirementsRepository.find();
-
+    public async getAllRequirements(projectId: string): Promise<ShowRequirementDTO[]> {
+        const requirements: Requirement[] = await this.requirementsRepository.find(
+            {relations: ['requiredSkill']},
+        );
         // if (requirements.length === 0) {
         //     throw new HttpException('No Requirement found!', 404);
         // }
@@ -94,7 +95,7 @@ export class RequirementsDataService {
 
         projectFound.requirements.push(savedRequirement);
 
-        const savedProject: Project = await this.projectsRepository.save(projectFound);
+        await this.projectsRepository.save(projectFound);
 
         return plainToClass(ShowRequirementDTO, savedRequirement, {
             excludeExtraneousValues: true,
