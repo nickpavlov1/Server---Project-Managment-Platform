@@ -7,6 +7,7 @@ import { plainToClass } from 'class-transformer';
 import { CreateRequirementDTO } from './../models/dto/requirement/create-requirement.dto';
 import { ShowRequirementDTO } from './../models/dto/requirement/show-requirement.dto';
 import { Skill } from './../database/entities/skill.entity';
+import { Project } from 'src/database/entities/project.entity';
 
 @Injectable()
 export class RequirementsDataService {
@@ -15,6 +16,8 @@ export class RequirementsDataService {
         private readonly requirementsRepository: Repository<Requirement>,
         @InjectRepository(Skill)
         private readonly skillsRepository: Repository<Skill>,
+        @InjectRepository(Project)
+        private readonly projectsRepository: Repository<Project>,
     ) { }
 
     public async getAllRequirements(): Promise<ShowRequirementDTO[]> {
@@ -45,9 +48,15 @@ export class RequirementsDataService {
     }
 
     public async createRequirement(
+        projectId: string,
         body: CreateRequirementDTO,
         // user: ShowUserDTO,
     ) {
+
+        const projectFound: Project = await this.projectsRepository.findOne({
+            where: {id: projectId }, 
+            relations: ['requirements'],
+        });
         
         // const foundUser: User = await this.usersRepository.findOne({
         //   email: user.email,
@@ -75,8 +84,17 @@ export class RequirementsDataService {
         });
         
         reqEntity.requiredSkill = skillEntity;
-        
+        reqEntity.project = projectFound;
+
         const savedRequirement: Requirement = await this.requirementsRepository.save(reqEntity);
+
+        if(projectFound.requirements == undefined) {
+            projectFound.requirements = [];
+        }
+
+        projectFound.requirements.push(savedRequirement);
+
+        const savedProject: Project = await this.projectsRepository.save(projectFound);
 
         return plainToClass(ShowRequirementDTO, savedRequirement, {
             excludeExtraneousValues: true,

@@ -26,16 +26,18 @@ export class RequirementsController {
     public async getAllProjects(): Promise<ShowRequirementDTO[]> {
         return await this.requirementsDataService.getAllRequirements();
     }
-
+ 
     @Post('project/:id/req')
     @HttpCode(HttpStatus.CREATED)
     // @UseGuards(AuthGuard('jwt'), AuthGuardWithBlacklisting)
     public async createRequirement(
+        @Param('id') projectId: string,
         @Body() body: CreateRequirementDTO,
         // @User() user: ShowUserDTO,
     ) {
 
         return await this.requirementsDataService.createRequirement(
+            projectId,
             body,
             // user,
         );

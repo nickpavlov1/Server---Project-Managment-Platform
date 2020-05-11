@@ -1,4 +1,4 @@
-import { Expose } from 'class-transformer';
+import { Expose, Transform } from 'class-transformer';
 
 export class ShowProjectDTO {
   @Expose()
@@ -27,5 +27,16 @@ export class ShowProjectDTO {
 
   @Expose()
   public manager: string;
+
+  @Expose()
+  @Transform((_, obj) => {
+    console.log(obj.requirements as any)
+    if ((obj as any).requirements == undefined) {
+      return []
+    } else {
+      return (obj as any).requirements.map(el => el.id);
+    }
+  })
+  public requirements: string;
 
 }

@@ -5,7 +5,7 @@ export class ShowRequirementDTO {
     public id: string;
 
     @Expose()
-    @Transform((_, obj) => (obj as any).skillName)
+    @Transform((_, obj) => (obj as any).requiredSkill.skillName)
     public requiredSkill: string;
   
     @Expose()

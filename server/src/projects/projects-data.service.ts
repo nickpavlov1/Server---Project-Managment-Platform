@@ -16,7 +16,7 @@ export class ProjectsDataService {
 
     public async getAllProjects(): Promise<ShowProjectDTO[]> {
 
-        const projects: Project[] = await this.projectRepository.find();
+        const projects: Project[] = await this.projectRepository.find({relations: ['requirements']});
 
         if (projects.length === 0) {
             throw new HttpException('No Projects found!', 404);
