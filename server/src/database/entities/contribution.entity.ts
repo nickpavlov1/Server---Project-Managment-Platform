@@ -24,8 +24,8 @@ export class Contribution {
     public updatedOn: Date;
 
     @ManyToOne(type => User, user => user.id)
-    public contributor: Promise<User>;
+    public contributor: User;
 
     @ManyToOne(type => Requirement, requirement => requirement.id)
-    public requirement: Promise<Requirement>;
+    public requirement: Requirement;
 }
