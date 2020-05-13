@@ -1,3 +1,4 @@
+import { User } from './../../../database/entities/user.entity';
 import { Expose, Transform } from 'class-transformer';
 
 export class ShowContributionDTO {
@@ -13,8 +14,12 @@ export class ShowContributionDTO {
     @Expose()
     public updatedOn: Date;
 
-    // @Expose()
-    // public contributor: User;
+    @Expose()
+    public isDeleted: boolean;
+
+    @Expose()
+    @Transform((_, obj) => (obj as any).email)
+    public contributor: User;
 
     // @Expose()
     // public requirement: Requirement;

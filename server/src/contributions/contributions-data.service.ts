@@ -1,3 +1,4 @@
+import { User } from 'src/database/entities/user.entity';
 import { ShowContributionDTO } from './../models/dto/contribution/show-contribution.dto';
 import { Requirement } from './../database/entities/requirement.entity';
 import { CreateContributionDTO } from './../models/dto/contribution/create-contribution.dto';
@@ -14,6 +15,8 @@ import { Contribution } from 'src/database/entities/contribution.entity';
 @Injectable()
 export class ContributionsDataService {
     public constructor(
+        @InjectRepository(User)
+        private readonly usersRepository: Repository<User>,
         @InjectRepository(Project)
         private readonly projectsRepository: Repository<Project>,
         @InjectRepository(Skill)
@@ -22,17 +25,23 @@ export class ContributionsDataService {
         private readonly contributionsRepository: Repository<Contribution>,
         @InjectRepository(Requirement)
         private readonly requirementsRepository: Repository<Requirement>,
+      
     ) { }
 
     public async createContribution(
         reqId: string,
         body: CreateContributionDTO,
-        // user: ShowUserDTO,
     ) {
-        // const foundUser: User = await this.usersRepository.findOne({
-        //   email: user.email,
-        // });
+        console.log(body.email)
+        // const projects: Project[] = await this.projectsRepository.find({relations: ['requirements']});
 
+        // const projects = await this.usersRepository.find();
+        const foundUser: User[] = await this.usersRepository.find({});
+
+
+
+        console.log(foundUser)
+        // console.log(foundUser)
         // if (!foundUser) {
         //   throw new HttpException('No Such User Found', 404);
         // }
@@ -42,30 +51,31 @@ export class ContributionsDataService {
         //   to this project!', 403);
         // }
 
-        const reqEntity: Requirement = await this.requirementsRepository.findOne({
-            where: { id: reqId }, 
-            relations: ['contributions'],
-        });
+        // const reqEntity: Requirement = await this.requirementsRepository.findOne({
+        //     where: { id: reqId }, 
+        //     relations: ['contributions'],
+        // });
 
-        if (!reqEntity) {
-          throw new HttpException('No Such Requirement Found', 404);
-        }
+        // if (!reqEntity) {
+        //   throw new HttpException('No Such Requirement Found', 404);
+        // }
 
-        const contributionEntity: Contribution = this.contributionsRepository.create({
-            dailyHourlyContribution: body.contributedTime
-        });
+        // const contributionEntity: Contribution = this.contributionsRepository.create({
+        //     dailyHourlyContribution: body.contributedTime
+        // });
 
         // contributionEntity.contributor = foundUser;
 
-        const savedContribution: Contribution = await this.contributionsRepository.save(contributionEntity);
+        // const savedContribution: Contribution = await this.contributionsRepository.save(contributionEntity);
         
-        reqEntity.contributions.push(savedContribution)
+        // reqEntity.contributions.push(savedContribution)
 
-        const savedRequirement: Requirement = await this.requirementsRepository.save(reqEntity);
+        // const savedRequirement: Requirement = await this.requirementsRepository.save(reqEntity);
 
-        return plainToClass(ShowContributionDTO, savedContribution, {
-            excludeExtraneousValues: true,
-        });
+        // return savedContribution
+        // return plainToClass(ShowContributionDTO, savedContribution, {
+        //     excludeExtraneousValues: true,
+        // });
     }
 
     public async getAllContributions(projectId: string): Promise<ShowContributionDTO[]> {
@@ -79,5 +89,44 @@ export class ContributionsDataService {
             excludeExtraneousValues: true,
         });
     }
+
+    public async getContributionById(
+        id: string,
+    ): Promise<ShowContributionDTO> {
+
+        const contribution: Contribution = await this.contributionsRepository.findOne(id);
+
+        if (contribution === undefined) {
+            throw new HttpException('No such Contribution found!', 404);
+        }
+
+        return plainToClass(ShowContributionDTO, contribution, {
+            excludeExtraneousValues: true,
+        });
+    }
+
+    public async updateContribution(
+        id: string,
+        body: CreateContributionDTO,
+    ): Promise<ShowContributionDTO> {
+
+        const oldContribution: Contribution = await this.contributionsRepository.findOne(id);
+        const updatedContribution: Contribution = { ...oldContribution, ...body };
+        const savedContribution: Contribution = await this.contributionsRepository.save(updatedContribution);
+
+        return plainToClass(ShowContributionDTO, savedContribution, {
+            excludeExtraneousValues: true,
+        });
+    }
+
+    public async deleteContribution(id: string) {
+        const foundContribution: Contribution = await this.contributionsRepository.findOne(id);
+        foundContribution.isDeleted = true;
+        foundContribution.contributionEnd = new Date();
+        console.log(foundContribution)
+        // const contributionEmployee = await this.usersRepositry.findOne()
+        return this.contributionsRepository.save({ ...foundContribution, isDeleted: true, });
+      }
+
 
 }

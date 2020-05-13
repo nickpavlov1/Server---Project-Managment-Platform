@@ -28,12 +28,11 @@ export class ContributionsController {
         @Param('id') reqId: string,
         @Body() body: CreateContributionDTO,
         // @User() user: ShowUserDTO,
-    ): Promise<ShowContributionDTO> {
+    ) {
 
         return await this.requirementsDataService.createContribution(
             reqId,
             body,
-            // user,
         );
     }
 
@@ -43,5 +42,33 @@ export class ContributionsController {
         @Param('id') projectId: string,
     ): Promise<ShowContributionDTO[]> {
         return await this.requirementsDataService.getAllContributions(projectId);
+    }
+
+    @Get('contribution/:id')
+    @HttpCode(HttpStatus.OK)
+    public async getContributionById(
+        @Param('id') id: string,
+    ): Promise<ShowContributionDTO> {
+        return await this.requirementsDataService.getContributionById(id);
+    }
+
+    @Put('contribution/:id')
+    @HttpCode(HttpStatus.OK)
+    public async updateContribution(
+        @Param('id') id: string,
+        @Body() body: CreateContributionDTO,
+    ): Promise<ShowContributionDTO> {
+        return await this.requirementsDataService.updateContribution(
+            id,
+            body,
+        );
+    }
+
+    @Delete('contribution/:id')
+    @HttpCode(HttpStatus.OK)
+    public async deleteContribution(
+      @Param('id') id: string,
+    ) {
+        return await this.requirementsDataService.deleteContribution(id);
     }
 }

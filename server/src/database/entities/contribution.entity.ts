@@ -23,9 +23,15 @@ export class Contribution {
     })
     public updatedOn: Date;
 
-    @ManyToOne(type => User, user => user.id)
-    public contributor: User;
+    @Column({ nullable: true, type: 'timestamp' })
+    public contributionEnd: Date;
 
-    @ManyToOne(type => Requirement, requirement => requirement.id)
+    @Column({ default: false })
+    public isDeleted: boolean;
+
+    // @ManyToOne(type => User, user => user.contributions)
+    // public contributor: User;
+
+    @ManyToOne(type => Requirement, requirement => requirement.contributions)
     public requirement: Requirement;
 }

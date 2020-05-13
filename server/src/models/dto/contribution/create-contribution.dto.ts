@@ -3,7 +3,7 @@ import { IsString, IsNotEmpty, IsNumber } from 'class-validator';
 export class CreateContributionDTO {  
     @IsString()
     @IsNotEmpty()
-    public userEmail: string;
+    public email: string;
   
     @IsNumber()
     public contributedTime: number;

@@ -6,9 +6,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Project } from 'src/database/entities/project.entity';
 import { Skill } from 'src/database/entities/skill.entity';
 import { Requirement } from 'src/database/entities/requirement.entity';
+import { User } from 'src/database/entities/user.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Project, Skill, Contribution, Requirement])],
+  imports: [TypeOrmModule.forFeature([Project, Skill, Contribution, Requirement, User])],
   controllers: [ContributionsController],
   providers: [ContributionsDataService]
 })
