@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn } from "typeorm";
-import { User } from "./user.entity";
 import { Requirement } from './requirement.entity';
+import { Employee } from './employee.entity';
 
 @Entity()
 export class Contribution {
@@ -25,6 +25,8 @@ export class Contribution {
 
     @Column({ nullable: true, type: 'timestamp' })
     public contributionEnd: Date;
+    @ManyToOne(type => Employee, employee => employee.id)
+    public contributor: Employee;
 
     @Column({ default: false })
     public isDeleted: boolean;
