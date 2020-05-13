@@ -56,7 +56,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": " {\r\n    \"title\": \"title1\",\r\n    \"description\": \"description1\",\r\n    \"due\": \"13131\"\r\n}"
+					"raw": " {\r\n    \"title\": \"title2\",\r\n    \"description\": \"description1\",\r\n    \"due\": \"13131\"\r\n}"
 				},
 				"url": {
 					"raw": "localhost:3000/project",
@@ -96,6 +96,134 @@
 					"path": [
 						"project",
 						"0174583e-8eb7-4908-a1b7-93476660e7cf"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /project/id/req",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/project/d24d24a6-0060-44c9-8f50-6c2dabc4415d/req",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"project",
+						"d24d24a6-0060-44c9-8f50-6c2dabc4415d",
+						"req"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /project/id/req",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"requiredSkill\": \"java\",\n    \"requiredTime\": \"23\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/project/d24d24a6-0060-44c9-8f50-6c2dabc4415d/req",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"project",
+						"d24d24a6-0060-44c9-8f50-6c2dabc4415d",
+						"req"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT /project/id/req",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requiredTime\": \"100\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/project/d24d24a6-0060-44c9-8f50-6c2dabc4415d/req/81fa6129-034c-4229-a067-795b00b6acf5",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"project",
+						"d24d24a6-0060-44c9-8f50-6c2dabc4415d",
+						"req",
+						"81fa6129-034c-4229-a067-795b00b6acf5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /project/id/req Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/requirement/2468fb76-17d7-43ff-ba3f-720f46f406bf/contribution",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"requirement",
+						"2468fb76-17d7-43ff-ba3f-720f46f406bf",
+						"contribution"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /requirement/id/contribution",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userEmail\": \"email\",\n    \"contributedTime\": \"3\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/requirement/2468fb76-17d7-43ff-ba3f-720f46f406bf/contribution",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"requirement",
+						"2468fb76-17d7-43ff-ba3f-720f46f406bf",
+						"contribution"
 					]
 				}
 			},

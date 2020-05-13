@@ -1,11 +1,11 @@
 import { IsString, IsNotEmpty, IsNumber } from 'class-validator';
 
-export class CreateRequirementDTO {  
+export class CreateContributionDTO {  
     @IsString()
     @IsNotEmpty()
-    public requiredSkill: string;
+    public userEmail: string;
   
     @IsNumber()
-    public requiredTime: number;
+    public contributedTime: number;
     
 }

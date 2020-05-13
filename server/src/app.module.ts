@@ -2,12 +2,10 @@ import { ConfigModule } from '@nestjs/config';
 import { Module } from '@nestjs/common';
 import { DatabaseModule } from './database/database.module';
 import { ProjectsModule } from './projects/projects.module';
+import { RequirementsModule } from './requirements/requirements.module';
 import { AuthModule } from './auth/auth.module';
 import { AdminModule } from './admin/admin.module';
 import * as Joi from '@hapi/joi';
-
-
-
 
 @Module({
   imports: [
@@ -24,6 +22,7 @@ import * as Joi from '@hapi/joi';
       }),
     }),
     ProjectsModule,
+    RequirementsModule,
     AuthModule,
     AdminModule,
   ]

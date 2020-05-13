@@ -1,12 +1,19 @@
-import { Expose } from 'class-transformer';
+import { Expose, Transform } from 'class-transformer';
 
 export class ShowRequirementDTO {
     @Expose()
     public id: string;
 
     @Expose()
-    public skill: string;
-  
+    @Transform((_, obj) => {
+        if ((obj as any).requiredSkill == undefined) {
+            return []
+        } else {
+            return (obj as any).requiredSkill.skillName
+        }
+    })
+    public requiredSkill: string;
+
     @Expose()
     public statusCompleted: boolean;
 
@@ -21,7 +28,7 @@ export class ShowRequirementDTO {
 
     @Expose()
     public createdOn: Date;
-  
+
     @Expose()
     public updatedOn: Date;
 
