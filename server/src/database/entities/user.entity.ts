@@ -48,13 +48,8 @@ export class User extends BaseEntity {
   @Column({ type: 'enum', enum: WorkPosition, default: WorkPosition.employee })
   public position: WorkPosition;
 
-  // is this a self-relationship?
   // @OneToOne(type => User, user => user.lastname)
   // public managedBy: User;
-
-  // I don't think this field is necessary
-  // @OneToMany(type => Contribution, contribution => contribution.)
-  // public contributions: Contribution[]
 
   async validatePassword(password: string): Promise<boolean> {
     const hash = await bcrypt.hash(password, this.salt)
