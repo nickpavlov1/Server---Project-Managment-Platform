@@ -30,7 +30,6 @@ export class ProjectsController {
     // @UseGuards(AuthGuard('jwt'), AuthGuardWithBlacklisting)
     public async createProject(
         @Body() body: CreateProjectDTO,
-        // @User() user: ShowUserDTO,
     ): Promise<ShowProjectDTO> {
         return await this.projectsDataService.createProject(
             body,

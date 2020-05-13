@@ -11,4 +11,8 @@ export class CreateProjectDTO {
     @IsNumber()
     @IsNotEmpty()
     public due: number;
+
+    @IsString()
+    @IsNotEmpty()
+    public userEmail: number;
 }

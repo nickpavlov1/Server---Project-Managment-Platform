@@ -39,20 +39,22 @@ export class User extends BaseEntity {
 
 
 
-  @OneToMany(type => Project, project => project.manager, { eager: true })
+  @OneToMany(type => Project, project => project.manager)
   public projects: Project[]
 
-  @OneToMany(type => Employee, employee => employee.email, { eager: true })
-  public subordinates: Employee[]
+  @OneToMany(type => Employee, employee => employee.managedBy)
+  public subordinates: Employee[];
 
   @Column({ type: 'enum', enum: WorkPosition, default: WorkPosition.employee })
   public position: WorkPosition;
 
-  @OneToOne(type => User, user => user.lastname)
-  public managedBy: Promise<User>
+  // is this a self-relationship?
+  // @OneToOne(type => User, user => user.lastname)
+  // public managedBy: User;
 
-  @OneToMany(type => Contribution, contribution => contribution.id, { eager: true })
-  public contributions: Contribution[]
+  // I don't think this field is necessary
+  // @OneToMany(type => Contribution, contribution => contribution.)
+  // public contributions: Contribution[]
 
   async validatePassword(password: string): Promise<boolean> {
     const hash = await bcrypt.hash(password, this.salt)

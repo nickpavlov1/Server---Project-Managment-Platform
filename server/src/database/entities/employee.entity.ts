@@ -38,5 +38,5 @@ export class Employee {
     public skillset: Skill[];
 
     @ManyToOne(type => User, user => user.lastname)
-    public managedBy: Promise<User>
+    public managedBy: User;
 }

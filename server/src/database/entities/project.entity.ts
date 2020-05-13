@@ -40,7 +40,7 @@ export class Project {
   })
   public updatedOn: Date;
 
-  @Column({ nullable: false, default: false })
+  @Column({ default: false })
   public isStopped: boolean;
 
   @ManyToOne(

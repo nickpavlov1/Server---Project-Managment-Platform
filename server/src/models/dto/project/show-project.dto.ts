@@ -1,4 +1,5 @@
 import { Expose, Transform } from 'class-transformer';
+import { User } from 'src/database/entities/user.entity';
 
 export class ShowProjectDTO {
   @Expose()
@@ -26,7 +27,8 @@ export class ShowProjectDTO {
   public isStopped: boolean;
 
   @Expose()
-  public manager: string;
+  @Transform((_, obj) => (obj as any).manager)
+  public manager: User;
 
   @Expose()
   @Transform((_, obj) => {
