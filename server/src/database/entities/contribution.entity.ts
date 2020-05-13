@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn } from "typeorm";
-import { User } from "./user.entity";
 import { Requirement } from './requirement.entity';
+import { Employee } from './employee.entity';
 
 @Entity()
 export class Contribution {
@@ -23,8 +23,8 @@ export class Contribution {
     })
     public updatedOn: Date;
 
-    @ManyToOne(type => User, user => user.id)
-    public contributor: Promise<User>;
+    @ManyToOne(type => Employee, employee => employee.id)
+    public contributor: Promise<Employee>;
 
     @ManyToOne(type => Requirement, requirement => requirement.id)
     public requirement: Promise<Requirement>;

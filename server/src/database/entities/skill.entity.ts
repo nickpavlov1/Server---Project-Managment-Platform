@@ -9,7 +9,4 @@ export class Skill extends BaseEntity {
 
     @Column({ type: 'nvarchar', nullable: false })
     public skillName: string;
-
-    @ManyToOne(type => User, user => user.skills)
-      public employee: User;
 }
