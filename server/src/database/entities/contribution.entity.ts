@@ -23,9 +23,10 @@ export class Contribution {
     })
     public updatedOn: Date;
 
-    @Column({ nullable: true, type: 'timestamp' })
-    public contributionEnd: Date;
-    @ManyToOne(type => Employee, employee => employee.id)
+    // @Column({ nullable: true, type: 'timestamp' })
+    // public contributionEnd: Date;
+
+    @ManyToOne(type => Employee, employee => employee.contributions)
     public contributor: Employee;
 
     @Column({ default: false })

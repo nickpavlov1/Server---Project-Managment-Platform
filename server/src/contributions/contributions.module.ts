@@ -1,3 +1,4 @@
+import { Employee } from './../database/entities/employee.entity';
 import { Contribution } from './../database/entities/contribution.entity';
 import { Module } from '@nestjs/common';
 import { ContributionsController } from './contributions.controller';
@@ -9,7 +10,7 @@ import { Requirement } from 'src/database/entities/requirement.entity';
 import { User } from 'src/database/entities/user.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Project, Skill, Contribution, Requirement, User])],
+  imports: [TypeOrmModule.forFeature([Project, Skill, Contribution, Requirement, Employee])],
   controllers: [ContributionsController],
   providers: [ContributionsDataService]
 })
