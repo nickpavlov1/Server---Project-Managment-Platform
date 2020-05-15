@@ -1,3 +1,4 @@
+import { Requirement } from 'src/database/entities/requirement.entity';
 import { Expose, Transform } from 'class-transformer';
 import { User } from 'src/database/entities/user.entity';
 
@@ -38,6 +39,6 @@ export class ShowProjectDTO {
       return (obj as any).requirements;
     }
   })
-  public requirements: string;
+  public requirements: Requirement;
 
 }
