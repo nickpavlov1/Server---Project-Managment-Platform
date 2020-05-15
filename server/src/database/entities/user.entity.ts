@@ -1,8 +1,7 @@
-import { PrimaryGeneratedColumn, BaseEntity, Column, Entity, OneToMany, CreateDateColumn, OneToOne } from "typeorm";
+import { PrimaryGeneratedColumn, BaseEntity, Column, Entity, OneToMany, CreateDateColumn } from "typeorm";
 import * as bcrypt from 'bcrypt'
 import { Project } from "./project.entity";
 import { WorkPosition } from '../../models/enums/work-position.emun';
-import { Contribution } from "./contribution.entity";
 import { Employee } from './employee.entity';
 
 @Entity()

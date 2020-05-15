@@ -102,10 +102,19 @@
 			"response": []
 		},
 		{
-			"name": "GET /project/id/req",
+			"name": "POST /project/id/req",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"requiredSkill\": \"java\",\n    \"requiredTime\": \"23\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
 					"raw": "localhost:3000/project/d24d24a6-0060-44c9-8f50-6c2dabc4415d/req",
 					"host": [
@@ -122,19 +131,10 @@
 			"response": []
 		},
 		{
-			"name": "POST /project/id/req",
+			"name": "GET /project/id/req",
 			"request": {
-				"method": "POST",
+				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"requiredSkill\": \"java\",\n    \"requiredTime\": \"23\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
 				"url": {
 					"raw": "localhost:3000/project/d24d24a6-0060-44c9-8f50-6c2dabc4415d/req",
 					"host": [
@@ -224,6 +224,74 @@
 						"requirement",
 						"2468fb76-17d7-43ff-ba3f-720f46f406bf",
 						"contribution"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /contribution/id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/contribution/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"contribution",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT /project/id/req Copy",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requiredTime\": \"100\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/project/d24d24a6-0060-44c9-8f50-6c2dabc4415d/req/81fa6129-034c-4229-a067-795b00b6acf5",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"project",
+						"d24d24a6-0060-44c9-8f50-6c2dabc4415d",
+						"req",
+						"81fa6129-034c-4229-a067-795b00b6acf5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE/contribution",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/contribution/73774d1a-7ed6-4869-8d4d-34292d24e989",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"contribution",
+						"73774d1a-7ed6-4869-8d4d-34292d24e989"
 					]
 				}
 			},

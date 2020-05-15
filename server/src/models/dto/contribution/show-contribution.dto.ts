@@ -1,4 +1,4 @@
-import { User } from './../../../database/entities/user.entity';
+import { Employee } from 'src/database/entities/employee.entity';
 import { Expose, Transform } from 'class-transformer';
 
 export class ShowContributionDTO {
@@ -18,8 +18,8 @@ export class ShowContributionDTO {
     public isDeleted: boolean;
 
     @Expose()
-    @Transform((_, obj) => (obj as any).email)
-    public contributor: User;
+    @Transform((_, obj) => (obj as any).contributor.email)
+    public contributor: Employee;
 
     // @Expose()
     // public requirement: Requirement;

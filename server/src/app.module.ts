@@ -1,3 +1,4 @@
+import { ContributionsModule } from './contributions/contributions.module';
 import { ConfigModule } from '@nestjs/config';
 import { Module } from '@nestjs/common';
 import { DatabaseModule } from './database/database.module';
@@ -23,6 +24,7 @@ import * as Joi from '@hapi/joi';
     }),
     ProjectsModule,
     RequirementsModule,
+    ContributionsModule,
     AuthModule,
     AdminModule,
   ]

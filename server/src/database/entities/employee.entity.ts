@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToMany, JoinTable, OneToOne, ManyToOne } from "typeorm";
+import { Contribution } from 'src/database/entities/contribution.entity';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToMany, JoinTable, OneToOne, ManyToOne, OneToMany } from "typeorm";
 import { Skill } from "./skill.entity";
 import { User } from "./user.entity";
 
@@ -39,4 +40,7 @@ export class Employee {
 
     @ManyToOne(type => User, user => user.lastname)
     public managedBy: User;
+
+    @OneToMany(type => Contribution, contribution => contribution.contributor)
+    public contributions: Contribution[];
 }

@@ -29,7 +29,6 @@ export class ContributionsController {
         @Body() body: CreateContributionDTO,
         // @User() user: ShowUserDTO,
     ) {
-
         return await this.requirementsDataService.createContribution(
             reqId,
             body,
@@ -48,7 +47,7 @@ export class ContributionsController {
     @HttpCode(HttpStatus.OK)
     public async getContributionById(
         @Param('id') id: string,
-    ): Promise<ShowContributionDTO> {
+    ) {
         return await this.requirementsDataService.getContributionById(id);
     }
 
