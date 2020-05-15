@@ -16,12 +16,12 @@ export class User extends BaseEntity {
   @Column()
   public salt: string;
 
-  @Column()
+  @Column('nvarchar')
   public jobTitle: string;
 
   @Column({ nullable: true, default: null })
   public jobDescription: string;
-  
+
   @Column('nvarchar')
   public email: string;
 
@@ -37,25 +37,20 @@ export class User extends BaseEntity {
   })
   public registeredOn: Date;
 
-
-
   @OneToMany(type => Project, project => project.manager)
   public projects: Project[]
 
   @OneToMany(type => Employee, employee => employee.managedBy)
   public subordinates: Employee[];
 
-  @Column({ type: 'enum', enum: WorkPosition, default: WorkPosition.employee })
+  @Column({ type: 'enum', enum: WorkPosition, default: WorkPosition.manager })
   public position: WorkPosition;
 
-  // is this a self-relationship?
-  // @OneToOne(type => User, user => user.lastname)
-  // public managedBy: User;
+  @Column({ nullable: true, default: 8 })
+  public availableWorkHours: number;
 
-  // I don't think this field is necessary
-  // @OneToMany(type => Contribution, contribution => contribution.)
-  // public contributions: Contribution[]
-
+  @Column({default: 'self-managed'})
+  directManager: string;
   async validatePassword(password: string): Promise<boolean> {
     const hash = await bcrypt.hash(password, this.salt)
     return hash === this.password;
