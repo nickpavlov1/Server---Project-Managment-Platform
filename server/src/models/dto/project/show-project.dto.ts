@@ -35,7 +35,7 @@ export class ShowProjectDTO {
     if ((obj as any).requirements == undefined) {
       return []
     } else {
-      return (obj as any).requirements.map(el => el.id);
+      return (obj as any).requirements;
     }
   })
   public requirements: string;

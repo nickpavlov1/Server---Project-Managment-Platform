@@ -72,10 +72,10 @@ export class ContributionsDataService {
         }
 
         const contributionEntity: Contribution = this.contributionsRepository.create({
-            dailyHourlyContribution: body.contributedTime
+            dailyHourlyContribution: body.dailyHourlyContribution
         });
 
-        employee.availableWorkHours = employee.availableWorkHours - body.contributedTime;
+        employee.availableWorkHours = employee.availableWorkHours - body.dailyHourlyContribution;
 
         this.employeesRepository.save(employee);
 

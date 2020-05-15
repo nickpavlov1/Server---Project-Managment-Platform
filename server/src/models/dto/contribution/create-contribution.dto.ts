@@ -6,6 +6,6 @@ export class CreateContributionDTO {
     public email: string;
   
     @IsNumber()
-    public contributedTime: number;
+    public dailyHourlyContribution: number;
     
 }
