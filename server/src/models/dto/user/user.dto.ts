@@ -5,9 +5,6 @@ export class UserDTO {
     id: string;
 
     @Expose()
-    username: string;
-
-    @Expose()
     email: string;
 
     @Expose()
@@ -17,13 +14,20 @@ export class UserDTO {
     lastName: string;
 
     @Expose()
+    jobTitle: string;
+
+    @Expose()
+    jobDescription: string;
+
+    @Expose()
     registered: Date;
 
     @Expose()
     updated: Date;
 
     @Expose()
-    role: WorkPosition;
-
+    position: WorkPosition;
     
+    @Expose()
+    directManager: string;
   }

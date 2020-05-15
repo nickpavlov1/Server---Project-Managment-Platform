@@ -15,6 +15,7 @@ export class AuthController {
     @Delete('logout')
     @UseGuards(AuthGuardWithBlacklisting)
     public logout(@Token() token: string) {
+        
         this.authService.blacklistToken(token);
 
         return {

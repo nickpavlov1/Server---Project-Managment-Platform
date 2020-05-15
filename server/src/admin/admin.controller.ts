@@ -1,32 +1,14 @@
-import { CreateSkillDTO } from '../models/dto/skill/create-skill.dto';
+import { Controller, Post, Body, ValidationPipe } from '@nestjs/common';
 import { AdminService } from './admin.service';
-import {
-    Controller,
-    Get,
-    Post,
-    HttpCode,
-    HttpStatus,
-    Body,
-    Query,
-    Put,
-    Param,
-    Delete,
-    UseGuards,
-} from '@nestjs/common';
+import { RegisterUserDTO } from 'src/models/dto/user/register-user.dto';
+import { UserDTO } from 'src/models/dto/user/user.dto';
 
-@Controller()
+@Controller('admin')
 export class AdminController {
-    public constructor(
-        private readonly adminDataService: AdminService
-    ) { }
+    constructor(private adminService: AdminService) {}
 
-    @Post('skill')
-    @HttpCode(HttpStatus.CREATED)
-    public async createSkill(
-        @Body() body: CreateSkillDTO,
-    ) {
-        return await this.adminDataService.createSkill(body);
-    }
-
-
+    @Post('/register')
+public async register(@Body(new ValidationPipe({ transform: true, whitelist: true })) registerUserDTO: RegisterUserDTO): Promise<UserDTO> {
+    return this.adminService.registerUser(registerUserDTO);    
+}
 }
