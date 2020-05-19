@@ -25,10 +25,10 @@ export class User extends BaseEntity {
   public email: string;
 
   @Column('nvarchar')
-  public firstname: string;
+  public firstName: string;
 
   @Column('nvarchar')
-  public lastname: string;
+  public lastName: string;
 
   @CreateDateColumn({
     type: 'timestamp',

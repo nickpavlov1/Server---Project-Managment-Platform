@@ -1,4 +1,4 @@
-import { Controller, Post, Body, ValidationPipe } from '@nestjs/common';
+import { Controller, Post, Body, ValidationPipe, Put, Param, ParseUUIDPipe } from '@nestjs/common';
 import { AdminService } from './admin.service';
 import { RegisterUserDTO } from 'src/models/dto/user/register-user.dto';
 import { UserDTO } from 'src/models/dto/user/user.dto';
@@ -6,22 +6,50 @@ import { CreateEmployeeDTO } from '../models/dto/employee/create-employee.dto';
 import { EmployeeDTO } from 'src/models/dto/employee/employee.dto';
 import { SkillDTO } from 'src/models/dto/skill/skill.dto';
 import { CreateSkillDTO } from '../models/dto/skill/create-skill.dto';
+import { EditUserDTO } from '../models/dto/user/edit-user.dto';
 
 @Controller('admin')
 export class AdminController {
     constructor(private adminService: AdminService) {}
 
 @Post('/register')
-public async registerUser(@Body(new ValidationPipe({ transform: true, whitelist: true })) registerUserDTO: RegisterUserDTO): Promise<UserDTO> {
-    return this.adminService.registerUser(registerUserDTO);    
+public async registerUser(
+    @Body(new ValidationPipe({ transform: true, whitelist: true }))
+    registerUserDTO: RegisterUserDTO
+    ): Promise<UserDTO> {
+        return this.adminService.registerUser(registerUserDTO);    
 }
 @Post('/hire')
-public async createEmployee(@Body(new ValidationPipe({ transform: true, whitelist: true })) createEmployeeDTO: CreateEmployeeDTO): Promise<EmployeeDTO> {
-    return this.adminService.createEmployee(createEmployeeDTO);    
+public async createEmployee(
+    @Body(new ValidationPipe({ transform: true, whitelist: true }))
+    createEmployeeDTO: CreateEmployeeDTO
+    ): Promise<EmployeeDTO> {
+        return this.adminService.createEmployee(createEmployeeDTO);    
 }
 
 @Post('/skill/create')
-public async addNewSkillToCatalog(@Body(new ValidationPipe({ transform: true, whitelist: true })) createSkillDTO: CreateSkillDTO): Promise<SkillDTO> {
-    return this.adminService.addNewSkillToCatalog(createSkillDTO);
+public async addNewSkillToCatalog(
+    @Body(new ValidationPipe({ transform: true, whitelist: true }))
+    createSkillDTO: CreateSkillDTO
+    ): Promise<SkillDTO> {
+        return this.adminService.addNewSkillToCatalog(createSkillDTO);
+}
+
+@Put('/change/position')
+public async changeUserWorkPosition(
+    @Body(new ValidationPipe({ transform: true, whitelist: true }))
+    userId: string
+    ): Promise<UserDTO>  {
+        return this.adminService.changeUserWorkPosition(userId);
+}
+
+@Put('/change/userinfo')
+public async changeUserProfileInfo(
+    @Param('id', ParseUUIDPipe)
+    userId: string,
+    @Body(new ValidationPipe({ transform: true, whitelist: true }))
+    editUserInfo: EditUserDTO
+    ): Promise<UserDTO> {
+        return this.adminService.changeUserProfileInfo(userId, editUserInfo)
 }
 }
