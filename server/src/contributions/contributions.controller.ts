@@ -14,6 +14,9 @@ import {
     Delete,
     UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { UserDTO } from 'src/models/dto/user/user.dto';
+import { User } from 'src/common/decorators/user.decorator';
 
 @Controller()
 export class ContributionsController {
@@ -23,24 +26,25 @@ export class ContributionsController {
 
     @Post('requirement/:id/contribution')
     @HttpCode(HttpStatus.CREATED)
-    // @UseGuards(AuthGuard('jwt'), AuthGuardWithBlacklisting)
+    @UseGuards(AuthGuard('jwt'))
     public async createContribution(
         @Param('id') reqId: string,
         @Body() body: CreateContributionDTO,
-        // @User() user: ShowUserDTO,
+        @User() user: UserDTO,
     ) {
         return await this.requirementsDataService.createContribution(
             reqId,
             body,
+            user,
         );
     }
 
     @Get('requirement/:id/contribution')
     @HttpCode(HttpStatus.OK)
     public async getAllContributions(
-        @Param('id') projectId: string,
+        @Param('id') requId: string,
     ): Promise<ShowContributionDTO[]> {
-        return await this.requirementsDataService.getAllContributions(projectId);
+        return await this.requirementsDataService.getAllContributions(requId);
     }
 
     @Get('contribution/:id')

@@ -12,6 +12,7 @@ import { plainToClass } from 'class-transformer';
 import { ShowRequirementDTO } from 'src/models/dto/requirement/show-requirement.dto';
 import { Contribution } from 'src/database/entities/contribution.entity';
 import { Employee } from 'src/database/entities/employee.entity';
+import { UserDTO } from 'src/models/dto/user/user.dto';
 
 @Injectable()
 export class ContributionsDataService {
@@ -32,44 +33,30 @@ export class ContributionsDataService {
     public async createContribution(
         reqId: string,
         body: CreateContributionDTO,
+        user: UserDTO,
     ) {
-        // const employeeNew = this.employeesRepository.create({
-        //     email: '@mario.com',
-        //     jobTitle: 'jobtitile',
-        //     jobDescription: 'desc',
-        //     availableWorkHours: 8,
-        // });
-        // this.employeesRepository.save(employeeNew)
-    
-        // const projects: Project[] = await this.projectsRepository.find({relations: ['requirements']});
+        const requirement: Requirement = await this.requirementsRepository.findOne(
+            reqId,
+            {relations: ['project']}
+        );
 
-        // const projects = await this.usersRepository.find();
+        if (!requirement) {
+          throw new HttpException('No Such Requirement Found', 404);
+        }
+        
+        if (requirement.project.manager.id !== user.id) {
+            throw new HttpException(
+                'You dont have permission to add contributions to this project!',
+                403,
+            );
+        }
+
         const employee: Employee = await this.employeesRepository.findOne({
             where:
             {
-                email: body.email
+                email: body.userEmail
             }
         });
-
-
-        // console.log(foundUser)
-        // if (!foundUser) {
-        //   throw new HttpException('No Such User Found', 404);
-        // }
-
-        // if (foundUser.email !== user.email) {
-        //   throw new HttpException('You don't have permission to add a contribution
-        //   to this project!', 403);
-        // }
-
-        const reqEntity: Requirement = await this.requirementsRepository.findOne({
-            where: { id: reqId }, 
-            relations: ['contributions'],
-        });
-
-        if (!reqEntity) {
-          throw new HttpException('No Such Requirement Found', 404);
-        }
 
         const contributionEntity: Contribution = this.contributionsRepository.create({
             dailyHourlyContribution: body.dailyHourlyContribution
@@ -83,9 +70,9 @@ export class ContributionsDataService {
 
         const savedContribution: Contribution = await this.contributionsRepository.save(contributionEntity);
 
-        reqEntity.contributions.push(savedContribution)
+        requirement.contributions.push(savedContribution)
 
-        const savedRequirement: Requirement = await this.requirementsRepository.save(reqEntity);
+        const savedRequirement: Requirement = await this.requirementsRepository.save(requirement);
 
         // return savedContribution
         return plainToClass(ShowContributionDTO, savedContribution, {

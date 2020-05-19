@@ -26,15 +26,15 @@ export class Contribution {
     // @Column({ nullable: true, type: 'timestamp' })
     // public contributionEnd: Date;
 
-    @ManyToOne(type => Employee, employee => employee.contributions)
+    @ManyToOne(type => Employee, employee => employee.contributions, {eager: true} )
     public contributor: Employee;
 
     @Column({ default: false })
     public isDeleted: boolean;
 
-    // @ManyToOne(type => User, user => user.contributions)
-    // public contributor: User;
-
-    @ManyToOne(type => Requirement, requirement => requirement.contributions)
+    @ManyToOne(
+      type => Requirement,
+      requirement => requirement.contributions,
+    )
     public requirement: Requirement;
 }

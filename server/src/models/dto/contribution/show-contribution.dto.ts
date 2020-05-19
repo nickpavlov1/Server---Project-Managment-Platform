@@ -1,5 +1,7 @@
+import { EmployeeDTO } from './../employee/employee.dto';
 import { Employee } from 'src/database/entities/employee.entity';
-import { Expose, Transform } from 'class-transformer';
+import { Expose, Transform, Type } from 'class-transformer';
+import { UserDTO } from '../user/user.dto';
 
 export class ShowContributionDTO {
     @Expose()
@@ -10,7 +12,7 @@ export class ShowContributionDTO {
 
     @Expose()
     public createdOn: Date;
-    
+
     @Expose()
     public updatedOn: Date;
 
@@ -18,8 +20,12 @@ export class ShowContributionDTO {
     public isDeleted: boolean;
 
     @Expose()
-    @Transform((_, obj) => (obj as any).contributor.email)
-    public contributor: Employee;
+    @Type(() => EmployeeDTO)
+    public contributor: EmployeeDTO;
+
+    // @Expose()
+    // @Transform((_, obj) => (obj as any).contributor.email)
+    // public contributor: Employee;
 
     // @Expose()
     // public requirement: Requirement;
