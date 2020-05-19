@@ -1,5 +1,5 @@
 import { Contribution } from 'src/database/entities/contribution.entity';
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToMany, JoinTable, OneToOne, ManyToOne, OneToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToMany, JoinTable, ManyToOne, OneToMany, BaseEntity } from "typeorm";
 import { Skill } from "./skill.entity";
 import { User } from "./user.entity";
 
@@ -14,9 +14,17 @@ export class Employee {
     @Column('nvarchar')
     public jobTitle: string;
   
-    @Column('nvarchar')
+    @Column('nvarchar', { nullable: true, default: null })
     public jobDescription: string;
-  
+
+    @Column('nvarchar')
+    public firstname: string;
+
+    @Column('nvarchar')
+    public lastname: string;
+    
+    @Column({default: 'self-managed'})
+    directManager: string;
 
     @Column({ nullable: true, default: 8 })
     public availableWorkHours: number
@@ -38,7 +46,7 @@ export class Employee {
     @JoinTable()
     public skillset: Skill[];
 
-    @ManyToOne(type => User, user => user.lastname)
+    @ManyToOne(type => User, user => user.lastname, { eager: true })
     public managedBy: User;
 
     @OneToMany(type => Contribution, contribution => contribution.contributor)
