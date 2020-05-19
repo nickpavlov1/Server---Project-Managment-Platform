@@ -10,6 +10,8 @@ import {
     Put,
     Param,
     UseGuards,
+    Query,
+    Delete,
 } from '@nestjs/common';
 import { ProjectsDataService } from './projects-data.service';
 import { CreateProjectDTO } from './../models/dto/project/create-project.dto';
@@ -23,15 +25,19 @@ export class ProjectsController {
 
     @Get('projects')
     @HttpCode(HttpStatus.OK)
-    public async getAllProjects(): Promise<ShowProjectDTO[]> {
-        return await this.projectsDataService.getAllProjects();
+    public async getAllProjects(
+        // @Query('relations') relations?: string,
+    ): Promise<ShowProjectDTO[]> {
+        return await this.projectsDataService.getAllProjects(
+            // relations
+        );
     }
 
     @Post('project')
     @HttpCode(HttpStatus.CREATED)
-    @UseGuards(AuthGuard('jwt'), AuthGuardWithBlacklisting)
+    @UseGuards(AuthGuard('jwt'))
     public async createProject(
-        @User() user: UserDTO,
+        @User() user,
         @Body() body: CreateProjectDTO,
     ): Promise<ShowProjectDTO> {
         return await this.projectsDataService.createProject(
@@ -42,7 +48,7 @@ export class ProjectsController {
 
     @Get('project/:id')
     @HttpCode(HttpStatus.OK)
-    @UseGuards(AuthGuard('jwt'), AuthGuardWithBlacklisting)
+    @UseGuards(AuthGuard('jwt'))
     public async getProjectById(
         @Param('id') id: string,
     ): Promise<ShowProjectDTO> {
@@ -51,15 +57,28 @@ export class ProjectsController {
 
     @Put('project/:id')
     @HttpCode(HttpStatus.OK)
-    @UseGuards(AuthGuard('jwt'), AuthGuardWithBlacklisting)
+    @UseGuards(AuthGuard('jwt'))
     public async updateProject(
-        @User() user: UserDTO,
         @Param('id') id: string,
         @Body() body: CreateProjectDTO,
+        @User() user
     ): Promise<ShowProjectDTO> {
         return await this.projectsDataService.updateProject(
             id,
             body,
+            user,
+        );
+    }
+
+    @Delete('project/:id')
+    @HttpCode(HttpStatus.OK)
+    @UseGuards(AuthGuard('jwt'))
+    public async stopProject(
+        @Param('id') id: string,
+        @User() user
+    ): Promise<ShowProjectDTO> {
+        return await this.projectsDataService.stopProject(
+            id,
             user,
         );
     }

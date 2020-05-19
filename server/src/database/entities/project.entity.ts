@@ -46,12 +46,14 @@ export class Project {
   @ManyToOne(
     type => User,
     user => user.projects,
+    {eager: true}
   )
   public manager: User;
 
   @OneToMany(
     type => Requirement, 
     requirement => requirement.project,
+    {eager: true}
   )
   public requirements: Requirement[];
 

@@ -8,6 +8,7 @@ import { Injectable, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Migration } from 'typeorm';
 import { plainToClass } from 'class-transformer';
+import "reflect-metadata";
 
 @Injectable()
 export class ProjectsDataService {
@@ -18,21 +19,43 @@ export class ProjectsDataService {
         private readonly projectRepository: Repository<Project>,
     ) { }
 
-    public async getAllProjects(): Promise<ShowProjectDTO[]> {
+    public async getAllProjects(
+        // relations?
+        
+    ): Promise<ShowProjectDTO[]> {
+        // const options = {
+        //     join: {
+        //         alias: "project",
+        //         leftJoinAndSelect: {
+        //             ...(relations.find(el => el == 'requirements') && { requirements: "project.requirements" }),
+        //             ...(relations.find(el => el == 'requiredSkill') && { requiredSkill: "requirements.requiredSkill" }),
+        //             ...(relations.find(el => el == 'contributions') && { contributions: "requirements.contributions" }),
+        //             ...(relations.find(el => el == 'contributor') && { contributor: "contributions.contributor" })
+        //         }
+        //     },
+        //     ...(skip && { skip: skip }),
+        //     ...(limit && { take: limit }),
+        // }
 
-        const projects: Project[] = await this.projectRepository.find({ 
-            relations: [
-                'requirements',
-                'requirements.requiredSkill',
-                'requirements.contributions',
-                'requirements.contributions.contributor',
-            ] 
-        });
+        const projects: Project[] = await this.projectRepository.find(
+            // options
+            {
+                // join: {
+                //     alias: "project",
+                //     leftJoinAndSelect: {
+                //         "requirements": "project.requirements",
+                //         "requiredSkill": "requirements.requiredSkill",
+                //         "contributions": "requirements.contributions",
+                //         "contributor": "contributions.contributor",
+                //     }
+                // }
+            }
+    );
 
         if (projects.length === 0) {
             throw new HttpException('No Projects found!', 404);
         }
-
+        // return projects;
         return plainToClass(ShowProjectDTO, projects, {
             excludeExtraneousValues: true,
         });
@@ -62,9 +85,8 @@ export class ProjectsDataService {
         projectEntity.title = body.title;
         projectEntity.description = body.description;
 
-        const manager: User = await this.usersRepository.findOne({
-            where: { user },
-        });
+        
+        const manager: User = await this.usersRepository.findOne(user.id);
 
         if (!manager) {
             throw new HttpException('No such manager found, please login!', 404);
@@ -86,18 +108,20 @@ export class ProjectsDataService {
     ): Promise<ShowProjectDTO> {
         const oldProject: Project = await this.projectRepository.findOne(id);
 
-        const oldProjectCreatedBy: User = await this.usersRepository.findOne({
-            where: { user },
-        });
-
-        if (oldProjectCreatedBy.id !== user.id) {
+        if (!oldProject) {
+            throw new HttpException('No such project found!', 404);
+        }
+        
+        if (oldProject.manager.id !== user.id) {
             throw new HttpException(
                 'You dont have permission to edit this project!',
                 403,
             );
         }
 
-        const updatedProject: Project = { ...oldProject, ...body };
+        const updatedProject: Project = { 
+            ...oldProject, ...body
+        };
         const savedProject: Project = await this.projectRepository.save(updatedProject);
 
         return plainToClass(ShowProjectDTO, savedProject, {
@@ -105,4 +129,29 @@ export class ProjectsDataService {
         });
     }
 
+    public async stopProject(
+        id: string, 
+        user: UserDTO
+    ): Promise<ShowProjectDTO> {
+        const foundProject = await this.projectRepository.findOne(id);
+
+        if (!foundProject) {
+            throw new HttpException('No such project found!', 404);
+        }
+        
+        if (foundProject.manager.id !== user.id) {
+            throw new HttpException(
+                'You dont have permission to stop this project!',
+                403,
+            );
+        }
+
+        foundProject.isStopped = true;
+
+        const stoppedProject = await this.projectRepository.save(foundProject);
+
+        return plainToClass(ShowProjectDTO, stoppedProject, {
+            excludeExtraneousValues: true,
+        });
+    }
 }
