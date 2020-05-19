@@ -1,8 +1,8 @@
+import { AdminService } from './admin.service';
+import { AdminController } from './admin.controller';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserRepository } from 'src/auth/user.repository';
-import { AdminService } from './admin.service';
-import { AdminController } from './admin.controller';
 import { EmployeeRepository } from './employee.repository';
 import { SkillRepository } from './skill.repository';
 

@@ -1,3 +1,4 @@
+import { UserDTO } from 'src/models/dto/user/user.dto';
 import { User } from './../database/entities/user.entity';
 import { UpdateProjectDTO } from './../models/dto/project/update-project.dto';
 import { CreateProjectDTO } from './../models/dto/project/create-project.dto';
@@ -19,7 +20,14 @@ export class ProjectsDataService {
 
     public async getAllProjects(): Promise<ShowProjectDTO[]> {
 
-        const projects: Project[] = await this.projectRepository.find({relations: ['requirements']});
+        const projects: Project[] = await this.projectRepository.find({ 
+            relations: [
+                'requirements',
+                'requirements.requiredSkill',
+                'requirements.contributions',
+                'requirements.contributions.contributor',
+            ] 
+        });
 
         if (projects.length === 0) {
             throw new HttpException('No Projects found!', 404);
@@ -36,7 +44,7 @@ export class ProjectsDataService {
 
         const project: Project = await this.projectRepository.findOne(id);
 
-        if (project === undefined) {
+        if (!project) {
             throw new HttpException('No such Project found!', 404);
         }
 
@@ -47,18 +55,23 @@ export class ProjectsDataService {
 
     public async createProject(
         body: CreateProjectDTO,
+        user: UserDTO,
     ): Promise<ShowProjectDTO> {
         const projectEntity: Project = this.projectRepository.create();
         projectEntity.due = body.due;
         projectEntity.title = body.title;
         projectEntity.description = body.description;
 
-        const manager: User = await this.usersRepository.findOne({where: 
-            { email: body.userEmail
-        }});
+        const manager: User = await this.usersRepository.findOne({
+            where: { user },
+        });
+
+        if (!manager) {
+            throw new HttpException('No such manager found, please login!', 404);
+        }
 
         projectEntity.manager = manager;
-        
+
         const savedProject: Project = await this.projectRepository.save(projectEntity);
 
         return plainToClass(ShowProjectDTO, savedProject, {
@@ -69,21 +82,20 @@ export class ProjectsDataService {
     public async updateProject(
         id: string,
         body: UpdateProjectDTO,
-        // user: ShowUserDTO,
+        user: UserDTO,
     ): Promise<ShowProjectDTO> {
-        console.log(id)
         const oldProject: Project = await this.projectRepository.findOne(id);
 
-        // const oldProjectCreatedBy: User = await this.usersRepository.findOne({
-        //   where: { user },
-        // });
+        const oldProjectCreatedBy: User = await this.usersRepository.findOne({
+            where: { user },
+        });
 
-        // if (oldProjectCreatedBy.id !== user.id) {
-        //   throw new HttpError(
-        //     'You dont have permission to edit this post!',
-        //     666,
-        //   );
-        // }
+        if (oldProjectCreatedBy.id !== user.id) {
+            throw new HttpException(
+                'You dont have permission to edit this project!',
+                403,
+            );
+        }
 
         const updatedProject: Project = { ...oldProject, ...body };
         const savedProject: Project = await this.projectRepository.save(updatedProject);
