@@ -3,11 +3,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserRepository } from 'src/auth/user.repository';
 import { AdminService } from './admin.service';
 import { AdminController } from './admin.controller';
+import { EmployeeRepository } from './employee.repository';
+import { SkillRepository } from './skill.repository';
 
 @Module({
     imports: [
         UserRepository,
-        TypeOrmModule.forFeature([UserRepository]),
+        EmployeeRepository,
+        SkillRepository,
+        TypeOrmModule.forFeature([UserRepository, EmployeeRepository, SkillRepository]),
     ],
     providers: [AdminService],
     controllers: [AdminController],
