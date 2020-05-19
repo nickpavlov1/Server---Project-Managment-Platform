@@ -11,7 +11,7 @@ export class UserRepository extends Repository<User> {
       where: { email: email }
       });
       if (matchEmail) {
-        throw new ConflictException(`This username ${email} is already taken!`);
+        throw new ConflictException(`This email ${email} is already taken!`);
       }
   }
     public async validateUserPassword(loginUserDTO: LoginUserDTO) {

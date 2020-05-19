@@ -18,7 +18,7 @@ export class User extends BaseEntity {
   @Column('nvarchar')
   public jobTitle: string;
 
-  @Column({ nullable: true, default: null })
+  @Column('nvarchar', { nullable: true, default: null })
   public jobDescription: string;
 
   @Column('nvarchar')
