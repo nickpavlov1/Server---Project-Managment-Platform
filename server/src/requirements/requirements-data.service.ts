@@ -1,3 +1,4 @@
+import { UserDTO } from './../models/dto/user/user.dto';
 import { UpdateRequirementDTO } from './../models/dto/requirement/update-requirement.dto';
 import { Requirement } from './../database/entities/requirement.entity';
 import { Injectable, HttpException } from '@nestjs/common';
@@ -8,6 +9,8 @@ import { CreateRequirementDTO } from './../models/dto/requirement/create-require
 import { ShowRequirementDTO } from './../models/dto/requirement/show-requirement.dto';
 import { Skill } from './../database/entities/skill.entity';
 import { Project } from 'src/database/entities/project.entity';
+import { User } from 'src/database/entities/user.entity';
+import { Employee } from 'src/database/entities/employee.entity';
 
 @Injectable()
 export class RequirementsDataService {
@@ -18,15 +21,23 @@ export class RequirementsDataService {
         private readonly skillsRepository: Repository<Skill>,
         @InjectRepository(Project)
         private readonly projectsRepository: Repository<Project>,
+        @InjectRepository(User)
+        private readonly usersRepository: Repository<User>,
+
+        @InjectRepository(Employee)
+        private readonly employeesRepository: Repository<Employee>,
     ) { }
 
     public async getAllRequirements(projectId: string): Promise<ShowRequirementDTO[]> {
-        const requirements: Requirement[] = await this.requirementsRepository.find(
-            {relations: ['requiredSkill']},
-        );
-        // if (requirements.length === 0) {
-        //     throw new HttpException('No Requirement found!', 404);
-        // }
+        const requirements: Requirement[] = await this.requirementsRepository.find({
+           where: {project: projectId }
+        });
+        
+        if (requirements.length === 0) {
+            throw new HttpException('No Requirement found!', 404);
+        }
+
+        console.log(requirements)
 
         return plainToClass(ShowRequirementDTO, requirements, {
             excludeExtraneousValues: true,
@@ -51,26 +62,18 @@ export class RequirementsDataService {
     public async createRequirement(
         projectId: string,
         body: CreateRequirementDTO,
-        // user: ShowUserDTO,
+        user: UserDTO,
     ) {
-
         const projectFound: Project = await this.projectsRepository.findOne({
-            where: {id: projectId }, 
-            relations: ['requirements'],
+            where: {id: projectId },
         });
         
-        // const foundUser: User = await this.usersRepository.findOne({
-        //   email: user.email,
-        // });
-
-        // if (!foundUser) {
-        //   throw new HttpException('No Such User Found', 404);
-        // }
-        
-        // if (foundUser.email !== user.email) {
-        //   throw new HttpException('You don't have permission to add a requirement
-        //   to this project!', 403);
-        // }
+        if (projectFound.manager.id !== user.id) {
+            throw new HttpException(
+                'You dont have permission to add requirements to this project!',
+                403,
+            );
+        }
 
         const skillEntity: Skill = await this.skillsRepository.findOne({
             skillName: body.requiredSkill
@@ -89,13 +92,13 @@ export class RequirementsDataService {
 
         const savedRequirement: Requirement = await this.requirementsRepository.save(reqEntity);
 
-        if(projectFound.requirements == undefined) {
-            projectFound.requirements = [];
-        }
+        // if(projectFound.requirements == undefined) {
+        //     projectFound.requirements = [];
+        // }
 
-        projectFound.requirements.push(savedRequirement);
+        // projectFound.requirements.push(savedRequirement);
 
-        await this.projectsRepository.save(projectFound);
+        // await this.projectsRepository.save(projectFound);
 
         return plainToClass(ShowRequirementDTO, savedRequirement, {
             excludeExtraneousValues: true,
@@ -105,25 +108,63 @@ export class RequirementsDataService {
     public async updateRequirement(
         id: string,
         body: UpdateRequirementDTO,
-        // user: ShowUserDTO,
+        user: UserDTO,
     ): Promise<ShowRequirementDTO> {
-        const oldRequirement: Requirement = await this.requirementsRepository.findOne(id);
-
-        // const oldRequirementCreatedBy: User = await this.usersRepository.findOne({
-        //   where: { user },
-        // });
-
-        // if (oldProjectCreatedBy.id !== user.id) {
-        //   throw new HttpError(
-        //     'You dont have permission to edit this Requirement!',
-        //     403,
-        //   );
-        // }
-
+        const oldRequirement: Requirement = await this.requirementsRepository.findOne(
+            id, 
+            {relations: ['project']}
+        );
+        
+        if (oldRequirement.project.manager.id !== user.id) {
+            throw new HttpException(
+                'You dont have permission to change the requirements to this project!',
+                403,
+            );
+        }
+        
         const updatedRequirement: Requirement = { ...oldRequirement, ...body };
         const savedRequirement: Requirement = await this.requirementsRepository.save(updatedRequirement);
 
         return plainToClass(ShowRequirementDTO, savedRequirement, {
+            excludeExtraneousValues: true,
+        });
+    }
+
+    public async deleteRequirement(
+        reqId: string, 
+        user: UserDTO
+    ) {
+        const foundRequirement = await this.requirementsRepository.findOne(
+            reqId,
+            {relations: ['project']}
+        );
+
+        //  const employeeNew = this.employeesRepository.create({
+        //     email: '@mario.com',
+        //     jobTitle: 'jobtitile',
+        //     jobDescription: 'desc',
+        //     availableWorkHours: 8,
+        // });
+        // this.employeesRepository.save(employeeNew)
+    
+        console.log(foundRequirement)
+
+        if (!foundRequirement) {
+            throw new HttpException('No such requirement found!', 404);
+        }
+
+        if (foundRequirement.project.manager.id !== user.id) {
+            throw new HttpException(
+                'You dont have permission to delete this requirement!',
+                403,
+            );
+        }
+
+        foundRequirement.isDeleted = true;
+
+        const deletedRequirement = await this.requirementsRepository.save(foundRequirement);
+
+        return plainToClass(ShowRequirementDTO, deletedRequirement, {
             excludeExtraneousValues: true,
         });
     }

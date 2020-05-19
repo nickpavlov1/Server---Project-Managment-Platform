@@ -25,6 +25,7 @@ export class Requirement {
   @ManyToOne(
     type => Skill,
     skill => skill.requirements,
+    {eager: true}
     )
   public requiredSkill: Skill;
 
@@ -32,7 +33,7 @@ export class Requirement {
   public requiredTime: number;
 
   @Column({ default: 0 })
-  public contributedTime: number;
+  public totalContributedTime: number;
 
   @Column({ default: 0 })
   public totalDailyWorkInput: number;
