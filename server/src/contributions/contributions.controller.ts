@@ -1,3 +1,4 @@
+import { UpdateContributionDTO } from './../models/dto/contribution/update-contribution.dto';
 import { ShowContributionDTO } from './../models/dto/contribution/show-contribution.dto';
 import { CreateContributionDTO } from './../models/dto/contribution/create-contribution.dto';
 import { ContributionsDataService } from './contributions-data.service';
@@ -57,9 +58,10 @@ export class ContributionsController {
 
     @Put('contribution/:id')
     @HttpCode(HttpStatus.OK)
+    // @UseGuards(AuthGuard('jwt'))
     public async updateContribution(
         @Param('id') id: string,
-        @Body() body: CreateContributionDTO,
+        @Body() body: UpdateContributionDTO,
     ): Promise<ShowContributionDTO> {
         return await this.requirementsDataService.updateContribution(
             id,

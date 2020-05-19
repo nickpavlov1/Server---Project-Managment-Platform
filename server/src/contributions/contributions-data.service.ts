@@ -1,3 +1,4 @@
+import { UpdateContributionDTO } from './../models/dto/contribution/update-contribution.dto';
 import { User } from 'src/database/entities/user.entity';
 import { ShowContributionDTO } from './../models/dto/contribution/show-contribution.dto';
 import { Requirement } from './../database/entities/requirement.entity';
@@ -37,13 +38,13 @@ export class ContributionsDataService {
     ) {
         const requirement: Requirement = await this.requirementsRepository.findOne(
             reqId,
-            {relations: ['project']}
+            { relations: ['project'] }
         );
 
         if (!requirement) {
-          throw new HttpException('No Such Requirement Found', 404);
+            throw new HttpException('No Such Requirement Found', 404);
         }
-        
+
         if (requirement.project.manager.id !== user.id) {
             throw new HttpException(
                 'You dont have permission to add contributions to this project!',
@@ -74,7 +75,6 @@ export class ContributionsDataService {
 
         const savedRequirement: Requirement = await this.requirementsRepository.save(requirement);
 
-        // return savedContribution
         return plainToClass(ShowContributionDTO, savedContribution, {
             excludeExtraneousValues: true,
         });
@@ -95,12 +95,12 @@ export class ContributionsDataService {
     public async getContributionById(
         id: string,
     ) {
-        const foundContribution: Contribution = await this.contributionsRepository.findOne(id, {relations:['contributor']});
+        const foundContribution: Contribution = await this.contributionsRepository.findOne(id, { relations: ['contributor'] });
 
         if (foundContribution === undefined) {
             throw new HttpException('No such Contribution found!', 404);
         }
-       
+
         return plainToClass(ShowContributionDTO, foundContribution, {
             excludeExtraneousValues: true,
         });
@@ -108,12 +108,16 @@ export class ContributionsDataService {
 
     public async updateContribution(
         id: string,
-        body: CreateContributionDTO,
+        body: UpdateContributionDTO,
     ): Promise<ShowContributionDTO> {
+        const { dailyHourlyContribution } = body;
 
         const oldContribution: Contribution = await this.contributionsRepository.findOne(id);
-        const updatedContribution: Contribution = { ...oldContribution, ...body };
-        const savedContribution: Contribution = await this.contributionsRepository.save(updatedContribution);
+
+        if (dailyHourlyContribution) {
+            oldContribution.dailyHourlyContribution = +dailyHourlyContribution;
+        }
+        const savedContribution: Contribution = await this.contributionsRepository.save(oldContribution);
 
         return plainToClass(ShowContributionDTO, savedContribution, {
             excludeExtraneousValues: true,
