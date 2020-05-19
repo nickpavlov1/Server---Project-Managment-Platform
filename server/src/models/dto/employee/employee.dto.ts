@@ -1,5 +1,4 @@
 import { Expose, Type } from "class-transformer";
-import { Skill } from "src/database/entities/skill.entity";
 import { SkillDTO } from "../skill/skill.dto";
 
 export class EmployeeDTO {
@@ -26,6 +25,9 @@ export class EmployeeDTO {
 
     @Expose()
     updated: Date;
+
+    @Expose()
+    availableWorkHours: number;
  
     @Expose()
     directManager: string;
