@@ -43,13 +43,13 @@ public async changeUserWorkPosition(
         return this.adminService.changeUserWorkPosition(userId);
 }
 
-@Put('/change/userinfo')
+@Put('/change/:id')
 public async changeUserProfileInfo(
     @Param('id', ParseUUIDPipe)
-    userId: string,
+    id: string,
     @Body(new ValidationPipe({ transform: true, whitelist: true }))
     editUserInfo: EditUserDTO
     ): Promise<UserDTO> {
-        return this.adminService.changeUserProfileInfo(userId, editUserInfo)
+        return this.adminService.changeUserProfileInfo(id, editUserInfo)
 }
 }

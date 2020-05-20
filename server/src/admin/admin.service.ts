@@ -137,12 +137,8 @@ export class AdminService {
             lastName,
             jobTitle,
             jobDescription,
-            directManager
             }: Partial<User> = editUserInfo;
 
-        const newDirectManager: User = await this.userRepository.findOne(
-            { where: { email: directManager }}
-            );
 
         const user: User = await this.userRepository.findOne(userId);
 
@@ -151,7 +147,6 @@ export class AdminService {
             user.jobDescription = jobDescription;
             user.firstName = firstName;
             user.lastName = lastName;
-            user.directManager = newDirectManager.email;
         }
         const updatedUser = await user.save();
     

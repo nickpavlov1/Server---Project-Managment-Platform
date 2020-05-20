@@ -46,7 +46,7 @@ export class Employee {
     @JoinTable()
     public skillset: Skill[];
 
-    @ManyToOne(type => User, user => user.lastname, { eager: true })
+    @ManyToOne(type => User, user => user.lastName, { eager: true })
     public managedBy: User;
 
     @OneToMany(type => Contribution, contribution => contribution.contributor)
