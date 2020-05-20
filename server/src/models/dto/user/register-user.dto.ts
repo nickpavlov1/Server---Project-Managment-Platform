@@ -17,12 +17,12 @@ export class RegisterUserDTO {
     @IsString()
     @MaxLength(20, { message: 'First name exceeds length limit'})
     @IsNotEmpty({ message: 'Please provide your first name'})
-    firstname: string;
+    firstName: string;
 
     @IsString()
     @MaxLength(20, { message: 'Last name exceeds length limit'})
     @IsNotEmpty({ message: 'Please provide your last name'})
-    lastname: string;
+    lastName: string;
 
     @IsString()
     @MaxLength(20, { message: 'Job title exceeds characters limit'})
