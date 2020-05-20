@@ -4,7 +4,7 @@ import { Skill } from "./skill.entity";
 import { User } from "./user.entity";
 
 @Entity()
-export class Employee {
+export class Employee extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     public id: string;
 
@@ -18,10 +18,10 @@ export class Employee {
     public jobDescription: string;
 
     @Column('nvarchar')
-    public firstname: string;
+    public firstName: string;
 
     @Column('nvarchar')
-    public lastname: string;
+    public lastName: string;
     
     @Column({default: 'self-managed'})
     directManager: string;

@@ -7,6 +7,7 @@ import { EmployeeDTO } from 'src/models/dto/employee/employee.dto';
 import { SkillDTO } from 'src/models/dto/skill/skill.dto';
 import { CreateSkillDTO } from '../models/dto/skill/create-skill.dto';
 import { EditUserDTO } from '../models/dto/user/edit-user.dto';
+import { EditEmployeeDTO } from 'src/models/dto/employee/edit-employee.dto';
 
 @Controller('admin')
 export class AdminController {
@@ -43,13 +44,23 @@ public async changeUserWorkPosition(
         return this.adminService.changeUserWorkPosition(userId);
 }
 
-@Put('/change/:id')
+@Put('/change/user/:id')
 public async changeUserProfileInfo(
     @Param('id', ParseUUIDPipe)
     id: string,
     @Body(new ValidationPipe({ transform: true, whitelist: true }))
     editUserInfo: EditUserDTO
     ): Promise<UserDTO> {
-        return this.adminService.changeUserProfileInfo(id, editUserInfo)
+        return this.adminService.changeUserProfileInfo(id, editUserInfo);
+}
+
+@Put('/change/employee/:id')
+public async changeEmployeeProfileInfo(
+    @Param('id', ParseUUIDPipe)
+    id: string,
+    @Body(new ValidationPipe({ transform: true, whitelist: true }))
+    editEmployeeInfo: EditEmployeeDTO
+    ): Promise<EmployeeDTO> {
+        return this.adminService.changeEmployeeProfileInfo(id, editEmployeeInfo);
 }
 }

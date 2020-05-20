@@ -17,6 +17,7 @@ import { SkillDTO } from 'src/models/dto/skill/skill.dto';
 import { CreateSkillDTO } from '../models/dto/skill/create-skill.dto';
 import { WorkPosition } from '../models/enums/work-position.emun';
 import { EditUserDTO } from 'src/models/dto/user/edit-user.dto';
+import { EditEmployeeDTO } from 'src/models/dto/employee/edit-employee.dto';
 
 @Injectable()
 export class AdminService {
@@ -65,7 +66,7 @@ export class AdminService {
         return bcrypt.hash(password, salt);
     }
     public async createEmployee(createEmployeeDTO: CreateEmployeeDTO): Promise<EmployeeDTO> {
-        const { email, firstname, lastname, jobTitle, jobDescription, directManager, skillset } = createEmployeeDTO;
+        const { email, firstName, lastName, jobTitle, jobDescription, directManager, skillset } = createEmployeeDTO;
 
         const providedSkillNames: string[] = skillset.split(', ');
 
@@ -91,8 +92,8 @@ export class AdminService {
         newEmployee.email = email;
         newEmployee.jobTitle = jobTitle;
         newEmployee.jobDescription = jobDescription;
-        newEmployee.firstname = firstname;
-        newEmployee.lastname = lastname;
+        newEmployee.firstName = firstName;
+        newEmployee.lastName = lastName;
         newEmployee.skillset = validSkills;
 
         if (setDirectManager) {
@@ -126,7 +127,7 @@ export class AdminService {
             user.position = WorkPosition.manager;
         }
 
-        const updatedUser: User = await this.userRepository.save(user);
+        const updatedUser: User = await user.save();
 
             return plainToClass(UserDTO, updatedUser, { excludeExtraneousValues: true })
     }
@@ -136,9 +137,8 @@ export class AdminService {
             firstName,
             lastName,
             jobTitle,
-            jobDescription,
+            jobDescription
             }: Partial<User> = editUserInfo;
-
 
         const user: User = await this.userRepository.findOne(userId);
 
@@ -151,5 +151,26 @@ export class AdminService {
         const updatedUser = await user.save();
     
            return plainToClass(UserDTO, updatedUser, { excludeExtraneousValues: true });
+    }
+
+    public async changeEmployeeProfileInfo(employeeId: string, editEmployeeDTO: EditEmployeeDTO): Promise<EmployeeDTO> {
+        const {
+            firstName,
+            lastName,
+            jobTitle,
+            jobDescription
+            }: Partial<Employee> = editEmployeeDTO;
+
+        const employee: Employee = await this.employeeRepository.findOne(employeeId);
+
+        if (employee) {
+            employee.jobTitle = jobTitle;
+            employee.jobDescription = jobDescription;
+            employee.firstName = firstName;
+            employee.lastName = lastName;
+        }
+        const updatedEmployee = await employee.save();
+        
+           return plainToClass(EmployeeDTO, updatedEmployee, { excludeExtraneousValues: true });
     }
 }
