@@ -1,3 +1,4 @@
+import { UserDTO } from './../models/dto/user/user.dto';
 import { UpdateContributionDTO } from './../models/dto/contribution/update-contribution.dto';
 import { User } from 'src/database/entities/user.entity';
 import { ShowContributionDTO } from './../models/dto/contribution/show-contribution.dto';
@@ -13,7 +14,6 @@ import { plainToClass } from 'class-transformer';
 import { ShowRequirementDTO } from 'src/models/dto/requirement/show-requirement.dto';
 import { Contribution } from 'src/database/entities/contribution.entity';
 import { Employee } from 'src/database/entities/employee.entity';
-import { UserDTO } from 'src/models/dto/user/user.dto';
 
 @Injectable()
 export class ContributionsDataService {
@@ -59,13 +59,17 @@ export class ContributionsDataService {
             }
         });
 
+        if (!employee) {
+            throw new HttpException('No Such Employee Found', 404);
+        }
+
         const contributionEntity: Contribution = this.contributionsRepository.create({
-            dailyHourlyContribution: body.dailyHourlyContribution
+            dailyHourlyContribution: +body.dailyHourlyContribution
         });
 
-        employee.availableWorkHours = employee.availableWorkHours - body.dailyHourlyContribution;
+        // employee.availableWorkHours = employee.availableWorkHours - body.dailyHourlyContribution;
 
-        this.employeesRepository.save(employee);
+        // this.employeesRepository.save(employee);
 
         contributionEntity.contributor = employee;
 
@@ -80,8 +84,10 @@ export class ContributionsDataService {
         });
     }
 
-    public async getAllContributions(projectId: string): Promise<ShowContributionDTO[]> {
-        const contributions: Contribution[] = await this.contributionsRepository.find();
+    public async getAllContributions(): Promise<ShowContributionDTO[]> {
+        const contributions: Contribution[] = await this.contributionsRepository.find({
+            relations: ['requirement']
+        });
 
         if (contributions.length === 0) {
             throw new HttpException('No Contributions found!', 404);
@@ -94,8 +100,13 @@ export class ContributionsDataService {
 
     public async getContributionById(
         id: string,
-    ) {
-        const foundContribution: Contribution = await this.contributionsRepository.findOne(id, { relations: ['contributor'] });
+    ): Promise<ShowContributionDTO> {
+        const foundContribution: Contribution = await this.contributionsRepository.findOne(
+            id,
+            {
+                relations: ['contributor']
+            }
+        );
 
         if (foundContribution === undefined) {
             throw new HttpException('No such Contribution found!', 404);
@@ -127,9 +138,7 @@ export class ContributionsDataService {
     public async deleteContribution(id: string) {
         const foundContribution: Contribution = await this.contributionsRepository.findOne(id);
         foundContribution.isDeleted = true;
-        // foundContribution.contributionEnd = new Date();
         console.log(foundContribution)
-        // const contributionEmployee = await this.usersRepositry.findOne()
         return this.contributionsRepository.save({ ...foundContribution, isDeleted: true, });
     }
 
