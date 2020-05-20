@@ -191,4 +191,22 @@ export class AdminService {
     
            return plainToClass(UserDTO, updatedUser, { excludeExtraneousValues: true });
     }
+
+    public async changeEmployeeManager(employeeId: string, editEmployeeDTO: EditEmployeeDTO): Promise<EmployeeDTO> {
+        const { directManager }: Partial<User> = editEmployeeDTO;
+        const employee: Employee = await this.employeeRepository.findOne(employeeId);
+
+        const newDirectManager: User = await this.userRepository.findOne(
+            { where: { email: directManager }}
+            );
+
+        if (employee) {
+            if (newDirectManager) {
+                employee.directManager = newDirectManager.email
+            }
+        }
+        const updatedEmployee = await employee.save();
+    
+           return plainToClass(EmployeeDTO, updatedEmployee, { excludeExtraneousValues: true });
+    }
 }

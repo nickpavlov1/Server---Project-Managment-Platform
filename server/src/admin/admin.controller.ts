@@ -69,9 +69,19 @@ public async changeUserManager(
     @Param('id', ParseUUIDPipe)
     id: string,
     @Body(new ValidationPipe({ transform: true, whitelist: true }))
-    editUserInfo: EditUserDTO
+    editUserDTO: EditUserDTO
     ): Promise<UserDTO> {
-        return this.adminService.changeUserManager(id, editUserInfo);
+        return this.adminService.changeUserManager(id, editUserDTO);
+}
+
+@Put('/change/employee/manager/:id')
+public async changeEmployeeManager(
+    @Param('id', ParseUUIDPipe)
+    id: string,
+    @Body(new ValidationPipe({ transform: true, whitelist: true }))
+    editEmployeeDTO: EditEmployeeDTO
+    ): Promise<EmployeeDTO> {
+        return this.adminService.changeEmployeeManager(id, editEmployeeDTO);
 }
 
 }
