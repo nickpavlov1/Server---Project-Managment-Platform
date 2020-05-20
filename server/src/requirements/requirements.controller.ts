@@ -39,7 +39,7 @@ export class RequirementsController {
         @Param('id') projectId: string,
         @Body() body: CreateRequirementDTO,
         @User() user: UserDTO,
-    ) {
+    ): Promise<ShowRequirementDTO> {
         return await this.requirementsDataService.createRequirement(
             projectId,
             body,
@@ -76,7 +76,7 @@ export class RequirementsController {
     public async stopProject(
         @Param('reqId') reqId: string,
         @User() user: UserDTO,
-    ) {
+    ): Promise<ShowRequirementDTO> {
         return await this.requirementsDataService.deleteRequirement(
             reqId,
             user,
