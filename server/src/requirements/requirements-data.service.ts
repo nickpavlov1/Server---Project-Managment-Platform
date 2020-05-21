@@ -9,8 +9,6 @@ import { CreateRequirementDTO } from './../models/dto/requirement/create-require
 import { ShowRequirementDTO } from './../models/dto/requirement/show-requirement.dto';
 import { Skill } from './../database/entities/skill.entity';
 import { Project } from 'src/database/entities/project.entity';
-import { User } from 'src/database/entities/user.entity';
-import { Employee } from 'src/database/entities/employee.entity';
 
 @Injectable()
 export class RequirementsDataService {
@@ -21,11 +19,6 @@ export class RequirementsDataService {
         private readonly skillsRepository: Repository<Skill>,
         @InjectRepository(Project)
         private readonly projectsRepository: Repository<Project>,
-        @InjectRepository(User)
-        private readonly usersRepository: Repository<User>,
-
-        @InjectRepository(Employee)
-        private readonly employeesRepository: Repository<Employee>,
     ) { }
 
     public async getAllRequirements(projectId: string): Promise<ShowRequirementDTO[]> {
@@ -34,10 +27,8 @@ export class RequirementsDataService {
         });
         
         if (requirements.length === 0) {
-            throw new HttpException('No Requirement found!', 404);
+            throw new HttpException('No Requirements found!', 404);
         }
-
-        console.log(requirements)
 
         return plainToClass(ShowRequirementDTO, requirements, {
             excludeExtraneousValues: true,
@@ -50,7 +41,7 @@ export class RequirementsDataService {
 
         const requirement: Requirement = await this.requirementsRepository.findOne(id);
 
-        if (requirement === undefined) {
+        if (!requirement) {
             throw new HttpException('No such Requirement found!', 404);
         }
 
@@ -63,7 +54,7 @@ export class RequirementsDataService {
         projectId: string,
         body: CreateRequirementDTO,
         user: UserDTO,
-    ) {
+    ): Promise<ShowRequirementDTO> {
         const projectFound: Project = await this.projectsRepository.findOne({
             where: {id: projectId },
         });
@@ -92,14 +83,6 @@ export class RequirementsDataService {
 
         const savedRequirement: Requirement = await this.requirementsRepository.save(reqEntity);
 
-        // if(projectFound.requirements == undefined) {
-        //     projectFound.requirements = [];
-        // }
-
-        // projectFound.requirements.push(savedRequirement);
-
-        // await this.projectsRepository.save(projectFound);
-
         return plainToClass(ShowRequirementDTO, savedRequirement, {
             excludeExtraneousValues: true,
         });
@@ -110,6 +93,8 @@ export class RequirementsDataService {
         body: UpdateRequirementDTO,
         user: UserDTO,
     ): Promise<ShowRequirementDTO> {
+        const { requiredTime } = body;
+
         const oldRequirement: Requirement = await this.requirementsRepository.findOne(
             id, 
             {relations: ['project']}
@@ -122,8 +107,9 @@ export class RequirementsDataService {
             );
         }
         
-        const updatedRequirement: Requirement = { ...oldRequirement, ...body };
-        const savedRequirement: Requirement = await this.requirementsRepository.save(updatedRequirement);
+        oldRequirement.requiredTime = +requiredTime;
+
+        const savedRequirement: Requirement = await this.requirementsRepository.save(oldRequirement);
 
         return plainToClass(ShowRequirementDTO, savedRequirement, {
             excludeExtraneousValues: true,
@@ -133,21 +119,11 @@ export class RequirementsDataService {
     public async deleteRequirement(
         reqId: string, 
         user: UserDTO
-    ) {
+    ): Promise<ShowRequirementDTO> {
         const foundRequirement = await this.requirementsRepository.findOne(
             reqId,
             {relations: ['project']}
         );
-
-        //  const employeeNew = this.employeesRepository.create({
-        //     email: '@mario.com',
-        //     jobTitle: 'jobtitile',
-        //     jobDescription: 'desc',
-        //     availableWorkHours: 8,
-        // });
-        // this.employeesRepository.save(employeeNew)
-    
-        console.log(foundRequirement)
 
         if (!foundRequirement) {
             throw new HttpException('No such requirement found!', 404);

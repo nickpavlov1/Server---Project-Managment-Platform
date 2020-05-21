@@ -40,25 +40,23 @@ export class ContributionsController {
         );
     }
 
-    @Get('requirement/:id/contribution')
+    @Get('contributions')
     @HttpCode(HttpStatus.OK)
-    public async getAllContributions(
-        @Param('id') requId: string,
-    ): Promise<ShowContributionDTO[]> {
-        return await this.requirementsDataService.getAllContributions(requId);
+    public async getAllContributions(): Promise<ShowContributionDTO[]> {
+        return await this.requirementsDataService.getAllContributions();
     }
 
     @Get('contribution/:id')
     @HttpCode(HttpStatus.OK)
     public async getContributionById(
         @Param('id') id: string,
-    ) {
+    ): Promise<ShowContributionDTO> {
         return await this.requirementsDataService.getContributionById(id);
     }
 
     @Put('contribution/:id')
     @HttpCode(HttpStatus.OK)
-    // @UseGuards(AuthGuard('jwt'))
+    @UseGuards(AuthGuard('jwt'))
     public async updateContribution(
         @Param('id') id: string,
         @Body() body: UpdateContributionDTO,
@@ -71,9 +69,12 @@ export class ContributionsController {
 
     @Delete('contribution/:id')
     @HttpCode(HttpStatus.OK)
+    @UseGuards(AuthGuard('jwt'))
     public async deleteContribution(
       @Param('id') id: string,
     ) {
-        return await this.requirementsDataService.deleteContribution(id);
+        return await this.requirementsDataService.deleteContribution(
+            id,
+        );
     }
 }

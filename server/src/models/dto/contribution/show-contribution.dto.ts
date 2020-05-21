@@ -1,3 +1,4 @@
+import { ShowRequirementDTO } from './../requirement/show-requirement.dto';
 import { EmployeeDTO } from './../employee/employee.dto';
 import { Employee } from 'src/database/entities/employee.entity';
 import { Expose, Transform, Type } from 'class-transformer';
@@ -23,11 +24,7 @@ export class ShowContributionDTO {
     @Type(() => EmployeeDTO)
     public contributor: EmployeeDTO;
 
-    // @Expose()
-    // @Transform((_, obj) => (obj as any).contributor.email)
-    // public contributor: Employee;
-
-    // @Expose()
-    // public requirement: Requirement;
-
+    @Expose()
+    @Type(() => ShowRequirementDTO)
+    public requirement: ShowRequirementDTO;
 }
