@@ -5,7 +5,7 @@ import { UserDTO } from 'src/models/dto/user/user.dto';
 import { CreateEmployeeDTO } from '../models/dto/employee/create-employee.dto';
 import { EmployeeDTO } from 'src/models/dto/employee/employee.dto';
 import { SkillDTO } from 'src/models/dto/skill/skill.dto';
-import { CreateSkillDTO } from '../models/dto/skill/create-skill.dto';
+import { AddSkillDTO } from '../models/dto/skill/create-skill.dto';
 import { EditUserDTO } from '../models/dto/user/edit-user.dto';
 import { EditEmployeeDTO } from 'src/models/dto/employee/edit-employee.dto';
 
@@ -28,10 +28,10 @@ public async createEmployee(
         return this.adminService.createEmployee(createEmployeeDTO);    
 }
 
-@Post('/skill/create')
+@Post('/skill')
 public async addNewSkillToCatalog(
     @Body(new ValidationPipe({ transform: true, whitelist: true }))
-    createSkillDTO: CreateSkillDTO
+    createSkillDTO: AddSkillDTO
     ): Promise<SkillDTO> {
         return this.adminService.addNewSkillToCatalog(createSkillDTO);
 }
@@ -84,4 +84,14 @@ public async changeEmployeeManager(
         return this.adminService.changeEmployeeManager(id, editEmployeeDTO);
 }
 
+@Put('/:id/skill')
+
+public async addSkillToEmployeeSkillSet(
+    @Param('id', ParseUUIDPipe)
+    id: string,
+    @Body(new ValidationPipe({ transform: true, whitelist: true}))
+    newSkills: AddSkillDTO
+): Promise<EmployeeDTO> {
+    return this.adminService.addSkillToEmployeeSkillSet(id, newSkills);
+}
 }

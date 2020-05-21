@@ -1,6 +1,6 @@
 import { IsString, IsNotEmpty } from "class-validator";
 
-export class CreateSkillDTO {
+export class AddSkillDTO {
 
     @IsString()
     @IsNotEmpty()

@@ -1,5 +1,5 @@
 /* eslint-disable prefer-const */
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserRepository } from 'src/auth/user.repository';
 import { RegisterUserDTO } from 'src/models/dto/user/register-user.dto';
@@ -14,7 +14,7 @@ import { EmployeeDTO } from '../models/dto/employee/employee.dto';
 import { SkillRepository } from './skill.repository';
 import { Skill } from 'src/database/entities/skill.entity';
 import { SkillDTO } from 'src/models/dto/skill/skill.dto';
-import { CreateSkillDTO } from '../models/dto/skill/create-skill.dto';
+import { AddSkillDTO } from '../models/dto/skill/create-skill.dto';
 import { WorkPosition } from '../models/enums/work-position.emun';
 import { EditUserDTO } from 'src/models/dto/user/edit-user.dto';
 import { EditEmployeeDTO } from 'src/models/dto/employee/edit-employee.dto';
@@ -104,7 +104,7 @@ export class AdminService {
            return plainToClass(EmployeeDTO, createEmployee, { excludeExtraneousValues: true });
     }
 
-    public async addNewSkillToCatalog(createSkillDTO: CreateSkillDTO): Promise<SkillDTO> {
+    public async addNewSkillToCatalog(createSkillDTO: AddSkillDTO): Promise<SkillDTO> {
         const { skillName } = createSkillDTO;
 
         await this.skillRepository.matchExistingSkill(skillName);
@@ -208,5 +208,33 @@ export class AdminService {
         const updatedEmployee = await employee.save();
     
            return plainToClass(EmployeeDTO, updatedEmployee, { excludeExtraneousValues: true });
+    }
+
+    public async addSkillToEmployeeSkillSet(employeeId: string, newSkills: AddSkillDTO): Promise<EmployeeDTO> {
+        const employee: Employee = await this.employeeRepository.findOne(employeeId);
+
+        const { skillName } = newSkills;
+        const providedSkillNames: string[] = skillName.split(', ');
+
+        const validSkills: Skill[] = [];
+
+        for (const skillName of providedSkillNames) {
+            let skillEntity = await this.skillRepository.findOne({
+                where: { skillName: skillName }
+            });
+            if (skillEntity) {
+                validSkills.push(skillEntity);
+            }
+        }
+
+        if (!employee) {
+            throw new BadRequestException(`Employee does not exist`)
+        }
+
+        employee.skillset = validSkills;
+
+        const updatedEmployeeSkill = await employee.save();
+
+            return plainToClass( EmployeeDTO, updatedEmployeeSkill, { excludeExtraneousValues: true });
     }
 }
