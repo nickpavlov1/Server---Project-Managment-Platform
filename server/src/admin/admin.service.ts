@@ -18,6 +18,9 @@ import { AddSkillDTO } from '../models/dto/skill/create-skill.dto';
 import { WorkPosition } from '../models/enums/work-position.emun';
 import { EditUserDTO } from 'src/models/dto/user/edit-user.dto';
 import { EditEmployeeDTO } from 'src/models/dto/employee/edit-employee.dto';
+import { EditAvatarUserDTO } from '../models/dto/user/edit-avatar.dto';
+import * as fs from 'fs';
+import * as path from 'path';
 
 @Injectable()
 export class AdminService {
@@ -236,5 +239,47 @@ export class AdminService {
         const updatedEmployeeSkill = await employee.save();
 
             return plainToClass( EmployeeDTO, updatedEmployeeSkill, { excludeExtraneousValues: true });
+    }
+
+    public async updateUserProficePicture(userId: string, newAvatar: EditAvatarUserDTO): Promise<UserDTO> {
+        const { avatarUrl } = newAvatar;
+
+        const user = await this.userRepository.findOne(userId);
+
+        if (!user) {
+            throw new BadRequestException(`No manager found with these requirments`)
+        }
+        user.avatarUrl = avatarUrl;
+
+        const updatedUser = await user.save();
+
+        return plainToClass(UserDTO, updatedUser, { excludeExtraneousValues: true });
+    }
+
+    public async updateEmployeeProficePicture(employeeId: string, newAvatar: EditAvatarUserDTO): Promise<EmployeeDTO> {
+        const { avatarUrl } = newAvatar;
+
+        const employee: Employee = await this.employeeRepository.findOne(employeeId);
+
+        if (!employee) {
+            throw new BadRequestException(`No employee found  with these requirments`)
+        }
+        employee.avatarUrl = avatarUrl;
+
+        const updatedEmployee = await employee.save();
+
+        return plainToClass(EmployeeDTO, updatedEmployee, { excludeExtraneousValues: true });
+    }
+
+    public async deleteFile(imageName: string) {
+        fs.unlink(path.join(__dirname, '../../src/uploads/', 'avatars/') + imageName,
+        (err) => {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log('file deleted');
+            }
+        });
+        
     }
 }
