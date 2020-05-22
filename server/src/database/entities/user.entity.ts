@@ -9,6 +9,9 @@ export class User extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
+  @Column({nullable: true, default: 'http://localhost:3000/admin/avatar/Profile_Icon.png' })
+  public avatarUrl: string;
+
   @Column()
   public password: string;
 
