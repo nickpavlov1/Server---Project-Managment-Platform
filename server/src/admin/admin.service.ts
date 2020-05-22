@@ -282,4 +282,32 @@ export class AdminService {
         });
         
     }
+    public async getUserById(userId: string): Promise<UserDTO> {
+        return await this.userRepository.viewUserById(userId);
+    }
+    public async getEmployeeById(employeeId: string): Promise<EmployeeDTO> {
+        return await this.employeeRepository.viewEmployeeById(employeeId);
+    }
+
+    public async getAllUsers(): Promise<UserDTO[]> {
+        const users: User[] = await this.userRepository.find();
+        
+        if (!users) {
+            throw new BadRequestException('No users found');
+        }
+        return plainToClass(UserDTO, users, { excludeExtraneousValues: true });
+    }
+
+    public async getAllEmployees(): Promise<EmployeeDTO[]> {
+        const employees: Employee[] = await this.employeeRepository.find();
+
+        if (!employees) {
+            throw new BadRequestException('No employees found');
+        }
+        return plainToClass(EmployeeDTO, employees, { excludeExtraneousValues: true });
+    }
+
+    public async getSkillByName(skillName: string): Promise<Skill> {
+        return this.skillRepository.getSkillByName(skillName);
+    }
 }

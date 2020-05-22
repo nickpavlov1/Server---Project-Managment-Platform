@@ -14,5 +14,7 @@ export class SkillRepository extends Repository<Skill> {
         }
     }
     
-    // public async matchAndAddSkillsToEmployeeAcc() {}
+    public async getSkillByName(skillName: string): Promise<Skill> {
+        return this.findOne(skillName);
+    }
 }

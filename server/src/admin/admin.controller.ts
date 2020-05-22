@@ -21,6 +21,7 @@ import { AddSkillDTO } from '../models/dto/skill/create-skill.dto';
 import { EditUserDTO } from '../models/dto/user/edit-user.dto';
 import { EditEmployeeDTO } from 'src/models/dto/employee/edit-employee.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { Skill } from 'src/database/entities/skill.entity';
 
 @Controller('admin')
 export class AdminController {
@@ -147,5 +148,36 @@ export class AdminController {
   @Get('avatar/:imgpath')
   public async getFile(@Param('imgpath') image: string, @Res() res) {
     return res.sendFile(image, { root: 'src/uploads/avatars' });
+  }
+
+  @Get('user/:id')
+  public async getUserById(
+   @Param('id') 
+   userId: string
+  ): Promise<UserDTO> {
+      return this.adminService.getUserById(userId);
+  }
+
+  @Get('employee/:id')
+  public async getEmployeeById(
+   @Param('id') 
+   employeeId: string
+  ): Promise<EmployeeDTO> {
+      return this.adminService.getEmployeeById(employeeId);
+  }
+
+  @Get('user')
+  public async getAllUsers() {
+    return this.adminService.getAllUsers();
+  }
+
+  @Get('employee')
+  public async getAllEmployees() {
+    return this.adminService.getAllEmployees();
+  }
+
+  @Get('/skill')
+  public async getSkillByName(@Body(new ValidationPipe({ transform: true, whitelist: true })) skillName: string): Promise<Skill> {
+      return this.adminService.getSkillByName(skillName);
   }
 }
