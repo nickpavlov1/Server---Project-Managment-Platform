@@ -15,6 +15,6 @@ export class SkillRepository extends Repository<Skill> {
     }
     
     public async getSkillByName(skillName: string): Promise<Skill> {
-        return this.findOne(skillName);
+        return this.findOne({ where: { skillName: skillName }});
     }
 }
