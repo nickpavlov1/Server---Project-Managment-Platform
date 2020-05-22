@@ -1,0 +1,647 @@
+{
+  "program": {
+    "fileInfos": {
+      "../src/app.service.ts": {
+        "version": "eaf8514ce110fa428a93a27408df4d06d133dbd9ed0a775c315ddfdd507853a9",
+        "signature": "653711fba8904aa27fd8911b63cf526e7b334e13a292da4cefdbbe179ac3f3f2"
+      },
+      "../src/app.controller.ts": {
+        "version": "260f889b9e2b69f77be1155348eb345166aec664b3efff6720053c6844a41f28",
+        "signature": "ef022c91ea9e75ab4082f2e881f9c4db7b346be2da706e876b253bebce5e6140"
+      },
+      "../src/models/enums/work-position.emun.ts": {
+        "version": "b9a7b6257d048877ae09146ae51d1360fe8bc6147dc43ab583f6d5789e33ac9d",
+        "signature": "4ab12f2bea8e877bf6aa3beac7b4061c421ea093dc9f8b214eac8cf6835e874d"
+      },
+      "../src/database/entities/user.entity.ts": {
+        "version": "75ff0700a087d308124368b83a376f6f409d63dd6a546dc764d55d61e1ba114d",
+        "signature": "3f598a0a6d527d7846e821967281e1e9400ea7096e673ec9dec8c73094a01e86"
+      },
+      "../src/database/entities/project.entity.ts": {
+        "version": "b9e346a1b2f1fb53aa6b4476474040939b98955f7d85370e580180b5b448624b",
+        "signature": "3afab4265eb1297474b37a4187ae6d9d087c750d886e79a0dfca50bd58d938aa"
+      },
+      "../src/models/enums/skill-catalog.enum.ts": {
+        "version": "c514e376dbd7a92906dd8a6fe44ff18e696f39b2ee27b343d4d0d5f2c7bbe0fa",
+        "signature": "6376faa452afefd5d9183ce48f82022fc8eb689a65e28acc143ca7305c267faa"
+      },
+      "../src/database/entities/skill.entity.ts": {
+        "version": "bf273f4b20f99946c78e58f97ec71961370c458741fdc90c1f1135b18877157f",
+        "signature": "bd2ebaaa0b7f693a616e7931320b13ff27e32cff8869e875a4a3c4421506069c"
+      },
+      "../src/database/entities/requirement.entity.ts": {
+        "version": "7e71e5325ec74bd2650e461c79dcba48febe481585dda335eef58340989e4bd0",
+        "signature": "e26868d9a18af0562a1d84e6a631ce3a2e34f5e81e1fcb49c1f73a8070767033"
+      },
+      "../src/database/entities/contribution.entity.ts": {
+        "version": "7e70b091a4d09ca084e3b35597396759edd1862a7eaa33969e5efa9426bba9b4",
+        "signature": "c0316c412868777d5e265a8a72d45561bc093c71a6e8e8e55191eb789ea90928"
+      },
+      "../src/database/entities/employee.entity.ts": {
+        "version": "47d55a2117cf113f7bdf596cb325b19dde00fa975bd37b6c7db7516e8c9013dc",
+        "signature": "84d6434e0c09bed684baeb8d7439f79964c31cb8301dae0cad568e5ed6d9679c"
+      },
+      "../src/models/dto/contribution/update-contribution.dto.ts": {
+        "version": "e6d84413425413b95f87a756eeb8816c1bb3c2214dbfe85ad09fef2f8dc3af07",
+        "signature": "7b73c95fcf20e58eec7067e5b2ba5aebbc0b920a94633afd04b726a0827c4f0f"
+      },
+      "../src/models/dto/user/user.dto.ts": {
+        "version": "3776ec53a4ca979241d70fb10364dbab3dfc3b73a284a2e012cdff12c32ebcdd",
+        "signature": "48f1d015d6cc939f73b4dce7d2ce0fcbae2b6da51846bb8df06ca723cafc8856"
+      },
+      "../src/models/dto/project/show-project.dto.ts": {
+        "version": "221377aea2e921f306110dba34cbaf603cf1a650b2f8993b2129269918e42444",
+        "signature": "9b03c3bfc9609d43aab22b58d3bc70055d647dbb10e642649af25314b8d4c162"
+      },
+      "../src/models/dto/skill/skill.dto.ts": {
+        "version": "91116d90c76a8a51eb58b7c2d0ef256944578221fd71e5d034c2722912529803",
+        "signature": "defc04bf6ea2fbc86a8876cf097146c1013a89adacf86a0ebce5eaf92204f77e"
+      },
+      "../src/models/dto/requirement/show-requirement.dto.ts": {
+        "version": "b6a092c598001b663df657c1322f7a078d30f70acc5f6cdc1c77b84345b6024d",
+        "signature": "7aa673bc64259610ae845f32b7b29e7870e61bf6cf20f9451ba63bcd811dc29c"
+      },
+      "../src/models/dto/employee/employee.dto.ts": {
+        "version": "a9694dc9955e9c53dda11282dbeab3d7fc5263b7e097d8192a9ecda49c84a470",
+        "signature": "4a4173b781bcf339d903e361717c5f28eeb05f2f0fbdbc10be5054fab25d976c"
+      },
+      "../src/models/dto/contribution/show-contribution.dto.ts": {
+        "version": "edfe26e348bb00a027c45d70644afe86913af17e08a70f8765c81e47e246b4fe",
+        "signature": "83189a05f63ba345bf4d54aadd942d77f94d4b518175155014362599b1c24480"
+      },
+      "../src/models/dto/contribution/create-contribution.dto.ts": {
+        "version": "cb124f5f66da2196ab4cf7aa8c81461733c2ac899871fea779d1fee26ec8f67b",
+        "signature": "13ee17ea090338cecd6a114c0ad7244049f24166a06b6868612d45a4854bf04e"
+      },
+      "../src/models/dto/requirement/create-requirement.dto.ts": {
+        "version": "be14cd39e1a812b4c7c463bbe2b03f5b5e2791d8d2557d566148741024df27ec",
+        "signature": "e29429da597044779d669349af7501f3d08bfba44faee698fdfec006d3fcc8fa"
+      },
+      "../src/contributions/contributions-data.service.ts": {
+        "version": "73eddedf9128e83521f2afb519a1710f4493086428350a5a636188d289fb111c",
+        "signature": "9cd9df087adc2cf0b8689837ad78c5b058b366593535e876b180cf3f57a87912"
+      },
+      "../src/common/decorators/user.decorator.ts": {
+        "version": "d3b494cfa6dbe8c9dcf0d0fe614460314c11a2c6fabb11d23251b6041640bd17",
+        "signature": "7121cbe688ba61bdc6de60bdac5278acb4250f68f3e9ba110f755f5988d2ef0c"
+      },
+      "../src/contributions/contributions.controller.ts": {
+        "version": "c654392093faff556f074b75d53df0db42be5bb4f105c7ac5270eacf786cb6fe",
+        "signature": "07a9e1c4187649770ad8f898cafd49e60573796c24c486e022dfa1f72f0621c7"
+      },
+      "../src/contributions/contributions.module.ts": {
+        "version": "7fcc3ff949f61cf91d29b70fe3c452f0b205b194b8eb311d1884caa4808b99cd",
+        "signature": "ecef9ff3b46090162ebb9b4d8105a983adda0f1445d121fb0d6c8b140b7cd92d"
+      },
+      "../src/database/database.module.ts": {
+        "version": "6dfd6895efb98fe415fa4bd05626befc050d82208821484a249a30a4e7b25b5c",
+        "signature": "a7ad670f373dd5665c73c7dc09a8e28b976a63bd7ed08def7c1c13456e87d3dc"
+      },
+      "../src/models/dto/project/update-project.dto.ts": {
+        "version": "8f6ce05dfdcc84cd1f64cf3679433834429493832980baa9fc4564f0ca398bc5",
+        "signature": "cf107a18e4816db0555a1bee748e394b3dd693fd352de441b1d97b0616f57259"
+      },
+      "../src/models/dto/project/create-project.dto.ts": {
+        "version": "4bff74d12bcfe939b3a312f5223028c97be4f525127e68e24dbedacd849ff501",
+        "signature": "07da195e1b8ea4c41fe44e85dbae7d2e1d2f39787e2734451b4c27c59cd60fad"
+      },
+      "../src/projects/projects-data.service.ts": {
+        "version": "ac201e92ef7de8a06fe7604019c04b9937cbdddab447b9e183b07f755f771078",
+        "signature": "a27822d6850d34a688e1090fd493ec0a56543d4bcee3a9d06283ad06d1f316ff"
+      },
+      "../src/models/dto/user/login-user.dto.ts": {
+        "version": "8ff63e05d12ae00c5ae4543fd075d97e6738842e8542abf3d19df707c54106c7",
+        "signature": "9e5c4085f897df8892cfdac2e69901b9f3deeca4968050672bd6dffae7075cc7"
+      },
+      "../src/auth/strategy/interface/jwt-payload.interface.ts": {
+        "version": "a9179c6222e1f681f5a3994c0eae3de6d48ed76887ffb87af7826760d6ed00bd",
+        "signature": "55ef8e583736d40916ab143b8054aa7a29f3d5904529df95a1164b294d56cb4e"
+      },
+      "../src/auth/user.repository.ts": {
+        "version": "69ce8d07a9d711d88c611726ffcbed72e7412956025b002d55ecb2480e7761be",
+        "signature": "79e50dbdbf256c783034b52a18ad5bd51fd4d771743c6ca720bee47c7078ff72"
+      },
+      "../src/auth/auth.service.ts": {
+        "version": "6bb235f2991f00b50f1678a6779e8831de74fc5aeccf5155ff3328ef51604696",
+        "signature": "078218a5e724fcc6ea8b73e55df169f4e324b8d5a6c548807cbd16715b99a399"
+      },
+      "../src/common/guards/blacklist.guard.ts": {
+        "version": "175beb80970c7312000a84a8705676de1b9b1f4dc2d38d206396a15a73bc4683",
+        "signature": "93dde26d58f39caa2235abd8a4a2db70eaa8c6c0ba9d8d9dd4bc80843b616007"
+      },
+      "../src/projects/projects.controller.ts": {
+        "version": "704b5604846b6c99c0882de1bfcf0310f2f479a12f8abcaf7c2d59084272e22c",
+        "signature": "39efd2662a6fe8c11a32107c2241f9c85ae3cee6c8826ed84a7796846b6ddffb"
+      },
+      "../src/projects/projects.module.ts": {
+        "version": "275de446dfb18e7ac30cf6dd880c65947543c23fa261fef72fc885f3538a3d48",
+        "signature": "95d8433c809a55dbfe2bb35b627ed32aae902536ef00dc8601cbc2fb790c8ae7"
+      },
+      "../src/models/dto/requirement/update-requirement.dto.ts": {
+        "version": "8b4e21f238955d2a6fe330b0a92a02637c8ba230562b33c0673c200c507566ce",
+        "signature": "37c7eac2b749271ee943b6839b0204614bb364dbb9662f42a2fcee78efe37dd1"
+      },
+      "../src/requirements/requirements-data.service.ts": {
+        "version": "8084245f4c7d10b0be8f897a6549821f33674eece0347197d11580f4a1cee289",
+        "signature": "7fb03983929e03c8c18688b6f7155fed0829b627ecfb8969e02514be96876741"
+      },
+      "../src/requirements/requirements.controller.ts": {
+        "version": "2a9b1915acf22f2ace2d2b9ff4dd6cf7d5b4ae079c5003dc745b021535272043",
+        "signature": "bf57edfd9f98a4dcf23a19dfdb3048272d0fca02fae971dcdbf0d1a09674b783"
+      },
+      "../src/requirements/requirements.module.ts": {
+        "version": "fd518f2511ecf04ce6d19774bc1e87f318c8c874606b1edf93b43d9eaadf674b",
+        "signature": "d85e734fef77c56ac8b0af8b9168f036e05be1137cb94bd8adeedc07d05c1847"
+      },
+      "../src/models/dto/user/register-user.dto.ts": {
+        "version": "badc2e6eb51cfedd69f02a886a798cac044dcb5ea4797d95ae918b6ca5425001",
+        "signature": "ca0e16c76dcec063938f89353684494d5752ea99a15c60b7f87979dcd868746b"
+      },
+      "../src/models/dto/employee/create-employee.dto.ts": {
+        "version": "7f30458277926e5b5d4d70e770ef383ad7a554294755ad1545f3b9cdb11490c3",
+        "signature": "001ae04b98d26f01c20c378fb535457d7efb6bb3fada507389eb168fa7d62c6e"
+      },
+      "../src/admin/employee.repository.ts": {
+        "version": "9b27ef7274a0abfdbd2c269f43cf4d0e0af476c28510234c30ad0292ff5204bb",
+        "signature": "944ef95a3aa71394b87c2264b4fa806039d96697780273bfe7f8816f5540c69b"
+      },
+      "../src/admin/skill.repository.ts": {
+        "version": "d31684b3483defb5fa6f561137fd4daa8ca2c129a8e596d38b36c7cc2d207fdc",
+        "signature": "94a4dfa6041df8207a531b4a74f9e0a9bbf2fc98c2f39aa9d08d5d9f29e767b2"
+      },
+      "../src/models/dto/skill/create-skill.dto.ts": {
+        "version": "a67e4dc58f883767300a6b74e3445a03f7a7c88498f29126744ada7bac99dd4f",
+        "signature": "f188a11a59c6b12712ac591358d6910e1f632fc19b1e44e9cd1083fa0d5ca86b"
+      },
+      "../src/models/dto/user/edit-user.dto.ts": {
+        "version": "089b098fc29a495e8599f75df0266d3737ff505d66b26095928029e9aac335f7",
+        "signature": "1141c8e324e22f458444bd9bdf8541f77d38e6a2efbaa31000f0b177fe0a6850"
+      },
+      "../src/models/dto/employee/edit-employee.dto.ts": {
+        "version": "de30580bd2cad6cafc3646b53b44c94ce284d760675e8cd1b52b60bd02ed8e04",
+        "signature": "fdd9766fe6ddb92bae6dd62bacafc981ec0a4533fb7462a9daf68cf940d22f59"
+      },
+      "../src/models/dto/user/edit-avatar.dto.ts": {
+        "version": "c376e8df2712b86a29bca04d9954b3c4afe3e4b06fe341cd331c881a8c2b687b",
+        "signature": "28269c2534cab313f40ab84b46706435db26580a2cf6b57c5461dfef56b2a2f7"
+      },
+      "../src/admin/admin.service.ts": {
+        "version": "1c41cb53a51e6bfaadcd2039f9f94150d67c57e2aa093b9b13b548ed480c5aba",
+        "signature": "916fbc856a656d281ac90f73aee6c6c3647b2c7aaf04ec343d9beff86d7fa6d1"
+      },
+      "../src/admin/admin.controller.ts": {
+        "version": "34276915d715f6f011c93c8d1348eb3ba6f7d50ea4a2d515a51e741367e97f53",
+        "signature": "bdee376841c7a3dc0510fdeb462cc146b68cbe0397b58251a30f9d7af45da138"
+      },
+      "../src/admin/admin.module.ts": {
+        "version": "ef7d857c701b8943c0aac586dc3d0bfd5f5a39bd16634233537c24f9a6725e8e",
+        "signature": "4cb17d629e7bb0df751ae3e10d78a23d59ea51fc7c02044f9a003ba6f36fedf7"
+      },
+      "../src/auth/strategy/jwt.strategy.ts": {
+        "version": "c8b95390ed687184753769e7ce9cc82d38af539bfb646e097ce4fec162725af3",
+        "signature": "95804071d25e3faef4ad5335faac81d6fc90eedb88341c2a99e35bbaa0363d83"
+      },
+      "../src/common/decorators/token.decorator.ts": {
+        "version": "fc99b8cb726d85a037bb3092284f4515646167d60d7664e39cacd0c40519cf51",
+        "signature": "507b790dfae6a675f1c869e1cdaa3b5511ac935df10765a8afa931abe6a647d5"
+      },
+      "../src/auth/auth.controller.ts": {
+        "version": "0c84edd1959fdc801cb9dbe4c652f4f3d2eb549d89342ff4fd9657061e4e9725",
+        "signature": "183facf1d5df2e3ddc5e5d65ae728c245f8016902362920e70b211f26815cec4"
+      },
+      "../src/auth/auth.module.ts": {
+        "version": "22701ea5770cb07c534142385e63ca492db2fb9350b86d54b6224d59beb7ad2c",
+        "signature": "a28b5c0c372fb375910b3fe3c3ce4331509bc18ccef7cc39c9ee9d8daf8225d1"
+      },
+      "../src/app.module.ts": {
+        "version": "0c7f74797c80ee085d284ae5c0f401f057fdbc2327f8554368652c51638296fb",
+        "signature": "b82491e2990291580288c5602d4c017238977749d52b17391f0e45d9a29be644"
+      },
+      "../src/main.ts": {
+        "version": "81c208b5fc611966f14b4ef8943eb16edd4c831027464cdf8679b1fa34531067",
+        "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
+      },
+      "../src/common/guards/admin.guard.ts": {
+        "version": "6b350399c9c3b088e9467c9316fb12bd711cb94b034a508c9b308d9dba017c69",
+        "signature": "ec1d6d5ea221f6773a104813ee504e60a10be5165e4a85aa009ff2d5aa96c115"
+      },
+      "../src/database/seed/seed.ts": {
+        "version": "1b6358ca791b3e999cf1145aed86b05ea377158b9932d2fe6e799dcc1ba8a462",
+        "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
+      },
+      "../src/models/dto/skill/add-skill.dto.ts": {
+        "version": "09d5aee57235d33e3ac419cde59115862cac26d2d4b8e0b59864cc210ec7fe48",
+        "signature": "5ea6df68e9ab85f339b477e4d62c081c87f90293a348ff7ffd062b27c046dcd5"
+      }
+    },
+    "options": {
+      "module": 1,
+      "declaration": true,
+      "removeComments": true,
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "target": 4,
+      "sourceMap": true,
+      "outDir": "./",
+      "baseUrl": "..",
+      "incremental": true,
+      "configFilePath": "../tsconfig.build.json"
+    },
+    "referencedMap": {
+      "../src/app.controller.ts": [
+        "../src/app.service.ts"
+      ],
+      "../src/database/entities/user.entity.ts": [
+        "../src/database/entities/project.entity.ts",
+        "../src/models/enums/work-position.emun.ts",
+        "../src/database/entities/employee.entity.ts"
+      ],
+      "../src/database/entities/project.entity.ts": [
+        "../src/database/entities/requirement.entity.ts",
+        "../src/database/entities/user.entity.ts"
+      ],
+      "../src/database/entities/skill.entity.ts": [
+        "../src/database/entities/requirement.entity.ts",
+        "../src/database/entities/user.entity.ts",
+        "../src/database/entities/employee.entity.ts"
+      ],
+      "../src/database/entities/requirement.entity.ts": [
+        "../src/database/entities/project.entity.ts",
+        "../src/database/entities/contribution.entity.ts",
+        "../src/models/enums/skill-catalog.enum.ts",
+        "../src/database/entities/skill.entity.ts"
+      ],
+      "../src/database/entities/contribution.entity.ts": [
+        "../src/database/entities/requirement.entity.ts",
+        "../src/database/entities/employee.entity.ts"
+      ],
+      "../src/database/entities/employee.entity.ts": [
+        "../src/database/entities/contribution.entity.ts",
+        "../src/database/entities/skill.entity.ts",
+        "../src/database/entities/user.entity.ts"
+      ],
+      "../src/models/dto/user/user.dto.ts": [
+        "../src/models/enums/work-position.emun.ts"
+      ],
+      "../src/models/dto/project/show-project.dto.ts": [
+        "../src/models/dto/user/user.dto.ts",
+        "../src/models/dto/requirement/show-requirement.dto.ts",
+        "../src/database/entities/requirement.entity.ts",
+        "../src/database/entities/user.entity.ts"
+      ],
+      "../src/models/dto/requirement/show-requirement.dto.ts": [
+        "../src/models/dto/project/show-project.dto.ts",
+        "../src/models/dto/contribution/show-contribution.dto.ts",
+        "../src/database/entities/skill.entity.ts",
+        "../src/models/dto/skill/skill.dto.ts"
+      ],
+      "../src/models/dto/employee/employee.dto.ts": [
+        "../src/models/dto/skill/skill.dto.ts"
+      ],
+      "../src/models/dto/contribution/show-contribution.dto.ts": [
+        "../src/models/dto/requirement/show-requirement.dto.ts",
+        "../src/models/dto/employee/employee.dto.ts",
+        "../src/database/entities/employee.entity.ts",
+        "../src/models/dto/user/user.dto.ts"
+      ],
+      "../src/contributions/contributions-data.service.ts": [
+        "../src/models/dto/user/user.dto.ts",
+        "../src/models/dto/contribution/update-contribution.dto.ts",
+        "../src/database/entities/user.entity.ts",
+        "../src/models/dto/contribution/show-contribution.dto.ts",
+        "../src/database/entities/requirement.entity.ts",
+        "../src/models/dto/contribution/create-contribution.dto.ts",
+        "../src/database/entities/project.entity.ts",
+        "../src/database/entities/skill.entity.ts",
+        "../src/models/dto/requirement/create-requirement.dto.ts",
+        "../src/models/dto/requirement/show-requirement.dto.ts",
+        "../src/database/entities/contribution.entity.ts",
+        "../src/database/entities/employee.entity.ts"
+      ],
+      "../src/contributions/contributions.controller.ts": [
+        "../src/models/dto/contribution/update-contribution.dto.ts",
+        "../src/models/dto/contribution/show-contribution.dto.ts",
+        "../src/models/dto/contribution/create-contribution.dto.ts",
+        "../src/contributions/contributions-data.service.ts",
+        "../src/models/dto/user/user.dto.ts",
+        "../src/common/decorators/user.decorator.ts"
+      ],
+      "../src/contributions/contributions.module.ts": [
+        "../src/database/entities/employee.entity.ts",
+        "../src/database/entities/contribution.entity.ts",
+        "../src/contributions/contributions.controller.ts",
+        "../src/contributions/contributions-data.service.ts",
+        "../src/database/entities/project.entity.ts",
+        "../src/database/entities/skill.entity.ts",
+        "../src/database/entities/requirement.entity.ts",
+        "../src/database/entities/user.entity.ts"
+      ],
+      "../src/projects/projects-data.service.ts": [
+        "../src/models/dto/user/user.dto.ts",
+        "../src/database/entities/user.entity.ts",
+        "../src/models/dto/project/update-project.dto.ts",
+        "../src/models/dto/project/create-project.dto.ts",
+        "../src/models/dto/project/show-project.dto.ts",
+        "../src/database/entities/project.entity.ts"
+      ],
+      "../src/auth/user.repository.ts": [
+        "../src/database/entities/user.entity.ts",
+        "../src/models/dto/user/login-user.dto.ts",
+        "../src/models/dto/user/user.dto.ts"
+      ],
+      "../src/auth/auth.service.ts": [
+        "../src/models/dto/user/login-user.dto.ts",
+        "../src/auth/strategy/interface/jwt-payload.interface.ts",
+        "../src/auth/user.repository.ts",
+        "../src/database/entities/user.entity.ts"
+      ],
+      "../src/common/guards/blacklist.guard.ts": [
+        "../src/auth/auth.service.ts"
+      ],
+      "../src/projects/projects.controller.ts": [
+        "../src/models/dto/user/user.dto.ts",
+        "../src/common/decorators/user.decorator.ts",
+        "../src/projects/projects-data.service.ts",
+        "../src/models/dto/project/create-project.dto.ts",
+        "../src/models/dto/project/show-project.dto.ts",
+        "../src/common/guards/blacklist.guard.ts"
+      ],
+      "../src/projects/projects.module.ts": [
+        "../src/database/entities/project.entity.ts",
+        "../src/projects/projects-data.service.ts",
+        "../src/projects/projects.controller.ts",
+        "../src/database/entities/user.entity.ts"
+      ],
+      "../src/requirements/requirements-data.service.ts": [
+        "../src/models/dto/user/user.dto.ts",
+        "../src/models/dto/requirement/update-requirement.dto.ts",
+        "../src/database/entities/requirement.entity.ts",
+        "../src/models/dto/requirement/create-requirement.dto.ts",
+        "../src/models/dto/requirement/show-requirement.dto.ts",
+        "../src/database/entities/skill.entity.ts",
+        "../src/database/entities/project.entity.ts"
+      ],
+      "../src/requirements/requirements.controller.ts": [
+        "../src/models/dto/user/user.dto.ts",
+        "../src/requirements/requirements-data.service.ts",
+        "../src/models/dto/requirement/show-requirement.dto.ts",
+        "../src/models/dto/requirement/create-requirement.dto.ts",
+        "../src/common/decorators/user.decorator.ts"
+      ],
+      "../src/requirements/requirements.module.ts": [
+        "../src/database/entities/skill.entity.ts",
+        "../src/database/entities/requirement.entity.ts",
+        "../src/requirements/requirements.controller.ts",
+        "../src/requirements/requirements-data.service.ts",
+        "../src/database/entities/project.entity.ts"
+      ],
+      "../src/admin/employee.repository.ts": [
+        "../src/database/entities/employee.entity.ts",
+        "../src/models/dto/employee/employee.dto.ts"
+      ],
+      "../src/admin/skill.repository.ts": [
+        "../src/database/entities/skill.entity.ts"
+      ],
+      "../src/admin/admin.service.ts": [
+        "../src/auth/user.repository.ts",
+        "../src/models/dto/user/register-user.dto.ts",
+        "../src/models/dto/user/user.dto.ts",
+        "../src/database/entities/user.entity.ts",
+        "../src/models/dto/employee/create-employee.dto.ts",
+        "../src/admin/employee.repository.ts",
+        "../src/database/entities/employee.entity.ts",
+        "../src/models/dto/employee/employee.dto.ts",
+        "../src/admin/skill.repository.ts",
+        "../src/database/entities/skill.entity.ts",
+        "../src/models/dto/skill/skill.dto.ts",
+        "../src/models/dto/skill/create-skill.dto.ts",
+        "../src/models/enums/work-position.emun.ts",
+        "../src/models/dto/user/edit-user.dto.ts",
+        "../src/models/dto/employee/edit-employee.dto.ts",
+        "../src/models/dto/user/edit-avatar.dto.ts"
+      ],
+      "../src/admin/admin.controller.ts": [
+        "../src/admin/admin.service.ts",
+        "../src/models/dto/user/register-user.dto.ts",
+        "../src/models/dto/user/user.dto.ts",
+        "../src/models/dto/employee/create-employee.dto.ts",
+        "../src/models/dto/employee/employee.dto.ts",
+        "../src/models/dto/skill/skill.dto.ts",
+        "../src/models/dto/skill/create-skill.dto.ts",
+        "../src/models/dto/user/edit-user.dto.ts",
+        "../src/models/dto/employee/edit-employee.dto.ts",
+        "../src/database/entities/skill.entity.ts"
+      ],
+      "../src/admin/admin.module.ts": [
+        "../src/admin/admin.service.ts",
+        "../src/admin/admin.controller.ts",
+        "../src/auth/user.repository.ts",
+        "../src/admin/employee.repository.ts",
+        "../src/admin/skill.repository.ts"
+      ],
+      "../src/auth/strategy/jwt.strategy.ts": [
+        "../src/auth/strategy/interface/jwt-payload.interface.ts",
+        "../src/database/entities/user.entity.ts",
+        "../src/auth/user.repository.ts"
+      ],
+      "../src/auth/auth.controller.ts": [
+        "../src/auth/auth.service.ts",
+        "../src/common/decorators/token.decorator.ts",
+        "../src/models/dto/user/login-user.dto.ts",
+        "../src/common/guards/blacklist.guard.ts"
+      ],
+      "../src/auth/auth.module.ts": [
+        "../src/admin/admin.module.ts",
+        "../src/auth/user.repository.ts",
+        "../src/auth/auth.service.ts",
+        "../src/auth/strategy/jwt.strategy.ts",
+        "../src/auth/auth.controller.ts"
+      ],
+      "../src/app.module.ts": [
+        "../src/contributions/contributions.module.ts",
+        "../src/database/database.module.ts",
+        "../src/projects/projects.module.ts",
+        "../src/requirements/requirements.module.ts",
+        "../src/auth/auth.module.ts",
+        "../src/admin/admin.module.ts"
+      ],
+      "../src/main.ts": [
+        "../src/app.module.ts"
+      ],
+      "../src/common/guards/admin.guard.ts": [
+        "../src/models/enums/work-position.emun.ts"
+      ],
+      "../src/database/seed/seed.ts": [
+        "../src/database/entities/skill.entity.ts",
+        "../src/models/enums/skill-catalog.enum.ts"
+      ]
+    },
+    "exportedModulesMap": {
+      "../src/app.controller.ts": [
+        "../src/app.service.ts"
+      ],
+      "../src/database/entities/user.entity.ts": [
+        "../src/database/entities/project.entity.ts",
+        "../src/database/entities/employee.entity.ts",
+        "../src/models/enums/work-position.emun.ts",
+        "../node_modules/typeorm/index.d.ts"
+      ],
+      "../src/database/entities/project.entity.ts": [
+        "../src/database/entities/user.entity.ts",
+        "../src/database/entities/requirement.entity.ts"
+      ],
+      "../src/database/entities/skill.entity.ts": [
+        "../src/database/entities/employee.entity.ts",
+        "../src/database/entities/requirement.entity.ts",
+        "../node_modules/typeorm/index.d.ts"
+      ],
+      "../src/database/entities/requirement.entity.ts": [
+        "../src/database/entities/skill.entity.ts",
+        "../src/database/entities/project.entity.ts",
+        "../src/database/entities/contribution.entity.ts"
+      ],
+      "../src/database/entities/contribution.entity.ts": [
+        "../src/database/entities/employee.entity.ts",
+        "../src/database/entities/requirement.entity.ts"
+      ],
+      "../src/database/entities/employee.entity.ts": [
+        "../src/database/entities/skill.entity.ts",
+        "../src/database/entities/user.entity.ts",
+        "../src/database/entities/contribution.entity.ts",
+        "../node_modules/typeorm/index.d.ts"
+      ],
+      "../src/models/dto/user/user.dto.ts": [
+        "../src/models/enums/work-position.emun.ts"
+      ],
+      "../src/models/dto/project/show-project.dto.ts": [
+        "../node_modules/reflect-metadata/index.d.ts",
+        "../src/models/dto/user/user.dto.ts",
+        "../src/models/dto/requirement/show-requirement.dto.ts"
+      ],
+      "../src/models/dto/requirement/show-requirement.dto.ts": [
+        "../src/models/dto/skill/skill.dto.ts",
+        "../src/models/dto/contribution/show-contribution.dto.ts",
+        "../src/models/dto/project/show-project.dto.ts"
+      ],
+      "../src/models/dto/employee/employee.dto.ts": [
+        "../src/models/dto/skill/skill.dto.ts"
+      ],
+      "../src/models/dto/contribution/show-contribution.dto.ts": [
+        "../src/models/dto/employee/employee.dto.ts",
+        "../src/models/dto/requirement/show-requirement.dto.ts"
+      ],
+      "../src/contributions/contributions-data.service.ts": [
+        "../src/database/entities/employee.entity.ts",
+        "../src/database/entities/project.entity.ts",
+        "../src/database/entities/skill.entity.ts",
+        "../src/database/entities/contribution.entity.ts",
+        "../src/database/entities/requirement.entity.ts",
+        "../src/models/dto/contribution/create-contribution.dto.ts",
+        "../src/models/dto/user/user.dto.ts",
+        "../src/models/dto/contribution/show-contribution.dto.ts",
+        "../src/models/dto/contribution/update-contribution.dto.ts"
+      ],
+      "../src/contributions/contributions.controller.ts": [
+        "../src/contributions/contributions-data.service.ts",
+        "../src/models/dto/contribution/create-contribution.dto.ts",
+        "../src/models/dto/user/user.dto.ts",
+        "../src/models/dto/contribution/show-contribution.dto.ts",
+        "../src/models/dto/contribution/update-contribution.dto.ts"
+      ],
+      "../src/projects/projects-data.service.ts": [
+        "../node_modules/reflect-metadata/index.d.ts",
+        "../node_modules/typeorm/index.d.ts",
+        "../src/database/entities/user.entity.ts",
+        "../src/database/entities/project.entity.ts",
+        "../src/models/dto/project/show-project.dto.ts",
+        "../src/models/dto/project/create-project.dto.ts",
+        "../src/models/dto/user/user.dto.ts",
+        "../src/models/dto/project/update-project.dto.ts"
+      ],
+      "../src/auth/user.repository.ts": [
+        "../src/models/dto/user/user.dto.ts",
+        "../src/models/dto/user/login-user.dto.ts",
+        "../src/database/entities/user.entity.ts"
+      ],
+      "../src/auth/auth.service.ts": [
+        "../src/auth/user.repository.ts",
+        "../node_modules/@nestjs/jwt/index.d.ts",
+        "../src/models/dto/user/login-user.dto.ts"
+      ],
+      "../src/common/guards/blacklist.guard.ts": [
+        "../src/auth/auth.service.ts"
+      ],
+      "../src/projects/projects.controller.ts": [
+        "../src/projects/projects-data.service.ts",
+        "../src/models/dto/project/show-project.dto.ts",
+        "../src/models/dto/project/create-project.dto.ts"
+      ],
+      "../src/requirements/requirements-data.service.ts": [
+        "../node_modules/typeorm/index.d.ts",
+        "../src/database/entities/requirement.entity.ts",
+        "../src/database/entities/skill.entity.ts",
+        "../src/database/entities/project.entity.ts",
+        "../src/models/dto/requirement/show-requirement.dto.ts",
+        "../src/models/dto/requirement/create-requirement.dto.ts",
+        "../src/models/dto/user/user.dto.ts",
+        "../src/models/dto/requirement/update-requirement.dto.ts"
+      ],
+      "../src/requirements/requirements.controller.ts": [
+        "../src/requirements/requirements-data.service.ts",
+        "../src/models/dto/requirement/show-requirement.dto.ts",
+        "../src/models/dto/requirement/create-requirement.dto.ts",
+        "../src/models/dto/user/user.dto.ts"
+      ],
+      "../src/admin/employee.repository.ts": [
+        "../src/models/dto/employee/employee.dto.ts",
+        "../node_modules/typeorm/index.d.ts",
+        "../src/database/entities/employee.entity.ts"
+      ],
+      "../src/admin/skill.repository.ts": [
+        "../src/database/entities/skill.entity.ts",
+        "../node_modules/typeorm/index.d.ts"
+      ],
+      "../src/admin/admin.service.ts": [
+        "../src/auth/user.repository.ts",
+        "../src/admin/employee.repository.ts",
+        "../src/admin/skill.repository.ts",
+        "../src/models/dto/user/register-user.dto.ts",
+        "../src/models/dto/user/user.dto.ts",
+        "../src/models/dto/employee/create-employee.dto.ts",
+        "../src/models/dto/employee/employee.dto.ts",
+        "../src/models/dto/skill/create-skill.dto.ts",
+        "../src/models/dto/skill/skill.dto.ts",
+        "../src/models/dto/user/edit-user.dto.ts",
+        "../src/models/dto/employee/edit-employee.dto.ts",
+        "../src/models/dto/user/edit-avatar.dto.ts",
+        "../src/database/entities/skill.entity.ts"
+      ],
+      "../src/admin/admin.controller.ts": [
+        "../src/admin/admin.service.ts",
+        "../src/models/dto/user/register-user.dto.ts",
+        "../src/models/dto/user/user.dto.ts",
+        "../src/models/dto/employee/create-employee.dto.ts",
+        "../src/models/dto/employee/employee.dto.ts",
+        "../src/models/dto/skill/create-skill.dto.ts",
+        "../src/models/dto/skill/skill.dto.ts",
+        "../src/models/dto/user/edit-user.dto.ts",
+        "../src/models/dto/employee/edit-employee.dto.ts",
+        "../src/database/entities/skill.entity.ts"
+      ],
+      "../src/auth/strategy/jwt.strategy.ts": [
+        "../src/auth/user.repository.ts",
+        "../src/auth/strategy/interface/jwt-payload.interface.ts",
+        "../src/database/entities/user.entity.ts"
+      ],
+      "../src/auth/auth.controller.ts": [
+        "../src/auth/auth.service.ts",
+        "../src/models/dto/user/login-user.dto.ts"
+      ],
+      "../src/common/guards/admin.guard.ts": [
+        "../node_modules/@nestjs/common/index.d.ts"
+      ]
+    },
+    "semanticDiagnosticsPerFile": []
+  },
+  "version": "3.8.3"
+}
