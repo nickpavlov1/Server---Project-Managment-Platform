@@ -310,4 +310,8 @@ export class AdminService {
     public async getSkillByName(skillName: string): Promise<Skill> {
         return this.skillRepository.getSkillByName(skillName);
     }
+
+    public async getSkillCatalog(): Promise<Skill[]> {
+        return this.skillRepository.find();
+    }
 }

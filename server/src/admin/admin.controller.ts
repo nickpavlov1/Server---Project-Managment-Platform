@@ -180,4 +180,9 @@ export class AdminController {
   public async getSkillByName(@Body(new ValidationPipe({ transform: true, whitelist: true })) skillName: string): Promise<Skill> {
       return this.adminService.getSkillByName(skillName);
   }
+  @Get('/skillcatalog')
+  public async getSkillCatalog(): Promise<Skill[]> {
+    return this.adminService.getSkillCatalog();
+  }
+
 }
