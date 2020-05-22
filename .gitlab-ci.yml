@@ -3,6 +3,7 @@ image: node:latest
 stages:
     - install
     - deploy
+    - deploy2
 
 install:
     stage: install
@@ -19,5 +20,18 @@ deploy:
         - gem install dpl
     script:
         - dpl --provider=heroku --app=$HEROKU_APP_PRODUCTION --api-key=$HEROKU_API_KEY
+    only:
+        - heroku
+
+deploy2:
+    type: deploy
+    stage: deploy2
+    image: ruby:latest
+    before_script:
+        - apt-get update -qy
+        - apt-get install -y ruby-dev
+        - gem install dpl
+    script:
+        - dpl --provider=heroku --app=$HEROKU_APP_PRODUCTION2 --api-key=$HEROKU_API_KEY2
     only:
         - heroku
