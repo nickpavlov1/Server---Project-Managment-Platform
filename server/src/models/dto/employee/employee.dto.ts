@@ -6,6 +6,9 @@ export class EmployeeDTO {
     id: string;
 
     @Expose()
+    avatarUrl: string;
+
+    @Expose()
     email: string;
 
     @Expose()
