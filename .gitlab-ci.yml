@@ -2,18 +2,12 @@ image: node:latest
 
 stages:
     - install
-    - test
     - deploy
 
 install:
     stage: install
     script:
         - npm ci
-
-test:
-    stage: test
-    script:
-        - npm run test:cov
 
 deploy:
     type: deploy
