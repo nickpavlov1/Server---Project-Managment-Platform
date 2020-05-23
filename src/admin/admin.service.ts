@@ -272,7 +272,7 @@ export class AdminService {
     }
 
     public async deleteFile(imageName: string) {
-        fs.unlink(path.join(__dirname, '../../src/uploads/', 'avatars/') + imageName,
+        fs.unlink(path.join(__dirname, '../src/uploads/', 'avatars/') + imageName,
         (err) => {
             if (err) {
                 console.log(err);
