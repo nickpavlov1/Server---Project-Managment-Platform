@@ -15,7 +15,7 @@ import * as Joi from '@hapi/joi';
       validationSchema: Joi.object({
         PORT: Joi.number().default(3000),
         DB_TYPE: Joi.string().default('mysql'),
-        DB_HOST: Joi.string().default(process.env.CLEARDB_DATABASE_URL),
+        DB_HOST: Joi.string().default('eu-cdbr-west-03.cleardb.net'),
         DB_PORT: Joi.number().default(3306),
         DB_USERNAME: Joi.string().default('b065ce5d3e793e'),
         DB_PASSWORD: Joi.string().default('356e188e'),
