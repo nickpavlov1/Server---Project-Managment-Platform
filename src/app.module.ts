@@ -13,7 +13,7 @@ import * as Joi from '@hapi/joi';
     DatabaseModule,
     ConfigModule.forRoot({
       validationSchema: Joi.object({
-        PORT: Joi.number().default(3000),
+        PORT: Joi.number().required(),
         DB_TYPE: Joi.string().required(),
         DB_HOST: Joi.string().required(),
         DB_PORT: Joi.number().required(),

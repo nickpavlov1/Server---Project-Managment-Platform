@@ -24,7 +24,7 @@ deploy:
         - heroku
 
 deploy2:
-    type: deploy
+    type: deploy2
     stage: deploy2
     image: ruby:latest
     before_script:
