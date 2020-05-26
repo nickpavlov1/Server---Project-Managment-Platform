@@ -12,7 +12,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     constructor(@InjectRepository(UserRepository) private userRepository: UserRepository, private configService: ConfigService) {
         super({
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),           
-            secretOrKey: 'superSecureKey' || configService.get('JWT_SECRET_KEY')
+            secretOrKey: process.env.JWT_SECRET_KEY || configService.get('JWT_SECRET_KEY')
         });
     }
 
