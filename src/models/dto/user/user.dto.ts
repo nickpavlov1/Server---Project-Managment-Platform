@@ -23,14 +23,14 @@ export class UserDTO {
     jobDescription: string;
 
     @Expose()
-    registered: Date;
-
-    @Expose()
-    updated: Date;
+    registeredOn: Date;
 
     @Expose()
     position: WorkPosition;
     
     @Expose()
     directManager: string;
+
+    @Expose()
+    availableWorkHours: number;
   }

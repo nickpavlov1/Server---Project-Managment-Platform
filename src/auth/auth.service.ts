@@ -4,7 +4,7 @@ import { LoginUserDTO } from "src/models/dto/user/login-user.dto";
 import { IJWTPayload } from "./strategy/interface/jwt-payload.interface";
 import { JwtService } from '@nestjs/jwt';
 import { UserRepository } from "./user.repository";
-import { User } from "src/database/entities/user.entity";
+import { UserDTO } from '../models/dto/user/user.dto';
 
 @Injectable()
 export class AuthService {
@@ -22,7 +22,7 @@ export class AuthService {
       if (!userEmail) {
         throw new UnauthorizedException('Invalid credentials!')
       }
-      const user: User = await this.userRepository.findOne({
+      const user: UserDTO = await this.userRepository.findOne({
           where: { email: userEmail } 
         })
       const payload: IJWTPayload = { ...user };
