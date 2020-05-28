@@ -9,7 +9,7 @@ import { plainToClass } from 'class-transformer';
 export class UserRepository extends Repository<User> {
 
   public async viewUserById(userId: string): Promise<UserDTO> {
-    const foundUser: User = await this.findOne(userId);
+    const foundUser: User = await this.findOne(userId, {relations: ['projects']});
         if (!foundUser) {
         throw new NotFoundException(`User does not exist.`);
         }
