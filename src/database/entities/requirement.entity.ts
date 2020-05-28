@@ -57,6 +57,9 @@ export class Requirement {
   })
   public updatedOn: Date;
 
+  @Column({ nullable: true, type: 'date' })
+  public requirementEnd: Date;
+
   @OneToMany(
     type => Contribution,
     contribution => contribution.requirement,

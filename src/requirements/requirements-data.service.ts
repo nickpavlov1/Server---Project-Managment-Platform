@@ -75,11 +75,12 @@ export class RequirementsDataService {
         }
         
         const reqEntity: Requirement = this.requirementsRepository.create({
-            requiredTime: body.requiredTime
+            requiredTime: body.requiredTime,
         });
         
         reqEntity.requiredSkill = skillEntity;
         reqEntity.project = projectFound;
+        reqEntity.requirementEnd = new Date(body.requirementEnd)
 
         const savedRequirement: Requirement = await this.requirementsRepository.save(reqEntity);
 

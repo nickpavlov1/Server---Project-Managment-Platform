@@ -15,4 +15,12 @@ export class CreateProjectDTO {
     @IsString()
     @IsNotEmpty()
     public userEmail: number;
+
+    @IsString()
+    public finishesOn: string;
+
+    @IsNumber()
+    @IsNotEmpty()
+    public dailyHourlyManagerContribution: number;
+   
 }

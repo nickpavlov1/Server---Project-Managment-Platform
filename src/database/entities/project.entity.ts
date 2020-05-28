@@ -27,6 +27,9 @@ export class Project {
   @Column({ nullable: false })
   public due: number;
 
+  @Column({ nullable: false })
+  public dailyHourlyManagerContribution: number;
+
   @CreateDateColumn({
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',
@@ -39,6 +42,12 @@ export class Project {
     onUpdate: 'CURRENT_TIMESTAMP(6)',
   })
   public updatedOn: Date;
+
+  @Column({ nullable: true, type: 'date' })
+  public dueDate: Date;
+
+  @Column({ nullable: true, type: 'date' })
+  public finishesOn: Date;
 
   @Column({ default: false })
   public isStopped: boolean;

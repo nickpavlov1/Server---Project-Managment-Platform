@@ -14,4 +14,12 @@ export class UpdateProjectDTO {
     @IsNumber()
     public due: number;
 
+    @IsOptional()
+    @IsString()
+    public finishesOn: string;
+
+    @IsOptional()
+    @IsNumber()
+    public dailyHourlyManagerContribution: number;
+
 }
