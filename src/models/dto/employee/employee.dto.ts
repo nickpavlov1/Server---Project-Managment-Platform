@@ -1,6 +1,8 @@
 import { ShowContributionDTO } from './../contribution/show-contribution.dto';
 import { Expose, Type } from "class-transformer";
 import { SkillDTO } from "../skill/skill.dto";
+import { ManyToOne } from 'typeorm';
+import { User } from 'src/database/entities/user.entity';
 
 export class EmployeeDTO {
     @Expose()
@@ -32,7 +34,7 @@ export class EmployeeDTO {
 
     @Expose()
     availableWorkHours: number;
- 
+
     @Expose()
     directManager: string;
 

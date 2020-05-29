@@ -59,7 +59,7 @@ export class AdminService {
         user.lastName = lastName;
 
         if (setDirectManager) {
-            user.directManager = setDirectManager;
+            user.directManager = setDirectManager.email;
         }
         const registerdUser = await user.save();
     
@@ -69,7 +69,7 @@ export class AdminService {
         return bcrypt.hash(password, salt);
     }
     public async createEmployee(createEmployeeDTO: CreateEmployeeDTO): Promise<EmployeeDTO> {
-        const { email, firstName, lastName, jobTitle, jobDescription, directManager, skillset } = createEmployeeDTO;
+        const { email, firstName, lastName, jobTitle, jobDescription, directManager, skillset }: CreateEmployeeDTO = createEmployeeDTO;
 
         const providedSkillNames: string[] = skillset.split(', ');
 
@@ -99,7 +99,8 @@ export class AdminService {
         newEmployee.skillset = validSkills;
 
         if (setDirectManager) {
-        newEmployee.directManager = setDirectManager;
+        newEmployee.directManager = setDirectManager.email;
+        newEmployee.managedBy = setDirectManager;
         }
         const createEmployee = await this.employeeRepository.save(newEmployee);
     
@@ -178,17 +179,19 @@ export class AdminService {
 
     public async changeUserManager(userId: string, editUserDTO: EditUserDTO): Promise<UserDTO> {
         const { directManager }: Partial<User> = editUserDTO;
+        
         const user: User = await this.userRepository.findOne(userId);
-
+        
         const newDirectManager: User = await this.userRepository.findOne(
             { where: { email: directManager }}
             );
-
+            
         if (user) {
-            if (newDirectManager) {
+            if (newDirectManager && newDirectManager.email !== user.email) {
                 user.directManager = newDirectManager.email
             }
         }
+        
         const updatedUser = await user.save();
     
            return plainToClass(UserDTO, updatedUser, { excludeExtraneousValues: true });
@@ -204,7 +207,8 @@ export class AdminService {
 
         if (employee) {
             if (newDirectManager) {
-                employee.directManager = newDirectManager.email
+                employee.directManager = newDirectManager.email;
+                employee.managedBy = newDirectManager;
             }
         }
         const updatedEmployee = await employee.save();
@@ -298,7 +302,7 @@ export class AdminService {
     }
 
     public async getAllEmployees(): Promise<EmployeeDTO[]> {
-        const employees: Employee[] = await this.employeeRepository.find({relations: ['contributions']});
+        const employees: Employee[] = await this.employeeRepository.find();
 
         if (!employees) {
             throw new BadRequestException('No employees found');

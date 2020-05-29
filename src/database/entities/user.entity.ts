@@ -42,7 +42,7 @@ export class User extends BaseEntity {
   @OneToMany(type => Project, project => project.manager)
   public projects: Project[]
 
-  @OneToMany(type => Employee, employee => employee.managedBy)
+  @OneToMany(type => Employee, employee => employee.directManager)
   public subordinates: Employee[];
 
   @Column({ type: 'enum', enum: WorkPosition, default: WorkPosition.manager })

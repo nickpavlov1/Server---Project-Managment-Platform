@@ -28,7 +28,7 @@ export class CreateEmployeeDTO {
 
     @IsString()
     @IsEmail()
-    @IsOptional()
+    @IsNotEmpty()
     directManager: string;
 
     @IsString()

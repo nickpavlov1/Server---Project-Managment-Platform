@@ -1,4 +1,5 @@
 import { IsString, MaxLength, IsOptional, IsEmail } from "class-validator";
+import { User } from "src/database/entities/user.entity";
 
 export class EditEmployeeDTO {
     @IsString()

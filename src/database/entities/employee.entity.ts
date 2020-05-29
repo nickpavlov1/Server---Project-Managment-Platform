@@ -42,12 +42,15 @@ export class Employee extends BaseEntity {
     })
     public updatedOn: Date;
 
+    @Column('nvarchar', { default: 'No Manager Set'})
+    public directManager: string;
+
     @ManyToMany(type => Skill, { eager: true })
     @JoinTable()
     public skillset: Skill[];
 
-    @ManyToOne(type => User, user => user.lastName, { eager: true })
-    public directManager: User;
+    @ManyToOne(type => User, user => user.email, { eager: true })
+    public managedBy: User;
 
     @OneToMany(type => Contribution, contribution => contribution.contributor)
     public contributions: Contribution[];
