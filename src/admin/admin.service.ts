@@ -299,7 +299,7 @@ export class AdminService {
     }
 
     public async getAllEmployees(): Promise<EmployeeDTO[]> {
-        const employees: Employee[] = await this.employeeRepository.find();
+        const employees: Employee[] = await this.employeeRepository.find({relations: ['contributions']});
 
         if (!employees) {
             throw new BadRequestException('No employees found');

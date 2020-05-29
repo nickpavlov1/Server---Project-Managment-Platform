@@ -80,13 +80,20 @@ export class ProjectsDataService {
         body: CreateProjectDTO,
         user: UserDTO,
     ): Promise<ShowProjectDTO> {
+        
+        
+        
         const projectEntity: Project = this.projectRepository.create();
         projectEntity.due = body.due;
         projectEntity.title = body.title;
         projectEntity.description = body.description;
         projectEntity.dailyHourlyManagerContribution = body.dailyHourlyManagerContribution;
+        
+        const dueDate = new Date(body.dueDate);
+        
+        projectEntity.dueDate = dueDate;
 
-        if(body.finishesOn){
+        if (body.finishesOn) {
             const date = new Date(body.finishesOn);
             projectEntity.finishesOn = date;
         }

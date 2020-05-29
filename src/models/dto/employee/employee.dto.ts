@@ -1,3 +1,4 @@
+import { ShowContributionDTO } from './../contribution/show-contribution.dto';
 import { Expose, Type } from "class-transformer";
 import { SkillDTO } from "../skill/skill.dto";
 
@@ -38,4 +39,8 @@ export class EmployeeDTO {
     @Expose()
     @Type(() => SkillDTO)
     public skillset: SkillDTO;
+
+    @Expose()
+    @Type(() => ShowContributionDTO)
+    public contributions: ShowContributionDTO;
   }

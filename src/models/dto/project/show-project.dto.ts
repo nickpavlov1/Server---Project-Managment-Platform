@@ -34,28 +34,16 @@ export class ShowProjectDTO {
   public finishesOn: Date;
 
   @Expose()
+  public dueDate: Date;
+
+  @Expose()
   public isStopped: boolean;
 
   @Expose()
   @Type(() => UserDTO)
   public manager: UserDTO;
 
-  // @Expose()
-  // @Transform((_, obj) => (obj as any).manager)
-  // public manager: User;
-
   @Expose()
   @Type(() => ShowRequirementDTO)
   public requirements: ShowRequirementDTO;
-
-  // @Expose()
-  // @Transform((_, obj) => {
-  //   if ((obj as any).requirements == undefined) {
-  //     return []
-  //   } else {
-  //     return (obj as any).requirements;
-  //   }
-  // })
-  // public requirements: Requirement;
-
 }

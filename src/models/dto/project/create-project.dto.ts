@@ -19,6 +19,10 @@ export class CreateProjectDTO {
     @IsString()
     public finishesOn: string;
 
+    @IsString()
+    @IsNotEmpty()
+    public dueDate: string;
+
     @IsNumber()
     @IsNotEmpty()
     public dailyHourlyManagerContribution: number;
