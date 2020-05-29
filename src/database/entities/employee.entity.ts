@@ -25,9 +25,6 @@ export class Employee extends BaseEntity {
 
     @Column('nvarchar')
     public lastName: string;
-    
-    @Column({default: 'self-managed'})
-    directManager: string;
 
     @Column({ nullable: true, default: 8 })
     public availableWorkHours: number
@@ -50,7 +47,7 @@ export class Employee extends BaseEntity {
     public skillset: Skill[];
 
     @ManyToOne(type => User, user => user.lastName, { eager: true })
-    public managedBy: User;
+    public directManager: User;
 
     @OneToMany(type => Contribution, contribution => contribution.contributor)
     public contributions: Contribution[];
