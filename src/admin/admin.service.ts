@@ -59,7 +59,7 @@ export class AdminService {
         user.lastName = lastName;
 
         if (setDirectManager) {
-            user.directManager = setDirectManager.email;
+            user.directManager = setDirectManager;
         }
         const registerdUser = await user.save();
     
@@ -89,7 +89,6 @@ export class AdminService {
         const setDirectManager: User = await this.userRepository.findOne(
             { where: { email: directManager }}
             );
-
         const newEmployee = new Employee();
 
         newEmployee.email = email;
@@ -100,7 +99,7 @@ export class AdminService {
         newEmployee.skillset = validSkills;
 
         if (setDirectManager) {
-        newEmployee.directManager = setDirectManager.email;
+        newEmployee.directManager = setDirectManager;
         }
         const createEmployee = await this.employeeRepository.save(newEmployee);
     
