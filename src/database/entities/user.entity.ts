@@ -52,7 +52,7 @@ export class User extends BaseEntity {
   public availableWorkHours: number;
 
   @Column({default: 'self-managed'})
-  directManager: User;
+  directManager: string;
   async validatePassword(password: string): Promise<boolean> {
     const hash = await bcrypt.hash(password, this.salt)
     return hash === this.password;
