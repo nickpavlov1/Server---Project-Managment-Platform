@@ -67,9 +67,9 @@ export class ContributionsDataService {
             dailyHourlyContribution: +body.dailyHourlyContribution
         });
 
-        // employee.availableWorkHours = employee.availableWorkHours - body.dailyHourlyContribution;
+        const date = new Date(body.contributionEnd)
 
-        // this.employeesRepository.save(employee);
+        contributionEntity.contributionEnd = date;
 
         contributionEntity.contributor = employee;
 

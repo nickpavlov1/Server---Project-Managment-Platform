@@ -10,6 +10,9 @@ export class ShowProjectDTO {
   public id: string;
 
   @Expose()
+  public dailyHourlyManagerContribution: number;
+
+  @Expose()
   public title: string;
 
   @Expose()
@@ -26,6 +29,9 @@ export class ShowProjectDTO {
 
   @Expose()
   public updatedOn: Date;
+
+  @Expose()
+  public finishesOn: Date;
 
   @Expose()
   public isStopped: boolean;

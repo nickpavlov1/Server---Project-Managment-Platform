@@ -21,7 +21,7 @@ export class ProjectsDataService {
 
     public async getAllProjects(
         // relations?
-        
+
     ): Promise<ShowProjectDTO[]> {
         // const options = {
         //     join: {
@@ -50,7 +50,7 @@ export class ProjectsDataService {
                 //     }
                 // }
             }
-    );
+        );
 
         if (projects.length === 0) {
             throw new HttpException('No Projects found!', 404);
@@ -84,8 +84,13 @@ export class ProjectsDataService {
         projectEntity.due = body.due;
         projectEntity.title = body.title;
         projectEntity.description = body.description;
+        projectEntity.dailyHourlyManagerContribution = body.dailyHourlyManagerContribution;
 
-        
+        if(body.finishesOn){
+            const date = new Date(body.finishesOn);
+            projectEntity.finishesOn = date;
+        }
+
         const manager: User = await this.usersRepository.findOne(user.id);
 
         if (!manager) {
@@ -111,7 +116,7 @@ export class ProjectsDataService {
         if (!oldProject) {
             throw new HttpException('No such project found!', 404);
         }
-        
+
         if (oldProject.manager.id !== user.id) {
             throw new HttpException(
                 'You dont have permission to edit this project!',
@@ -119,10 +124,23 @@ export class ProjectsDataService {
             );
         }
 
-        const updatedProject: Project = { 
-            ...oldProject, ...body
-        };
-        const savedProject: Project = await this.projectRepository.save(updatedProject);
+        if (body.finishesOn) {
+            const date = new Date(body.finishesOn)
+            oldProject.finishesOn = date;
+        }
+        if (body.description) {
+            oldProject.description = body.description;
+        }
+        if (body.title) {
+            oldProject.title = body.title;
+        }
+        if (body.due) {
+            oldProject.due = body.due;
+        }
+        // const updatedProject: Project = { 
+        //     ...oldProject, ...body
+        // };
+        const savedProject: Project = await this.projectRepository.save(oldProject);
 
         return plainToClass(ShowProjectDTO, savedProject, {
             excludeExtraneousValues: true,
@@ -130,7 +148,7 @@ export class ProjectsDataService {
     }
 
     public async stopProject(
-        id: string, 
+        id: string,
         user: UserDTO
     ): Promise<ShowProjectDTO> {
         const foundProject = await this.projectRepository.findOne(id);
@@ -138,7 +156,7 @@ export class ProjectsDataService {
         if (!foundProject) {
             throw new HttpException('No such project found!', 404);
         }
-        
+
         if (foundProject.manager.id !== user.id) {
             throw new HttpException(
                 'You dont have permission to stop this project!',

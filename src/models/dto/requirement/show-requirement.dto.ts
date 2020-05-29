@@ -34,6 +34,9 @@ export class ShowRequirementDTO {
     public createdOn: Date;
 
     @Expose()
+    public requirementEnd: Date;
+
+    @Expose()
     public updatedOn: Date;
 
     @Expose()

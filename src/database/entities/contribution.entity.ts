@@ -23,7 +23,7 @@ export class Contribution {
     })
     public updatedOn: Date;
 
-    @Column({ nullable: true, type: 'timestamp' })
+    @Column({ nullable: true, type: 'date' })
     public contributionEnd: Date;
 
     @ManyToOne(type => Employee, employee => employee.contributions, {eager: true} )

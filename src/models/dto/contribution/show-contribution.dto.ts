@@ -18,6 +18,9 @@ export class ShowContributionDTO {
     public updatedOn: Date;
 
     @Expose()
+    public contributionEnd: Date;
+
+    @Expose()
     public isDeleted: boolean;
 
     @Expose()

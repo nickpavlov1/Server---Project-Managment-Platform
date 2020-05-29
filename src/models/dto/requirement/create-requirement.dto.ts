@@ -7,5 +7,8 @@ export class CreateRequirementDTO {
   
     @IsNumber()
     public requiredTime: number;
+
+    @IsString()
+    public requirementEnd: string;
     
 }

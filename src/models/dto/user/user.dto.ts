@@ -1,4 +1,5 @@
-import { Expose } from 'class-transformer';
+import { ShowProjectDTO } from 'src/models/dto/project/show-project.dto';
+import { Expose, Type } from 'class-transformer';
 import { WorkPosition } from '../../enums/work-position.emun';
 export class UserDTO {
     @Expose()
@@ -33,4 +34,8 @@ export class UserDTO {
 
     @Expose()
     availableWorkHours: number;
+
+    @Expose()
+    @Type(() => ShowProjectDTO)
+    public projects: ShowProjectDTO;
   }
