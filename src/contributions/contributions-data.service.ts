@@ -1,17 +1,14 @@
 import { UserDTO } from '../models/dto/user/user.dto';
 import { UpdateContributionDTO } from '../models/dto/contribution/update-contribution.dto';
-import { User } from 'src/database/entities/user.entity';
 import { ShowContributionDTO } from '../models/dto/contribution/show-contribution.dto';
 import { Requirement } from '../database/entities/requirement.entity';
 import { CreateContributionDTO } from '../models/dto/contribution/create-contribution.dto';
 import { Injectable, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Project } from 'src/database/entities/project.entity';
-import { Repository, Migration } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Skill } from 'src/database/entities/skill.entity';
-import { CreateRequirementDTO } from 'src/models/dto/requirement/create-requirement.dto';
 import { plainToClass } from 'class-transformer';
-import { ShowRequirementDTO } from 'src/models/dto/requirement/show-requirement.dto';
 import { Contribution } from 'src/database/entities/contribution.entity';
 import { Employee } from 'src/database/entities/employee.entity';
 
@@ -55,7 +52,7 @@ export class ContributionsDataService {
         const employee: Employee = await this.employeesRepository.findOne({
             where:
             {
-                email: body.userEmail
+                email: body.employee.email
             }
         });
 
@@ -72,6 +69,10 @@ export class ContributionsDataService {
         contributionEntity.contributionEnd = date;
 
         contributionEntity.contributor = employee;
+
+        contributionEntity.skillName = body.skillName;
+
+        contributionEntity.projectId = body.projectId;
 
         const savedContribution: Contribution = await this.contributionsRepository.save(contributionEntity);
 
@@ -121,13 +122,19 @@ export class ContributionsDataService {
         id: string,
         body: UpdateContributionDTO,
     ): Promise<ShowContributionDTO> {
-        const { dailyHourlyContribution } = body;
+        const { dailyHourlyContribution, contributionEnd } = body;
 
         const oldContribution: Contribution = await this.contributionsRepository.findOne(id);
+
+        if (contributionEnd) {
+            const date = new Date(contributionEnd);
+            oldContribution.contributionEnd = date;
+        }
 
         if (dailyHourlyContribution) {
             oldContribution.dailyHourlyContribution = +dailyHourlyContribution;
         }
+
         const savedContribution: Contribution = await this.contributionsRepository.save(oldContribution);
 
         return plainToClass(ShowContributionDTO, savedContribution, {
@@ -135,12 +142,23 @@ export class ContributionsDataService {
         });
     }
 
-    public async deleteContribution(id: string) {
+    public async deleteContribution(
+        id: string,
+    ) {
+        // const ONE_DAY = 1000 * 60 * 60 * 24;
+        const todayEvening = new Date();
+        todayEvening.setHours(23, 59, 59, 0);
+
         const foundContribution: Contribution = await this.contributionsRepository.findOne(id);
+        
+        foundContribution.contributionEnd = todayEvening;
+        
         foundContribution.isDeleted = true;
-        console.log(foundContribution)
-        return this.contributionsRepository.save({ ...foundContribution, isDeleted: true, });
+        
+        const savedContribution = this.contributionsRepository.save(foundContribution);
+
+        return plainToClass(ShowContributionDTO, savedContribution, {
+            excludeExtraneousValues: true,
+        });
     }
-
-
 }

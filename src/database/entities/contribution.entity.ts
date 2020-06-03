@@ -32,6 +32,12 @@ export class Contribution {
     @Column({ default: false })
     public isDeleted: boolean;
 
+    @Column('nvarchar')
+    public projectId: string;
+
+    @Column('nvarchar')
+    public skillName: string;
+
     @ManyToOne(
       type => Requirement,
       requirement => requirement.contributions,
