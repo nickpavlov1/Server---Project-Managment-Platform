@@ -23,9 +23,9 @@ export class RequirementsDataService {
 
     public async getAllRequirements(projectId: string): Promise<ShowRequirementDTO[]> {
         const requirements: Requirement[] = await this.requirementsRepository.find({
-           where: {project: projectId }
+            where: { project: projectId }
         });
-        
+
         if (requirements.length === 0) {
             throw new HttpException('No Requirements found!', 404);
         }
@@ -56,9 +56,9 @@ export class RequirementsDataService {
         user: UserDTO,
     ): Promise<ShowRequirementDTO> {
         const projectFound: Project = await this.projectsRepository.findOne({
-            where: {id: projectId },
+            where: { id: projectId },
         });
-        
+
         if (projectFound.manager.id !== user.id) {
             throw new HttpException(
                 'You dont have permission to add requirements to this project!',
@@ -69,15 +69,15 @@ export class RequirementsDataService {
         const skillEntity: Skill = await this.skillsRepository.findOne({
             skillName: body.requiredSkill
         });
-        
+
         if (!skillEntity) {
-          throw new HttpException('No Such Skill Found', 404);
+            throw new HttpException('No Such Skill Found', 404);
         }
-        
+
         const reqEntity: Requirement = this.requirementsRepository.create({
             requiredTime: body.requiredTime,
         });
-        
+
         reqEntity.requiredSkill = skillEntity;
         reqEntity.project = projectFound;
         reqEntity.requirementEnd = new Date(body.requirementEnd)
@@ -94,21 +94,36 @@ export class RequirementsDataService {
         body: UpdateRequirementDTO,
         user: UserDTO,
     ): Promise<ShowRequirementDTO> {
-        const { requiredTime } = body;
 
         const oldRequirement: Requirement = await this.requirementsRepository.findOne(
-            id, 
-            {relations: ['project']}
+            id,
+            { relations: ['project'] }
         );
-        
+
         if (oldRequirement.project.manager.id !== user.id) {
             throw new HttpException(
                 'You dont have permission to change the requirements to this project!',
                 403,
             );
         }
-        
-        oldRequirement.requiredTime = +requiredTime;
+
+        if (body.requirementEnd) {
+            const date = new Date(body.requirementEnd)
+            oldRequirement.requirementEnd = date;
+        }
+
+        if(body.requirementEnd == null) {
+            oldRequirement.requirementEnd = null;
+        }
+
+        if (body.requirementEnd) {
+            const date = new Date(body.requirementEnd)
+            oldRequirement.requirementEnd = date;
+        }
+
+        if (body.requiredTime) {
+            oldRequirement.requiredTime = +body.requiredTime;
+        }
 
         const savedRequirement: Requirement = await this.requirementsRepository.save(oldRequirement);
 
@@ -118,12 +133,12 @@ export class RequirementsDataService {
     }
 
     public async deleteRequirement(
-        reqId: string, 
+        reqId: string,
         user: UserDTO
     ): Promise<ShowRequirementDTO> {
         const foundRequirement = await this.requirementsRepository.findOne(
             reqId,
-            {relations: ['project']}
+            { relations: ['project'] }
         );
 
         if (!foundRequirement) {
