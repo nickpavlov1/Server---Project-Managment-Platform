@@ -1,7 +1,5 @@
 import { IsString, IsNotEmpty, IsNumber } from 'class-validator';
-import { Transform } from 'class-transformer';
-import * as moment from 'moment';
-import { HttpException } from '@nestjs/common';
+import { Employee } from 'src/database/entities/employee.entity';
 
 export class CreateContributionDTO {  
     @IsString()
@@ -11,17 +9,15 @@ export class CreateContributionDTO {
     @IsNumber()
     public dailyHourlyContribution: number;
 
+    public employee: Employee;
+
     @IsString()
-    // @Transform(value => {
-    //     if (!moment(value, ['YYYY-MM-DD']).isValid()) {
-    //       throw new HttpException(
-    //         'The Todo should have a valid due property in format YYYY-MM-DD',
-    //         400,
-    //       );
-    //     }
-    
-    //     return value;
-    //   })
     public contributionEnd: string;
+
+    @IsString()
+    public projectId: string;
+
+    @IsString()
+    public skillName: string;
     
 }

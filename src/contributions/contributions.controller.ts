@@ -9,7 +9,6 @@ import {
     HttpCode,
     HttpStatus,
     Body,
-    Query,
     Put,
     Param,
     Delete,
@@ -69,7 +68,6 @@ export class ContributionsController {
 
     @Delete('contribution/:id')
     @HttpCode(HttpStatus.OK)
-    @UseGuards(AuthGuard('jwt'))
     public async deleteContribution(
       @Param('id') id: string,
     ) {

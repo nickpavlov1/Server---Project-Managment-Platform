@@ -51,11 +51,7 @@ export class ProjectsDataService {
                 // }
             }
         );
-
-        if (projects.length === 0) {
-            throw new HttpException('No Projects found!', 404);
-        }
-        // return projects;
+        
         return plainToClass(ShowProjectDTO, projects, {
             excludeExtraneousValues: true,
         });
@@ -81,10 +77,7 @@ export class ProjectsDataService {
         user: UserDTO,
     ): Promise<ShowProjectDTO> {
         
-        
-        
         const projectEntity: Project = this.projectRepository.create();
-        projectEntity.due = body.due;
         projectEntity.title = body.title;
         projectEntity.description = body.description;
         projectEntity.dailyHourlyManagerContribution = body.dailyHourlyManagerContribution;
@@ -131,6 +124,11 @@ export class ProjectsDataService {
             );
         }
 
+        if (body.dueDate) {
+            const date = new Date(body.dueDate);
+            oldProject.dueDate = date;
+        }
+
         if (body.finishesOn) {
             const date = new Date(body.finishesOn)
             oldProject.finishesOn = date;
@@ -141,12 +139,7 @@ export class ProjectsDataService {
         if (body.title) {
             oldProject.title = body.title;
         }
-        if (body.due) {
-            oldProject.due = body.due;
-        }
-        // const updatedProject: Project = { 
-        //     ...oldProject, ...body
-        // };
+
         const savedProject: Project = await this.projectRepository.save(oldProject);
 
         return plainToClass(ShowProjectDTO, savedProject, {

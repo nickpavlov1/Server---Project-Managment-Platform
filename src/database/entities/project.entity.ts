@@ -18,14 +18,11 @@ export class Project {
   @Column({ nullable: false })
   public title: string;
 
-  @Column({ nullable: false })
+  @Column({ nullable: false,  type: 'text' })
   public description: string;
 
   @Column({ nullable: false, default: false })
   public statusCompleted: boolean;
-
-  @Column({ nullable: false })
-  public due: number;
 
   @Column({ nullable: false })
   public dailyHourlyManagerContribution: number;

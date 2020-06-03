@@ -24,6 +24,12 @@ export class ShowContributionDTO {
     public isDeleted: boolean;
 
     @Expose()
+    public projectId: string;
+
+    @Expose()
+    public skillName: string;
+
+    @Expose()
     @Type(() => EmployeeDTO)
     public contributor: EmployeeDTO;
 

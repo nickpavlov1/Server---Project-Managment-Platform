@@ -11,12 +11,12 @@ export class UpdateProjectDTO {
     public description: string;
 
     @IsOptional()
-    @IsNumber()
-    public due: number;
+    @IsString()
+    public finishesOn: string;
 
     @IsOptional()
     @IsString()
-    public finishesOn: string;
+    public dueDate: string;
 
     @IsOptional()
     @IsNumber()
