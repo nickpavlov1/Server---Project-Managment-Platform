@@ -317,4 +317,8 @@ export class AdminService {
     public async getSkillCatalog(): Promise<Skill[]> {
         return this.skillRepository.find();
     }
+
+    public async getUserByEmail(email: string): Promise<UserDTO> {
+        return await this.userRepository.viewUserByEmail(email);
+    }
 }

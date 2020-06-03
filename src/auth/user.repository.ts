@@ -1,7 +1,7 @@
 import { Repository, EntityRepository } from 'typeorm';
 import { User } from '../database/entities/user.entity';
 import { LoginUserDTO } from '../models/dto/user/login-user.dto';
-import { ConflictException, NotFoundException } from '@nestjs/common';
+import { ConflictException, NotFoundException, BadRequestException } from '@nestjs/common';
 import { UserDTO } from 'src/models/dto/user/user.dto';
 import { plainToClass } from 'class-transformer';
 
@@ -15,6 +15,15 @@ export class UserRepository extends Repository<User> {
         }
         return plainToClass(UserDTO, foundUser, { excludeExtraneousValues: true });
 }
+
+  public async viewUserByEmail(userEmail: string): Promise<UserDTO> {
+
+    const foundManager: User = await this.findOne({where: { email: userEmail}});
+    if (!foundManager){
+      throw new BadRequestException(`${userEmail} doesn't exist`)
+    }
+        return plainToClass(UserDTO, foundManager, { excludeExtraneousValues: true });
+  }
 
     public async matchEmail(email: string): Promise<void> {
       const matchEmail = await this.findOne({ 

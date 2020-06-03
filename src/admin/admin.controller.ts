@@ -189,4 +189,11 @@ export class AdminController {
     return this.adminService.getSkillCatalog();
   }
 
+  @Get('email/:email')
+  public async getUserByEmail(
+    @Param('email') 
+    userEmail: string
+  ): Promise<UserDTO> {
+      return this.adminService.getUserByEmail(userEmail);
+  }
 }
