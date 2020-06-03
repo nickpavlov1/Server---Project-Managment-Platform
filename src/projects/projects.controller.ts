@@ -48,7 +48,7 @@ export class ProjectsController {
 
     @Get('project/:id')
     @HttpCode(HttpStatus.OK)
-    @UseGuards(AuthGuard('jwt'))
+    @UseGuards(AuthGuardWithBlacklisting)
     public async getProjectById(
         @Param('id') id: string,
     ): Promise<ShowProjectDTO> {
