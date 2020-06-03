@@ -8,10 +8,6 @@ export class CreateProjectDTO {
     @IsString()
     public description: string;
 
-    @IsNumber()
-    @IsNotEmpty()
-    public due: number;
-
     @IsString()
     @IsNotEmpty()
     public userEmail: number;

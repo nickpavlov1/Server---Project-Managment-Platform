@@ -22,9 +22,6 @@ export class ShowProjectDTO {
   public statusCompleted: boolean;
 
   @Expose()
-  public due: number;
-
-  @Expose()
   public createdOn: Date;
 
   @Expose()
