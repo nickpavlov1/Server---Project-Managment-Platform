@@ -16,7 +16,7 @@ export class EmployeeRepository extends Repository<Employee> {
     }
 
     public async viewEmployeeById(employeeId: string): Promise<EmployeeDTO> {
-      const foundEmployee: Employee = await this.findOne(employeeId);
+      const foundEmployee: Employee = await this.findOne(employeeId, {relations: ['contributions']});
           if (!foundEmployee) {
           throw new NotFoundException(`Employee does not exist.`);
           }
