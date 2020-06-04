@@ -46,6 +46,15 @@ export class ProjectsController {
         );
     }
 
+    @Get('employee/projects/:id')
+    @HttpCode(HttpStatus.OK)
+    @UseGuards(AuthGuard('jwt'))
+    public async getEmployeeProjectsByIds(
+        @Param('id') ids: string,
+    ): Promise<ShowProjectDTO[]> {
+        return await this.projectsDataService.getEmployeeProjectsByIds(ids);
+    }
+
     @Get('project/:id')
     @HttpCode(HttpStatus.OK)
     @UseGuards(AuthGuardWithBlacklisting)

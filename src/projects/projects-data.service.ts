@@ -6,7 +6,7 @@ import { ShowProjectDTO } from '../models/dto/project/show-project.dto';
 import { Project } from '../database/entities/project.entity';
 import { Injectable, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, Migration } from 'typeorm';
+import { Repository, Migration, In } from 'typeorm';
 import { plainToClass } from 'class-transformer';
 import "reflect-metadata";
 
@@ -51,7 +51,19 @@ export class ProjectsDataService {
                 // }
             }
         );
-        
+
+        return plainToClass(ShowProjectDTO, projects, {
+            excludeExtraneousValues: true,
+        });
+    }
+
+    public async getEmployeeProjectsByIds(
+        ids: string,
+    ): Promise<ShowProjectDTO[]> {
+        const idsArr = ids.split(',');
+       
+        const projects = await this.projectRepository.find({where: { id: In(idsArr) }});
+
         return plainToClass(ShowProjectDTO, projects, {
             excludeExtraneousValues: true,
         });
@@ -60,8 +72,8 @@ export class ProjectsDataService {
     public async getProjectById(
         id: string,
     ): Promise<ShowProjectDTO> {
-
-        const project: Project = await this.projectRepository.findOne(id);
+        
+        const project: Project = await this.projectRepository.findOne({id});
 
         if (!project) {
             throw new HttpException('No such Project found!', 404);
@@ -76,14 +88,14 @@ export class ProjectsDataService {
         body: CreateProjectDTO,
         user: UserDTO,
     ): Promise<ShowProjectDTO> {
-        
+
         const projectEntity: Project = this.projectRepository.create();
         projectEntity.title = body.title;
         projectEntity.description = body.description;
         projectEntity.dailyHourlyManagerContribution = body.dailyHourlyManagerContribution;
-        
+
         const dueDate = new Date(body.dueDate);
-        
+
         projectEntity.dueDate = dueDate;
 
         if (body.finishesOn) {
