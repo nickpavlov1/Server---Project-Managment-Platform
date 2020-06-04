@@ -19,6 +19,7 @@ import { UserDTO } from 'src/models/dto/user/user.dto';
 import { User } from 'src/common/decorators/user.decorator';
 
 @Controller()
+@UseGuards(AuthGuard('jwt'))
 export class ContributionsController {
     public constructor(
         private readonly requirementsDataService: ContributionsDataService
@@ -26,7 +27,6 @@ export class ContributionsController {
 
     @Post('requirement/:id/contribution')
     @HttpCode(HttpStatus.CREATED)
-    // @UseGuards(AuthGuard('jwt'))
     public async createContribution(
         @Param('id') reqId: string,
         @Body() body: CreateContributionDTO,
@@ -55,7 +55,6 @@ export class ContributionsController {
 
     @Put('contribution/:id')
     @HttpCode(HttpStatus.OK)
-    // @UseGuards(AuthGuard('jwt'))
     public async updateContribution(
         @Param('id') id: string,
         @Body() body: UpdateContributionDTO,

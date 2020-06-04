@@ -9,7 +9,6 @@ import {
     HttpCode,
     HttpStatus,
     Body,
-    Query,
     Put,
     Param,
     Delete,
@@ -19,6 +18,7 @@ import { User } from '../common/decorators/user.decorator';
 import { AuthGuard } from '@nestjs/passport';
 
 @Controller()
+@UseGuards(AuthGuard('jwt'))
 export class RequirementsController {
     public constructor(
         private readonly requirementsDataService: RequirementsDataService
@@ -34,7 +34,6 @@ export class RequirementsController {
  
     @Post('project/:id/req')
     @HttpCode(HttpStatus.CREATED)
-    // @UseGuards(AuthGuard('jwt'))
     public async createRequirement(
         @Param('id') projectId: string,
         @Body() body: CreateRequirementDTO,
@@ -56,7 +55,6 @@ export class RequirementsController {
     }
 
     @Put('req/:reqId')
-    // @UseGuards(AuthGuard('jwt'))
     @HttpCode(HttpStatus.OK)
     public async updateRequirement(
         @Param('reqId') id: string,
@@ -72,7 +70,6 @@ export class RequirementsController {
 
     @Delete('req/:reqId')
     @HttpCode(HttpStatus.OK)
-    // @UseGuards(AuthGuard('jwt'))
     public async stopProject(
         @Param('reqId') reqId: string,
         @User() user: UserDTO,

@@ -10,16 +10,15 @@ import {
     Put,
     Param,
     UseGuards,
-    Query,
     Delete,
 } from '@nestjs/common';
 import { ProjectsDataService } from './projects-data.service';
 import { CreateProjectDTO } from '../models/dto/project/create-project.dto';
 import { ShowProjectDTO } from 'src/models/dto/project/show-project.dto';
 import { AuthGuard } from '@nestjs/passport';
-import { AuthGuardWithBlacklisting } from 'src/common/guards/blacklist.guard';
 
 @Controller()
+@UseGuards(AuthGuard('jwt'))
 export class ProjectsController {
     public constructor(private readonly projectsDataService: ProjectsDataService) { }
 
@@ -35,7 +34,6 @@ export class ProjectsController {
 
     @Post('project')
     @HttpCode(HttpStatus.CREATED)
-    // @UseGuards(AuthGuard('jwt'))
     public async createProject(
         @User() user,
         @Body() body: CreateProjectDTO,
@@ -48,7 +46,6 @@ export class ProjectsController {
 
     @Get('employee/projects/:id')
     @HttpCode(HttpStatus.OK)
-    // @UseGuards(AuthGuard('jwt'))
     public async getEmployeeProjectsByIds(
         @Param('id') ids: string,
     ): Promise<ShowProjectDTO[]> {
@@ -57,7 +54,6 @@ export class ProjectsController {
 
     @Get('project/:id')
     @HttpCode(HttpStatus.OK)
-    // @UseGuards(AuthGuard('jwt'))
     public async getProjectById(
         @Param('id') id: string,
     ): Promise<ShowProjectDTO> {
@@ -66,7 +62,6 @@ export class ProjectsController {
 
     @Put('project/:id')
     @HttpCode(HttpStatus.OK)
-    // @UseGuards(AuthGuard('jwt'))
     public async updateProject(
         @Param('id') id: string,
         @Body() body: CreateProjectDTO,
@@ -81,7 +76,6 @@ export class ProjectsController {
 
     @Delete('project/:id')
     @HttpCode(HttpStatus.OK)
-    // @UseGuards(AuthGuard('jwt'))
     public async stopProject(
         @Param('id') id: string,
         @User() user
