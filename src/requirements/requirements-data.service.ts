@@ -80,8 +80,11 @@ export class RequirementsDataService {
 
         reqEntity.requiredSkill = skillEntity;
         reqEntity.project = projectFound;
-        reqEntity.requirementEnd = new Date(body.requirementEnd)
 
+        if(body.requirementEnd){
+            reqEntity.requirementEnd = new Date(body.requirementEnd)
+        }
+        
         const savedRequirement: Requirement = await this.requirementsRepository.save(reqEntity);
 
         return plainToClass(ShowRequirementDTO, savedRequirement, {

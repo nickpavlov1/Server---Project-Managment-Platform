@@ -8,4 +8,7 @@ export class UpdateContributionDTO {
     @IsOptional()
     @IsString()
     public contributionEnd: string;
+
+    @IsOptional()
+    public isDeleted: boolean;
 }

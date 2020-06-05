@@ -121,9 +121,13 @@ export class ContributionsDataService {
         id: string,
         body: UpdateContributionDTO,
     ): Promise<ShowContributionDTO> {
-        const { dailyHourlyContribution, contributionEnd } = body;
+        const { dailyHourlyContribution, contributionEnd, isDeleted } = body;
 
         const oldContribution: Contribution = await this.contributionsRepository.findOne(id);
+
+        if (isDeleted) {
+            oldContribution.isDeleted = true;
+        }
 
         if (contributionEnd) {
             const date = new Date(contributionEnd);

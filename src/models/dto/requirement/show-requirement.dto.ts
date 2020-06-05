@@ -8,16 +8,6 @@ export class ShowRequirementDTO {
     @Expose()
     public id: string;
 
-    // @Expose()
-    // @Transform((_, obj) => {
-    //     if ((obj as any).requiredSkill == undefined) {
-    //         return []
-    //     } else {
-    //         return (obj as any).requiredSkill.skillName
-    //     }
-    // })
-    // public requiredSkill: string;
-
     @Expose()
     public statusCompleted: boolean;
 
