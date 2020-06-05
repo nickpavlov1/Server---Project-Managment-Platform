@@ -28,6 +28,13 @@ export class ShowProjectDTO {
   public updatedOn: Date;
 
   @Expose()
+  @Transform((_, finishesOn) => {
+    if(!finishesOn.finishesOn) {
+      return 'never'
+    } else {
+      return finishesOn.finishesOn;
+    }
+  }  )
   public finishesOn: Date;
 
   @Expose()
