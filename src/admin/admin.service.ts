@@ -1,4 +1,3 @@
-/* eslint-disable prefer-const */
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserRepository } from 'src/auth/user.repository';
@@ -47,7 +46,7 @@ export class AdminService {
         const setDirectManager: User = await this.userRepository.findOne(
             { where: { email: directManager }}
             );
-
+            
         const user = new User();
 
         user.salt = await bcrypt.genSalt();
@@ -76,7 +75,7 @@ export class AdminService {
         const validSkills: Skill[] = [];
 
         for (const skillName of providedSkillNames) {
-            let skillEntity = await this.skillRepository.findOne({
+            const skillEntity = await this.skillRepository.findOne({
                 where: { skillName: skillName }
             });
             if (skillEntity) {
@@ -225,7 +224,7 @@ export class AdminService {
         const validSkills: Skill[] = [];
 
         for (const skillName of providedSkillNames) {
-            let skillEntity = await this.skillRepository.findOne({
+            const skillEntity = await this.skillRepository.findOne({
                 where: { skillName: skillName }
             });
             if (skillEntity) {

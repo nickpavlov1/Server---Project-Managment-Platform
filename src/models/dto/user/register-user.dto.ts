@@ -35,7 +35,6 @@ export class RegisterUserDTO {
     jobDescription: string;
 
     @IsString()
-    @IsEmail()
     @IsOptional()
     directManager: string;
 }
