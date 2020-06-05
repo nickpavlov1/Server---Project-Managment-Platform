@@ -33,6 +33,7 @@ export class ContributionsDataService {
         body: CreateContributionDTO,
         user: UserDTO,
     ) {
+
         const requirement: Requirement = await this.requirementsRepository.findOne(
             reqId,
             { relations: ['project'] }
@@ -74,11 +75,9 @@ export class ContributionsDataService {
 
         contributionEntity.projectId = body.projectId;
 
+        contributionEntity.requirement = requirement;
+
         const savedContribution: Contribution = await this.contributionsRepository.save(contributionEntity);
-
-        requirement.contributions.push(savedContribution)
-
-        const savedRequirement: Requirement = await this.requirementsRepository.save(requirement);
 
         return plainToClass(ShowContributionDTO, savedContribution, {
             excludeExtraneousValues: true,
