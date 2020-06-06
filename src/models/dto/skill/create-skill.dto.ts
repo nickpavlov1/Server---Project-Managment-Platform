@@ -1,8 +1,8 @@
-import { IsString, IsNotEmpty } from "class-validator";
+import {  IsNotEmpty, IsArray } from 'class-validator';
 
-export class AddSkillDTO {
+export class CreateSkillSetDTO {
 
-    @IsString()
+    @IsArray()
     @IsNotEmpty()
-    skillName: string;
+    skillSet: string[];
 }

@@ -30,8 +30,4 @@ export class CreateEmployeeDTO {
     @IsEmail()
     @IsNotEmpty()
     directManager: string;
-
-    @IsString()
-    @IsOptional()
-    skillset: string;
 }

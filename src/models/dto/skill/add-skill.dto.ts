@@ -1,8 +1,8 @@
-import { IsArray, IsOptional } from "class-validator";
+import { IsOptional, IsString } from 'class-validator';
 
 export class AddSkillDTO {
 
-    @IsArray()
+    @IsString()
     @IsOptional()
-    skillSet: string[]
+    skillName: string;
 }

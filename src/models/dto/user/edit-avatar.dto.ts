@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsString } from "class-validator";
 
-export class EditAvatarUserDTO {
+export class EditAvatarDTO {
 
     @IsNotEmpty()
     @IsString()
