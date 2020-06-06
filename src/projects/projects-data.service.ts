@@ -60,13 +60,13 @@ export class ProjectsDataService {
     public async getEmployeeProjectsByIds(
         ids: string,
     ): Promise<ShowProjectDTO[]> {
-        const idsArr = ids.split(',');
+            const idsArr = ids.split(',');
        
-        const projects = await this.projectRepository.find({where: { id: In(idsArr) }});
+            const projects = await this.projectRepository.find({where: { id: In(idsArr) }});
 
-        return plainToClass(ShowProjectDTO, projects, {
+            return plainToClass(ShowProjectDTO, projects, {
             excludeExtraneousValues: true,
-        });
+            });
     }
 
     public async getProjectById(
