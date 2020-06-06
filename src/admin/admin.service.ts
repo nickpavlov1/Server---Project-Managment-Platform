@@ -13,13 +13,13 @@ import { EmployeeDTO } from '../models/dto/employee/employee.dto';
 import { SkillRepository } from './skill.repository';
 import { Skill } from 'src/database/entities/skill.entity';
 import { SkillDTO } from 'src/models/dto/skill/skill.dto';
-import { AddSkillDTO } from '../models/dto/skill/create-skill.dto';
 import { WorkPosition } from '../models/enums/work-position.emun';
 import { EditUserDTO } from 'src/models/dto/user/edit-user.dto';
 import { EditEmployeeDTO } from 'src/models/dto/employee/edit-employee.dto';
-import { EditAvatarUserDTO } from '../models/dto/user/edit-avatar.dto';
 import * as fs from 'fs';
 import * as path from 'path';
+import { AddSkillDTO } from 'src/models/dto/skill/add-skill.dto';
+import { EditAvatarDTO } from '../models/dto/user/edit-avatar.dto';
 
 @Injectable()
 export class AdminService {
@@ -68,20 +68,7 @@ export class AdminService {
         return bcrypt.hash(password, salt);
     }
     public async createEmployee(createEmployeeDTO: CreateEmployeeDTO): Promise<EmployeeDTO> {
-        const { email, firstName, lastName, jobTitle, jobDescription, directManager, skillset }: CreateEmployeeDTO = createEmployeeDTO;
-
-        const providedSkillNames: string[] = skillset.split(', ');
-
-        const validSkills: Skill[] = [];
-
-        for (const skillName of providedSkillNames) {
-            const skillEntity = await this.skillRepository.findOne({
-                where: { skillName: skillName }
-            });
-            if (skillEntity) {
-                validSkills.push(skillEntity);
-            }
-        }
+        const { email, firstName, lastName, jobTitle, jobDescription, directManager}: CreateEmployeeDTO = createEmployeeDTO;
 
         await this.employeeRepository.matchEmail(email);
 
@@ -95,7 +82,6 @@ export class AdminService {
         newEmployee.jobDescription = jobDescription;
         newEmployee.firstName = firstName;
         newEmployee.lastName = lastName;
-        newEmployee.skillset = validSkills;
 
         if (setDirectManager) {
         newEmployee.directManager = setDirectManager.email;
@@ -215,15 +201,12 @@ export class AdminService {
            return plainToClass(EmployeeDTO, updatedEmployee, { excludeExtraneousValues: true });
     }
 
-    public async addSkillToEmployeeSkillSet(employeeId: string, newSkills: AddSkillDTO): Promise<EmployeeDTO> {
+    public async addSkillToEmployeeSkillSet(employeeId: string, newSkills: string[]): Promise<EmployeeDTO> {
         const employee: Employee = await this.employeeRepository.findOne(employeeId);
-
-        const { skillName } = newSkills;
-        const providedSkillNames: string[] = skillName.split(', ');
 
         const validSkills: Skill[] = [];
 
-        for (const skillName of providedSkillNames) {
+        for (const skillName of newSkills) {
             const skillEntity = await this.skillRepository.findOne({
                 where: { skillName: skillName }
             });
@@ -243,7 +226,7 @@ export class AdminService {
             return plainToClass( EmployeeDTO, updatedEmployeeSkill, { excludeExtraneousValues: true });
     }
 
-    public async updateUserProficePicture(userId: string, newAvatar: EditAvatarUserDTO): Promise<UserDTO> {
+    public async updateUserProficePicture(userId: string, newAvatar: EditAvatarDTO): Promise<UserDTO> {
         const { avatarUrl } = newAvatar;
 
         const user = await this.userRepository.findOne(userId);
@@ -258,7 +241,7 @@ export class AdminService {
         return plainToClass(UserDTO, updatedUser, { excludeExtraneousValues: true });
     }
 
-    public async updateEmployeeProficePicture(employeeId: string, newAvatar: EditAvatarUserDTO): Promise<EmployeeDTO> {
+    public async updateEmployeeProficePicture(employeeId: string, newAvatar: EditAvatarDTO): Promise<EmployeeDTO> {
         const { avatarUrl } = newAvatar;
 
         const employee: Employee = await this.employeeRepository.findOne(employeeId);
