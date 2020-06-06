@@ -17,11 +17,12 @@ import { UserDTO } from 'src/models/dto/user/user.dto';
 import { CreateEmployeeDTO } from '../models/dto/employee/create-employee.dto';
 import { EmployeeDTO } from 'src/models/dto/employee/employee.dto';
 import { SkillDTO } from 'src/models/dto/skill/skill.dto';
-import { AddSkillDTO } from '../models/dto/skill/create-skill.dto';
 import { EditUserDTO } from '../models/dto/user/edit-user.dto';
 import { EditEmployeeDTO } from 'src/models/dto/employee/edit-employee.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Skill } from 'src/database/entities/skill.entity';
+import { AddSkillDTO } from 'src/models/dto/skill/add-skill.dto';
+import { EditAvatarDTO } from 'src/models/dto/user/edit-avatar.dto';
 
 @Controller('admin')
 export class AdminController {
@@ -34,11 +35,12 @@ export class AdminController {
   ): Promise<UserDTO> {
     return this.adminService.registerUser(registerUserDTO);
   }
-  @Post('/hire')
+  @Post('/create')
   public async createEmployee(
     @Body(new ValidationPipe({ transform: true, whitelist: true }))
     createEmployeeDTO: CreateEmployeeDTO,
   ): Promise<EmployeeDTO> {
+    console.log(createEmployeeDTO);
     return this.adminService.createEmployee(createEmployeeDTO);
   }
 
@@ -103,22 +105,29 @@ export class AdminController {
     @Param('id', ParseUUIDPipe)
     id: string,
     @Body(new ValidationPipe({ transform: true, whitelist: true }))
-    newSkills: AddSkillDTO,
+    skillSet: string[],
   ): Promise<EmployeeDTO> {
-    return this.adminService.addSkillToEmployeeSkillSet(id, newSkills);
+    console.log(skillSet)
+    return this.adminService.addSkillToEmployeeSkillSet(id, skillSet);
   }
 
   @Post('avatar/user/:id')
   @UseInterceptors(FileInterceptor('file'))
   public async uploadUserPicture(
     @Param('id') userId: string,
-    @UploadedFile() file: any,
+    @UploadedFile() file?: any,
     @Body('oldAvatarUrl') oldAvatarUrl?: string,
   ) {
-    const userNewProperties = {
+    let userNewProperties: EditAvatarDTO;
+    if (file){
+    userNewProperties = {
       avatarUrl: `http://localhost:3000/admin/avatar/` + file.filename,
     };
-
+  } else {
+    userNewProperties = {
+      avatarUrl: `http://localhost:3000/admin/avatar/Profile_Icon.png`,
+    };
+  }
     if (oldAvatarUrl && oldAvatarUrl !== 'http://localhost:3000/admin/avatar/Profile_Icon.png') {
       this.adminService.deleteFile(oldAvatarUrl.split('/').pop());
     }
@@ -132,12 +141,19 @@ export class AdminController {
   @UseInterceptors(FileInterceptor('file'))
   public async uploadEmployeePicture(
     @Param('id') employeeId: string,
-    @UploadedFile() file: any,
+    @UploadedFile() file?: any,
     @Body('oldAvatarUrl') oldAvatarUrl?: string,
   ) {
-    const employeeNewProperties = {
+    let employeeNewProperties: EditAvatarDTO;
+    if (file){
+    employeeNewProperties = {
       avatarUrl: `http://localhost:3000/admin/avatar/` + file.filename,
     };
+  } else {
+    employeeNewProperties = {
+      avatarUrl: `http://localhost:3000/admin/avatar/Profile_Icon.png`,
+    };
+  }
 
       if (oldAvatarUrl && oldAvatarUrl !== 'http://localhost:3000/admin/avatar/Profile_Icon.png') {
         this.adminService.deleteFile(oldAvatarUrl.split('/').pop());
