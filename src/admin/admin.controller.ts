@@ -40,7 +40,6 @@ export class AdminController {
     @Body(new ValidationPipe({ transform: true, whitelist: true }))
     createEmployeeDTO: CreateEmployeeDTO,
   ): Promise<EmployeeDTO> {
-    console.log(createEmployeeDTO);
     return this.adminService.createEmployee(createEmployeeDTO);
   }
 
@@ -52,9 +51,9 @@ export class AdminController {
     return this.adminService.addNewSkillToCatalog(createSkillDTO);
   }
 
-  @Put('/change/position')
+  @Put('/change/position/:id')
   public async changeUserWorkPosition(
-    @Body(new ValidationPipe({ transform: true, whitelist: true }))
+    @Param('id', ParseUUIDPipe)
     userId: string,
   ): Promise<UserDTO> {
     return this.adminService.changeUserWorkPosition(userId);
@@ -107,7 +106,6 @@ export class AdminController {
     @Body(new ValidationPipe({ transform: true, whitelist: true }))
     skillSet: string[],
   ): Promise<EmployeeDTO> {
-    console.log(skillSet)
     return this.adminService.addSkillToEmployeeSkillSet(id, skillSet);
   }
 
@@ -144,7 +142,7 @@ export class AdminController {
     @UploadedFile() file?: any,
     @Body('oldAvatarUrl') oldAvatarUrl?: string,
   ) {
-    let employeeNewProperties: EditAvatarDTO;
+    let employeeNewProperties;
     if (file){
     employeeNewProperties = {
       avatarUrl: `http://localhost:3000/admin/avatar/` + file.filename,

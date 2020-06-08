@@ -1,4 +1,4 @@
-import { Contribution } from 'src/database/entities/contribution.entity';
+import { Contribution } from '../entities/contribution.entity';
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToMany, JoinTable, ManyToOne, OneToMany, BaseEntity } from "typeorm";
 import { Skill } from "./skill.entity";
 import { User } from "./user.entity";

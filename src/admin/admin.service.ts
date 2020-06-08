@@ -98,7 +98,7 @@ export class AdminService {
         await this.skillRepository.matchExistingSkill(skillName);
 
         const skill = new Skill();
-
+        
         skill.skillName = skillName;
 
         const addSkillToCatalog = await this.skillRepository.save(skill);

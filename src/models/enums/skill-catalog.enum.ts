@@ -5,6 +5,5 @@ export enum SkillCatalog {
     GraphicDesign = 'GraphicDesign',
     Marketing = 'Marketing',
     QA = 'QA',
-    Writing = 'Writing',
-    Empty = 'Empty'
+    Writing = 'Writing'
 }

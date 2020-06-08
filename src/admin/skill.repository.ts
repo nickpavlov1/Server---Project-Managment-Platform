@@ -5,13 +5,14 @@ import { ConflictException } from "@nestjs/common";
 @EntityRepository(Skill)
 export class SkillRepository extends Repository<Skill> {
 
-    public async matchExistingSkill(skillName: string): Promise<void> {
+    public async matchExistingSkill(skillName: string): Promise<boolean> {
         const matchSkill: Skill = await this.findOne({
             where: { skillName: skillName }
         });
         if (matchSkill) {
-            throw new ConflictException(`Skill ${skillName} exists in catalog.`)
+            return true;
         }
+        return false;
     }
     
     public async getSkillByName(skillName: string): Promise<Skill> {
