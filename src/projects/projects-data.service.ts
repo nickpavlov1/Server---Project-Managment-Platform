@@ -141,13 +141,19 @@ export class ProjectsDataService {
             oldProject.dueDate = date;
         }
 
-        if (body.finishesOn) {
+        if(body.finishesOn === null) {
+            oldProject.finishesOn = null;
+        }
+    
+        if (body.finishesOn && body.finishesOn !== null) {
             const date = new Date(body.finishesOn)
             oldProject.finishesOn = date;
         }
+
         if (body.description) {
             oldProject.description = body.description;
         }
+        
         if (body.title) {
             oldProject.title = body.title;
         }
